@@ -1,2 +1,3 @@
-# cs326-final-bullymaguire
-Final project for CS 326 Web Programming @ UMass Amherst
+# CS 326 Final Project
+
+Final Project for CS 326 Web Programming @ UMass Amherst
