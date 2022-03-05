@@ -1,6 +1,6 @@
 # Team Bully Maguire
 
-[Application Name]
+Lone Music
 
 ### Team Overview
 
@@ -11,9 +11,9 @@
 
 ### Innovative Idea
 
-[Application Name] is a platform where both creators and listeners alike can go to discover new music in a way never seen before. Most music is made up of instrumentals and vocals, combined with one another resulting in a single finalized sound. During the recording process, the instrumental (or beat) is usually made first and it is then up to the vocalist (or rapper) to add lyrics. [Application Name] provides users with a new take on music, making it possible to hear many different versions of vocals over the same instrumental. As with most social medias, a ranking (or popularity) system will be in place allowing the instrumentals and vocals to be upvoted (liked) or downvoted (disliked).
+Lone Music is a platform where both creators and listeners alike can go to discover new music in a way never seen before. Most music is made up of instrumentals and vocals, combined with one another resulting in a single finalized sound. During the recording process, the instrumental (or beat) is usually made first and it is then up to the vocalist (or rapper) to add lyrics. Lone Music provides users with a new take on music, making it possible to hear many different versions of vocals over the same instrumental. As with most social medias, a ranking (or popularity) system will be in place allowing the instrumentals and vocals to be upvoted (liked) or downvoted (disliked).
 
-[Application Name] is inspired by BeatStars, SoundCloud and Kanye West's new "Stem Player". BeatStars is an online platform where people can go to purchase beats to use in their own music. SoundCloud is a popular site for both emerging and established artists to post their music. The "Stem Player" is a handheld device that allows users to control vocals, drums, bass and add effects, allowing for unique customizations of any song.
+Lone Music is inspired by BeatStars, SoundCloud and Kanye West's new "Stem Player". BeatStars is an online platform where people can go to purchase beats to use in their own music. SoundCloud is a popular site for both emerging and established artists to post their music. The "Stem Player" is a handheld device that allows users to control vocals, drums, bass and add effects, allowing for unique customizations of any song.
 
 ### Important Components
 
