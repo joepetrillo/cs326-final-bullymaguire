@@ -17,4 +17,6 @@
 
 ### Important Components
 
-Provide a brief paragraph or two explaining the functions provided by your final project.
+Our project will have a few primary functions, all centered around sharing and matching music creators. First, is simply a feed allowing musicians to share instrumentals. They can post their instrumental and see what friends/peers have to say about it. Each posting will have likes/dislikes (or upvotes/downvotes) and a section for commenting, ultimately cultivating a Social Media esque experience.
+
+On top of the classic Social Media experience, each post will also have a collaboration section. This is where vocalists of all kinds, be it singers, rappers, voice-over specialists, etc., will be able to share their rendition of the posted piece. In one centralized area we will show the original musical piece, along with various renditions of it, allowing both the musician, and onlookers, to listen to various takes on their music.
