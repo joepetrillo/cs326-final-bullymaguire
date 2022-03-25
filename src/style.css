@@ -29,6 +29,7 @@ li {
 
 .navbar-brand {
   padding: 0;
+  margin: 0;
 }
 
 .main-wrapper {
@@ -135,4 +136,26 @@ p {
 
 .post__comment img {
   margin-right: 0.5rem;
+}
+
+.form {
+  color: black;
+}
+
+.filled_button {
+  background-color: #1b1f3b;
+  color: white;
+}
+
+.filled_button:hover {
+  color: white;
+  background-color: #171a31;
+}
+
+.card {
+  background-color: #52528c;
+}
+
+.signup:hover {
+  background-color: #47477a;
 }
