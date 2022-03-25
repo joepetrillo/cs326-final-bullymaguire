@@ -6,21 +6,62 @@ main {
   color: white;
 }
 
+li {
+  list-style-type: none;
+}
+
+.navbar {
+  background-color: #1b1f3b;
+}
+
+.navbar:after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  border-bottom: 0.3rem solid #52528c;
+  padding-top: 0.5rem;
+  width: 75%;
+}
+
+.dropdown-menu {
+  background-color: #52528c;
+}
+
+.nav-link {
+  padding-right: 0rem;
+}
+
 .main-wrapper {
   margin: 0 auto;
   max-width: 768px;
 }
 
 i {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 p {
   margin: 0;
+  color: grey;
+}
+
+.btn-primary {
+  background-color: transparent;
+  border-width: 0;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-primary:hover {
+  background-color: #52528c;
+}
+
+.btn-primary.active {
+  background-color: #52528c;
 }
 
 .post {
-  border-bottom: 0.15rem solid white;
+  border-bottom: 0.15rem solid grey;
   display: flex;
   padding-bottom: 1rem;
   padding-top: 1rem;
@@ -49,15 +90,27 @@ p {
 
 .post__playback button {
   margin-right: 1rem;
+  background-color: #372554;
+  border-radius: 50%;
 }
 
 .post__playback .progress {
   flex: 1;
 }
 
+.progress-bar {
+  background-color: #c874d9;
+}
+
+.post__comments {
+  border-top: 0.1rem solid rgb(182, 182, 182);
+  padding-top: 1rem;
+}
+
 .post__comment {
   display: flex;
   align-items: center;
+  padding-bottom: 0.3rem;
 }
 
 .post__comment img {
