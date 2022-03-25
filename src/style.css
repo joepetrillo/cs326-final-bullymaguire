@@ -19,7 +19,7 @@ li {
   display: block;
   margin: 0 auto;
   border-bottom: 0.3rem solid #52528c;
-  padding-top: 0.5rem;
+  padding-top: 0.5rem 0rem;
   width: 75%;
 }
 
@@ -27,8 +27,8 @@ li {
   background-color: #52528c;
 }
 
-.nav-link {
-  padding-right: 0rem;
+.navbar-brand {
+  padding: 0;
 }
 
 .main-wrapper {
@@ -60,11 +60,25 @@ p {
   background-color: #52528c;
 }
 
+/* TODO: Remove Blue Outlines */
+.btn-controls {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0.15rem solid #52528c;
+}
+
 .post {
-  border-bottom: 0.15rem solid grey;
   display: flex;
-  padding-bottom: 1rem;
   padding-top: 1rem;
+  flex-direction: column;
+}
+
+.post__top {
+  display: flex;
+}
+
+.post__top__details {
+  flex: 1;
 }
 
 .post__profile {
@@ -86,12 +100,19 @@ p {
 .post__playback {
   display: flex;
   align-items: center;
+  padding-right: 3rem;
 }
 
 .post__playback button {
   margin-right: 1rem;
   background-color: #372554;
-  border-radius: 50%;
+  border-radius: 100%;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 0.55rem;
 }
 
 .post__playback .progress {
@@ -102,10 +123,9 @@ p {
   background-color: #c874d9;
 }
 
-.post__comments {
-  border-top: 0.1rem solid rgb(182, 182, 182);
-  padding-top: 1rem;
-}
+/* .post__comments {
+  padding-bottom: 1rem;
+} */
 
 .post__comment {
   display: flex;
