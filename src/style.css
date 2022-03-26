@@ -155,14 +155,28 @@ p {
 }
 
 .tab-content {
-  display: flex;
   margin-bottom: 1.5rem;
 }
 
 .comment-box {
-  display: flex;
   border-radius: 0.5rem;
   border: 0.2rem solid #52528c;
+}
+
+textarea {
+  width: 100%;
+}
+
+.tab-content {
+  width: 100%;
+}
+
+#reply-controls {
+  padding-right: 0;
+}
+#reply-upload-tab {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .comments-sort-filter-control {
@@ -189,6 +203,29 @@ p {
 .thread__comment {
   color: white;
   display: flex;
+}
+
+.thread__comment__wrapper {
+  display: flex;
+  flex-direction: column;
+  display: inline;
+}
+
+.thread__comment__main {
+  display: flex;
+  align-items: center;
+}
+
+.thread__comment__replies {
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+  margin-left: 5.5rem;
+}
+
+.thread__comment__reply {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .comment__controls {
@@ -237,4 +274,18 @@ p {
 
 .signup:hover {
   background-color: #47477a;
+}
+
+.song__comment__box {
+  margin-bottom: 1rem;
+}
+
+.song__thread__titles {
+  display: flex;  
+}
+
+.song__thread__titles h3{
+  margin-left: 1rem;
+  align-self: flex-end;  
+  color: #9b6f7f;
 }
