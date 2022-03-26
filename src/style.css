@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 body {
   background-color: #1b1f3b;
 }
@@ -237,4 +240,34 @@ p {
 
 .signup:hover {
   background-color: #47477a;
+}
+
+.profile {
+  display: flex;
+  gap: 2rem;
+}
+
+.profile__controls {
+  flex: 0.3;
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile__content {
+  flex: 0.7;
+  /* border: 1px solid white; */
+}
+
+.filled_button {
+  background-color: #52528c;
+}
+
+.profile_link {
+  text-decoration: none;
+}
+
+.profile_link:hover,
+.link-active {
+  text-decoration: underline;
 }
