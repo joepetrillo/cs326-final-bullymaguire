@@ -71,6 +71,11 @@ p {
   border: 0.15rem solid #52528c;
 }
 
+.btn-post {
+  background-color: #52528c;
+}
+
+
 .post {
   display: flex;
   padding-top: 1rem;
@@ -324,3 +329,44 @@ textarea {
   text-decoration: underline;
 }
 
+.badge {
+  margin-left: 1rem;
+  
+}
+
+#hhTag {
+  background-color: #a446db;
+}
+
+#popTag {
+  background-color: #C874D9;
+}
+
+#edmTag {
+  background-color: rgb(58, 185, 126);
+}
+
+#rockTag {
+  background-color: rgb(58, 88, 185);
+}
+
+#metalTag {
+  background-color: rgb(142, 152, 185);
+}
+
+#trapTag {
+  background-color: rgb(185, 58, 88);
+}
+#countryTag {
+  background-color: rgb(130, 58, 88);
+}
+
+#otherTag {
+  background-color: #372554;
+}
+
+.button__upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
