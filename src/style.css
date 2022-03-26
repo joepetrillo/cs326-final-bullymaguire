@@ -314,11 +314,11 @@ textarea {
   align-items: center;
 }
 
-.profile__controls img {
+#edit_profile_picture {
   transition: 0.3s all;
 }
 
-.profile__controls img:hover {
+#edit_profile_picture:hover {
   filter: brightness(75%);
 }
 
