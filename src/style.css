@@ -1,9 +1,17 @@
+:root {
+  --background_color: #1b1f3b;
+  --accent_dark: #52528c;
+  --playback_color: #372554;
+  --accent_light: #c874d9;
+  --accent_dark_hover: #47477a;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: #1b1f3b;
+  background-color: var(--background_color);
 }
 
 main {
@@ -19,20 +27,20 @@ ul {
 }
 
 .navbar {
-  background-color: #1b1f3b;
+  background-color: var(--background_color);
 }
 
 .navbar:after {
   content: "";
   display: block;
   margin: 0 auto;
-  border-bottom: 0.3rem solid #52528c;
+  border-bottom: 0.3rem solid var(--accent_dark);
   padding-top: 0.5rem;
   width: 75%;
 }
 
 .dropdown-menu {
-  background-color: #52528c;
+  background-color: var(--accent_dark);
 }
 
 .navbar-brand {
@@ -62,22 +70,22 @@ p {
 }
 
 .btn-primary:hover {
-  background-color: #52528c;
+  background-color: var(--accent_dark);
 }
 
 .btn-primary.active {
-  background-color: #52528c;
+  background-color: var(--accent_dark);
 }
 
 /* TODO: Remove Blue Outlines */
 .btn-controls {
   outline: none !important;
   box-shadow: none !important;
-  border: 0.15rem solid #52528c;
+  border: 0.15rem solid var(--accent_dark);
 }
 
 .btn-post {
-  background-color: #52528c;
+  background-color: var(--accent_dark);
 }
 
 .post {
@@ -118,7 +126,7 @@ p {
 
 .post__playback button {
   margin-right: 1rem;
-  background-color: #372554;
+  background-color: var(--playback_color);
   border-radius: 100%;
   height: 3rem;
   width: 3rem;
@@ -133,12 +141,8 @@ p {
 }
 
 .progress-bar {
-  background-color: #c874d9;
+  background-color: var(--accent_light);
 }
-
-/* .post__comments {
-  padding-bottom: 1rem;
-} */
 
 .post__comment {
   display: flex;
@@ -172,7 +176,7 @@ p {
 
 .comment-box {
   border-radius: 0.5rem;
-  border: 0.2rem solid #52528c;
+  border: 0.2rem solid var(--accent_dark);
 }
 
 textarea {
@@ -267,7 +271,7 @@ textarea {
 }
 
 .filled_button {
-  background-color: #1b1f3b;
+  background-color: var(--background_color);
   color: white;
 }
 
@@ -277,11 +281,11 @@ textarea {
 }
 
 .card {
-  background-color: #52528c;
+  background-color: var(--accent_dark);
 }
 
 .signup:hover {
-  background-color: #47477a;
+  background-color: var(--accent_dark_hover);
 }
 
 .song__comment__box {
@@ -305,7 +309,6 @@ textarea {
 
 .profile__controls {
   flex: 0.3;
-  /* border: 1px solid white; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -321,11 +324,10 @@ textarea {
 
 .profile__content {
   flex: 0.7;
-  /* border: 1px solid white; */
 }
 
 .filled_button {
-  background-color: #52528c;
+  background-color: var(--accent_dark);
 }
 
 .profile_link {
