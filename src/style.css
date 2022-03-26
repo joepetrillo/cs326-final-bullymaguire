@@ -138,6 +138,85 @@ p {
   margin-right: 0.5rem;
 }
 
+.thread__username {
+  font-size: 1.35rem;
+}
+
+.thread__wrapper {
+  flex-direction: column;
+}
+
+.thread__top {
+  margin-bottom: 1rem;
+}
+
+.thread__controls {
+  margin-bottom: 1.5rem;
+}
+
+.tab-content {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.comment-box {
+  display: flex;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #52528c;
+}
+
+.comments-sort-filter-control {
+  display: flex;
+}
+
+.comments-sort {
+  flex: 0.2;
+}
+
+.thread__reply__playback button {
+  height: 2rem;
+  width: 2rem;
+}
+
+.thread__reply__playback i {
+  font-size: 1rem;
+}
+
+.thread__reply__username {
+  margin-right: 1rem;
+}
+
+.thread__comment {
+  color: white;
+  display: flex;
+}
+
+.comment__controls {
+  margin-right: 1rem;
+}
+
+.comment__left {
+  offset-anchor: top;
+}
+
+.comment__interaction {
+  display: flex;
+}
+
+.song__reply__title {
+  color: white;
+  margin-right: 1rem;
+}
+
+.song__reply button {
+  height: 2rem;
+  width: 2rem;
+}
+
+.song__reply i {
+  font-size: 1.3rem;
+}
+
 .form {
   color: black;
 }
