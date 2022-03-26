@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   background-color: #1b1f3b;
 }
@@ -11,6 +12,10 @@ main {
 
 li {
   list-style-type: none;
+}
+
+ul {
+  margin: 0;
 }
 
 .navbar {
@@ -74,7 +79,6 @@ p {
 .btn-post {
   background-color: #52528c;
 }
-
 
 .post {
   display: flex;
@@ -225,7 +229,7 @@ textarea {
 }
 
 .thread__comment__replies {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   margin-bottom: 1rem;
   margin-left: 5.5rem;
 }
@@ -284,18 +288,17 @@ textarea {
   background-color: #47477a;
 }
 
-
 .song__comment__box {
   margin-bottom: 1rem;
 }
 
 .song__thread__titles {
-  display: flex;  
+  display: flex;
 }
 
-.song__thread__titles h3{
+.song__thread__titles h3 {
   margin-left: 1rem;
-  align-self: flex-end;  
+  align-self: flex-end;
   color: #9b6f7f;
 }
 
@@ -311,6 +314,15 @@ textarea {
   flex-direction: column;
   align-items: center;
 }
+
+.profile__controls img {
+  transition: 0.3s all;
+}
+
+.profile__controls img:hover {
+  filter: brightness(75%);
+}
+
 .profile__content {
   flex: 0.7;
   /* border: 1px solid white; */
@@ -331,7 +343,6 @@ textarea {
 
 .badge {
   margin-left: 1rem;
-  
 }
 
 #hhTag {
@@ -339,7 +350,7 @@ textarea {
 }
 
 #popTag {
-  background-color: #C874D9;
+  background-color: #c874d9;
 }
 
 #edmTag {
