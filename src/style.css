@@ -27,7 +27,7 @@ ul {
   display: block;
   margin: 0 auto;
   border-bottom: 0.3rem solid #52528c;
-  padding-top: 0.5rem 0rem;
+  padding-top: 0.5rem;
   width: 75%;
 }
 
@@ -242,10 +242,6 @@ textarea {
 
 .comment__controls {
   margin-right: 1rem;
-}
-
-.comment__left {
-  offset-anchor: top;
 }
 
 .comment__interaction {
