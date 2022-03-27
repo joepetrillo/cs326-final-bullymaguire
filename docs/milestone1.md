@@ -12,7 +12,7 @@
 
 ### Wireframes
 
-// TODO
+
 
 ### HTML/CSS Mockups
 
