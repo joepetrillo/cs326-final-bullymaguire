@@ -11,6 +11,29 @@
 - Account configuration
 
 ### Wireframes
+![](img/Pages.png)
+This depicts a rough layout of how our pages look and where information will be stored.
+![](img/IndexSketch.png)
+This is the first mockup of the main feed of the site. This layout includes the LONE Music logo along with a profile setting/logo in the header. This also details the filters used for populating posts. 
+![](img/BeatSketch.png)
+This is a rough layout of the beat reply system where you can choose to comment or add a vocal for others to see. This includes a filter (like/dislike) system for each comment. 
+![](img/SongSketch.png)
+This is the first sketch of the vocal thread page, where you are able to comment on someone vocal cover of a beat.
+![](img/UploadSketch.png)
+This is the sketch of the uplaod page where the user can upload a beat.
+![](img/LoginSketch.png)
+This is the first sketch of the login page.
+![](img/ProfileSketch.png)
+This is the first sketch of the profile page with information about the users beats,vocals,comments, and likes. Along with the ability to follow that user. 
+![](img/AccountSketch.png)
+This is the first sketch of your profile settings/profile. 
+
+![](img/IndexDraft.png)
+This is the first draft of the Index sketch with a more finalized look.
+![](img/SongReply_BeatReply_Draft.png)
+This is the first draft of the Beat/Song Reply page with Index main feed.
+
+
 
 
 
