@@ -27,7 +27,6 @@ This is the first sketch of the login page.
 This is the first sketch of the profile page with information about the users beats,vocals,comments, and likes. Along with the ability to follow that user. 
 ![](img/AccountSketch.png)
 This is the first sketch of your profile settings/profile. 
-
 ![](img/IndexDraft.png)
 This is the first draft of the Index sketch with a more finalized look.
 ![](img/SongReply_BeatReply_Draft.png)
@@ -55,3 +54,12 @@ The login/signup page, currently on the log in view. Logging in will be done via
 The login/signup page, currently on the sign up view.
 ![](img/Upload.png)
 This is the upload beat page, where the user can type in the beat title, choose the genre through tags, and upload a file. In the future this might be a modal instead of a page.
+
+
+### Workload split
+
+Alex: Beat page, Song page, Upload Page, Upload Wireframes/Division of Labor
+Ashir: Beat page, Song page, Upload Page, Digital Wireframes, HTML Screenshots/Descriptions
+Jack: Login Page, Sign Up page, Profile Page, Account Page, Link Pages together, Revise CSS
+Joe: Login Page, Sign Up page, Profile Page, Account Page, Validate HTML, Revise CSS, Data Interactions
+All: Wireframe drawings, Index.html (main feed page)
