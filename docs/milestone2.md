@@ -1,13 +1,18 @@
 # 1. API Documentation
 
-## /user
+## User
 
-#### /user/create (POST)
+These are the API calls for working with users on Lone Music, which includes creating, editing, deleting, and grabbing information from users.
+
+#### /user/create/{id} (POST)
+
+This API call allows for the creation of a user on Lone Music. Users are assigned IDs, and also have email address, username, and password information stored in the database. It returns a body in JSON form with these fields, along with the "confirm password" field from the signup page for verifying the password in the backend. The response returns a status in the form of JSON as well, indiciating the success or failure of the API call.
 
 JSON Body:
 
 ```javascript
 {
+    id: 123
     email: "example@gmail.com",
     username: "ashir",
     password: "pass1234",
@@ -35,6 +40,8 @@ Response:
 
 #### /user/read?username={userName} (GET)
 
+This API call allows for retrieving the information of a user on Lone Music. The response returns three fields relating to the user: a database link to their profile picture, the username, as well as their id, all the form of JSON , or a failure message if there is an error.
+
 Response:
 
 ##### On Success:
@@ -56,6 +63,8 @@ Response:
 ```
 
 #### /user/update?type={updateType} (PUT)
+
+This API call allows for updating the information of a user on Lone Music. The URL path contains a query called `type`, which determines which portion of the user's information is being updated. This type can be `email, name, password`. It returns a body in JSON form with the new fields, depending on the value of `type`. The response returns a status in the form of JSON as well, indiciating the success or failure of the API call.
 
 JSON Body:
 
@@ -92,6 +101,8 @@ Response:
 ```
 
 #### /user/delete?username={userName} (DELETE)
+
+This API call allows for deleting a user on Lone Music. The response returns a status in the form of JSON, indiciating the success or failure of the API call.
 
 Response:
 
