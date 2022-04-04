@@ -10,13 +10,13 @@ This API call allows for the creation of a user on Lone Music. Users are assigne
 
 JSON Body:
 
-```javascript
+```JSON
 {
-    id: 123
-    email: "example@gmail.com",
-    username: "ashir",
-    password: "pass1234",
-    confirm_password: "pass1234"
+    "id": 123,
+    "email": "example@gmail.com",
+    "username": "ashir",
+    "password": "pass1234",
+    "confirm_password": "pass1234"
 }
 ```
 
@@ -24,17 +24,17 @@ Response:
 
 ##### On Success:
 
-```javascript
+```JSON
 {
-  createStatus: `Successfully created ${username}`;
+  "createStatus": "Successfully created ${username}"
 }
 ```
 
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  createStatus: `Error creating ${username}`;
+  "createStatus": "Error creating ${username}"
 }
 ```
 
@@ -46,19 +46,19 @@ Response:
 
 ##### On Success:
 
-```javascript
+```JSON
 {
-  img: "image-link.com"
-  username: "ashir",
-  id: "id"
+  "img": "image-link.com",
+  "username": "ashir",
+  "id": "id"
 }
 ```
 
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  getStatus: `Could not find ${userName}`;
+  "getStatus": "Could not find ${userName}"
 }
 ```
 
@@ -68,17 +68,20 @@ This API call allows for updating the information of a user on Lone Music. The U
 
 JSON Body:
 
-```javascript
-type=email: {
-    email: "newEmail@gmail.com",
+```JSON
+// if type is email
+{
+    "email": "newEmail@gmail.com",
 }
-type=name: {
-    newFirstName: "Joe",
-    newLastName: "Petrillo"
+// if type is name
+{
+    "newFirstName": "Joe",
+    "newLastName": "Petrillo"
 }
-type=password: {
-    newPassword: "new1234",
-    newConfirmPassword: "new1234",
+// if type is password
+{
+    "newPassword": "new1234",
+    "newConfirmPassword": "new1234",
 }
 ```
 
@@ -86,17 +89,17 @@ Response:
 
 ##### On Success:
 
-```javascript
+```JSON
 {
-  updateStatus: `Successfully updated ${username}`;
+  "updateStatus": "Successfully updated ${username}"
 }
 ```
 
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  updateStatus: `Error updating ${username}`;
+  "updateStatus": "Error updating ${username}"
 }
 ```
 
@@ -108,35 +111,39 @@ Response:
 
 ##### On Success:
 
-```javascript
+```JSON
 {
-  deleteStatus: `Successfully deleted ${username}`;
+  "deleteStatus": "Successfully deleted ${username}"
 }
 ```
 
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  deleteStatus: `Error deleting ${username}`;
+  "deleteStatus": "Error deleting ${username}"
 }
 ```
 
 ## /instrumental
-These are the API calls for working with instrumental data, which includes creating, editing,and updating beat information 
+
+These are the API calls for working with instrumental data, which includes creating, editing,and updating beat information
+
 #### Create Instrumental (upload) (POST)
+
 #### /beat/create
+
 This API call allows for creation of a beat. Beats are assigned a title, genre, username and audio file, and returns a body in JSON of each item. The response returns the status in JSON indicating if the API call was a success or failure.
 
 JSON Body:
 
-```javascript
+```JSON
 {
-    title: "beat1",
-    genre: "rap",
-    audio_file: "https://www.audio.com/example.mp3",
-    user_name: "jack"
-    
+    "title": "beat1",
+    "genre": "rap",
+    "audio_file": "https://www.audio.com/example.mp3",
+    "user_name": "jack"
+
 }
 ```
 
@@ -144,176 +151,277 @@ Response:
 
 ##### On Success:
 
-```javascript
+```JSON
 {
-  createStatus: `Successfully created ${title}`;
+  "createStatus": "Successfully created ${title}"
 }
 ```
 
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  createStatus: `Error creating ${title}`;
+  "createStatus": "Error creating ${title}"
 }
 ```
 
 #### Read Instrumental (GET)
+
 #### /beat/read?beatID=123
+
 This API call retrieves current beat data associated with their corresponding beat ID. The response returns the title, genre, username, upvotes/downvotes
 
 Response:
 
 ##### On Success:
 
-```javascript
+```JSON
 {
-  title: "beat1",
-  genre: "rap",
-  audio: "https://www.audio.com/example.mp3",
-  upvotes: 0,
-  downvotes: 0
-
+  "title": "beat1",
+  "genre": "rap",
+  "audio": "https://www.audio.com/example.mp3",
+  "upvotes": 0,
+  "downvotes": 0
 }
 ```
 
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  getStatus: `Could not find ${beatID}`;
+  "getStatus": "Could not find ${beatID}"
 }
 ```
 
 #### /beat/read/feed?types
-Retrieves an array of beats for feed, 10 by default. 
+
+Retrieves an array of beats for feed, 10 by default.
 
 Response:
 
 ##### On Success:
 
-```javascript
-beats:  
-  [{  
-  title: "beat1",
-  genre: "rap",
-  audio: "https://www.audio.com/example.mp3",
-  upvotes: 0,
-  downvotes: 0
+```JSON
+[
+  {
+  "title": "beat1",
+  "genre": "rap",
+  "audio": "https://www.audio.com/example.mp3",
+  "upvotes": 0,
+  "downvotes": 0
   },
-    {  
-  title: "beat2",
-  genre: "country",
-  audio: "https://www.audio.com/example2.mp3",
-  upvotes: 0,
-  downvotes: 0
-  }...  
-  ],
-}
+  {
+  "title": "beat2",
+  "genre": "country",
+  "audio": "https://www.audio.com/example2.mp3",
+  "upvotes": 0,
+  "downvotes": 0
+  }
+]
 ```
 
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  getStatus: `Could not find ${beats}`;
+  "getStatus": "Could not find ${beats}"
 }
 ```
 
 #### /beat/read/profile?userID=123
+
 Retrieves an array of user beats, 10 by default.
 
 Response:
 
 ##### On Success:
 
-```javascript
-beats: { 
-  [{  
-  title: "beat1",
-  genre: "rap",
-  audio: "https://www.audio.com/example.mp3",
-  upvotes: 0,
-  downvotes: 0
+```JSON
+[
+  {
+  "title": "beat1",
+  "genre": "rap",
+  "audio": "https://www.audio.com/example.mp3",
+  "upvotes": 0,
+  "downvotes": 0
   },
-    {  
-  title: "beat2",
-  genre: "country",
-  audio: "https://www.audio.com/example2.mp3",
-  upvotes: 0,
-  downvotes: 0
-  }...  
-  ],
-}
+  {
+  "title": "beat2",
+  "genre": "country",
+  "audio": "https://www.audio.com/example2.mp3",
+  "upvotes": 0,
+  "downvotes": 0
+  }
+]
 ```
 
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  getStatus: `Could not find ${userID}`;
+  "getStatus": "Could not find ${userID}"
 }
 ```
 
 #### Update Instrumental (PUT)
+
 #### /beat/update?id=123&type=upvote|downvote
+
 Retrieves updated upvote/downvote counter on beat.
 
 Response:
 
 ##### On Success:
 
-```javascript
+```JSON
 {
- updateStatus: `Successfuly updated ${counter}`;
+ "updateStatus": "Successfuly updated ${counter}"
 }
 ```
+
 ##### On Failure:
 
-```javascript
+```JSON
 {
-  updateStatus: `Error updating ${counter}`;
+  "updateStatus": "Error updating ${counter}"
 }
 ```
 
-
 #### Delete Instrumental (DELETE)
+
 #### /beat/delete?id=123
 
 Deletes beat with corresponding ID.
 
-Response: 
+Response:
 
 ##### On Success:
 
-```javascript
+```JSON
 {
- deleteStatus: `Successfuly deleted ${id}`;
+ "deleteStatus": "Successfuly deleted ${id}"
 }
 ```
+
 ##### On Failure:
 
-```javascript
+```JSON
 {
- deleteStatus: `Error deleting ${id}`;
+ "deleteStatus": "Error deleting ${id}"
 }
 ```
 
 ## /vocals
 
-#### Create Vocals (upload) (POST)
+The `/vocals` route is used for creating, reading, updating and deleting vocals.
 
-#### Read Vocals (GET)
+- `/vocals/create`
+- `/vocals/read`
+- `/vocals/update`
+- `/vocals/delete`
 
-#### Delete Vocals (DELETE)
+## `/comments`
 
-## /comment
+The `/comments` route is used for creating, reading, updating and deleting comments.
 
-#### Create Comment (upload) (POST)
+- [`/comments/create`](#post-commentscreateidid) (POST) - used to create a new comment
+- [`/comments/read`](#get-commentsreadtypetypeidid) (GET) - used to retrieve comment(s)
+- [`/comments/update`](#put-commentsupdateidid) (PUT) - used to update an existing comment
+- [`/comments/delete`](#delete-commentsdeleteidid) (DELETE) - used to delete an existing comment
 
-#### Read Comment (GET)
+Comments can be found on instrumental posts, vocal posts and user profiles. Each comment can be liked by other users, similiar to how TikTok, Instagram and Twitter operate.
 
-#### Delete Comment (DELETE)
+### `POST /comments/create?id={id}`
+
+Create a comment that is associated with the post whose id matches the id parameter.
+
+**Request Body Example**
+
+```JSON
+{
+  "userId": "c13ec509-5267-4fac-aded-32cc87f914dd",
+  "comment": "This is a really cool beat!"
+}
+```
+
+**Response Example**
+
+```JSON
+{
+  "status": "{success or failure}"
+}
+```
+
+### `GET /comments/read?type={type}&id={id}`
+
+Retrieve all comments associated with the user or post whose id matches the id parameter.
+
+The type parameter can equal "instrumental", "vocal" or "user".
+
+**Response Example**
+
+```JSON
+[
+  {
+    "commentId": "33a4bed2-8793-4797-a7f7-eceeb7ba022a",
+    "username": "jpetrillo19",
+    "comment": "This is a really cool beat!",
+    "likeCount": 1234
+  },
+  {
+    "commentId": "30ab4ee1-d333-4b93-bdd3-cda9d36fe916",
+    "username": "jackybeats",
+    "comment": "This is super good.",
+    "likeCount": 73
+  }
+]
+```
+
+### `PUT /comments/update?id={id}`
+
+Increment the like count by one for the comment whose id matches the id parameter. If the user has already liked this particular comment, decrement the like count by one.
+
+**Request Body Example**
+
+```JSON
+{
+  "userId": "c13ec509-5267-4fac-aded-32cc87f914dd"
+}
+```
+
+**Response Example**
+
+```JSON
+{
+  "status": "{success or failure}"
+}
+```
+
+### `DELETE /comments/delete?id={id}`
+
+Delete the comment whose id matches the id parameter.
+
+**Response Example**
+
+```JSON
+{
+  "status": "{success or failure}"
+}
+```
+
+### `Data Stored`
+
+```JSON
+{
+  "commentId": "id", // id of comment
+  "userId": "id", // id of user who posted comment
+  "likeCount": 1234, // the amount of likes on comment
+  "comment": "msg", // the comment itself
+  "likes": [ // array of user ids who liked comment
+    "id1", "id2", "id3", "id4"
+  ]
+}
+```
 
 # Outline
 
@@ -321,7 +429,3 @@ Response:
 2. At least one set of four screenshots of your client interface with descriptions
 3. The URL of your Heroku application
 4. Division of labor summary
-
-```
-
-```
