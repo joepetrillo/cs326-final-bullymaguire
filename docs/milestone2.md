@@ -329,7 +329,7 @@ The `/comments` route is used for creating, reading, updating and deleting comme
 - [`/comments/update`](#put-commentsupdateidid) (PUT) - used to update an existing comment
 - [`/comments/delete`](#delete-commentsdeleteidid) (DELETE) - used to delete an existing comment
 
-Comments can be found on instrumental posts, vocal posts and user profiles. Each comment can be liked by other users, similiar to how TikTok, Instagram and Twitter operate.
+Comments can be found on instrumental posts, vocal posts and user profiles. Each comment can be liked by other users, similiar to how TikTok, Instagram and Twitter operate. There is no implemention of any downvote or dislike system.
 
 ### `POST /comments/create?id={id}`
 
@@ -364,12 +364,14 @@ The type parameter can equal "instrumental", "vocal" or "user".
 [
   {
     "commentId": "33a4bed2-8793-4797-a7f7-eceeb7ba022a",
+    "userId": "c13ec509-5267-4fac-aded-32cc87f914dd",
     "username": "jpetrillo19",
     "comment": "This is a really cool beat!",
     "likeCount": 1234
   },
   {
     "commentId": "30ab4ee1-d333-4b93-bdd3-cda9d36fe916",
+    "userId": "f6024d58-bb16-42dc-b8dd-a631dfeed05e",
     "username": "jackybeats",
     "comment": "This is super good.",
     "likeCount": 73
@@ -379,7 +381,7 @@ The type parameter can equal "instrumental", "vocal" or "user".
 
 ### `PUT /comments/update?id={id}`
 
-Increment the like count by one for the comment whose id matches the id parameter. If the user has already liked this particular comment, decrement the like count by one.
+Increment the like count by one for the comment whose id matches the id parameter. If the user has already liked this particular comment, decrement the like count by one. The backend will handle the logic behind this.
 
 **Request Body Example**
 
@@ -411,13 +413,15 @@ Delete the comment whose id matches the id parameter.
 
 ### `Data Stored`
 
+This section serves to give a brief overview of the data our backend will store for each comment. This includes the comment id, the user id, the like count, the comment itself and the ids of users who liked the comment.
+
 ```JSON
 {
-  "commentId": "id", // id of comment
-  "userId": "id", // id of user who posted comment
-  "likeCount": 1234, // the amount of likes on comment
-  "comment": "msg", // the comment itself
-  "likes": [ // array of user ids who liked comment
+  "commentId": "id",
+  "userId": "id",
+  "comment": "msg",
+  "likeCount": 1234,
+  "likes": [
     "id1", "id2", "id3", "id4"
   ]
 }
