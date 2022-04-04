@@ -123,12 +123,181 @@ Response:
 ```
 
 ## /instrumental
-
+These are the API calls for working with instrumental data, which includes creating, editing,and updating beat information 
 #### Create Instrumental (upload) (POST)
+#### /beat/create
+This API call allows for creation of a beat. Beats are assigned a title, genre, username and audio file, and returns a body in JSON of each item. The response returns the status in JSON indicating if the API call was a success or failure.
+
+JSON Body:
+
+```javascript
+{
+    title: "beat1",
+    genre: "rap",
+    audio_file: "https://www.audio.com/example.mp3",
+    user_name: "jack"
+    
+}
+```
+
+Response:
+
+##### On Success:
+
+```javascript
+{
+  createStatus: `Successfully created ${title}`;
+}
+```
+
+##### On Failure:
+
+```javascript
+{
+  createStatus: `Error creating ${title}`;
+}
+```
 
 #### Read Instrumental (GET)
+#### /beat/read?beatID=123
+This API call retrieves current beat data associated with their corresponding beat ID. The response returns the title, genre, username, upvotes/downvotes
+
+Response:
+
+##### On Success:
+
+```javascript
+{
+  title: "beat1",
+  genre: "rap",
+  audio: "https://www.audio.com/example.mp3",
+  upvotes: 0,
+  downvotes: 0
+
+}
+```
+
+##### On Failure:
+
+```javascript
+{
+  getStatus: `Could not find ${beatID}`;
+}
+```
+
+#### /beat/read/feed?types
+Retrieves an array of beats for feed, 10 by default. 
+
+Response:
+
+##### On Success:
+
+```javascript
+beats:  
+  [{  
+  title: "beat1",
+  genre: "rap",
+  audio: "https://www.audio.com/example.mp3",
+  upvotes: 0,
+  downvotes: 0
+  },
+    {  
+  title: "beat2",
+  genre: "country",
+  audio: "https://www.audio.com/example2.mp3",
+  upvotes: 0,
+  downvotes: 0
+  }...  
+  ],
+}
+```
+
+##### On Failure:
+
+```javascript
+{
+  getStatus: `Could not find ${beats}`;
+}
+```
+
+#### /beat/read/profile?userID=123
+Retrieves an array of user beats, 10 by default.
+
+Response:
+
+##### On Success:
+
+```javascript
+beats: { 
+  [{  
+  title: "beat1",
+  genre: "rap",
+  audio: "https://www.audio.com/example.mp3",
+  upvotes: 0,
+  downvotes: 0
+  },
+    {  
+  title: "beat2",
+  genre: "country",
+  audio: "https://www.audio.com/example2.mp3",
+  upvotes: 0,
+  downvotes: 0
+  }...  
+  ],
+}
+```
+
+##### On Failure:
+
+```javascript
+{
+  getStatus: `Could not find ${userID}`;
+}
+```
+
+#### Update Instrumental (PUT)
+#### /beat/update?id=123&type=upvote|downvote
+Retrieves updated upvote/downvote counter on beat.
+
+Response:
+
+##### On Success:
+
+```javascript
+{
+ updateStatus: `Successfuly updated ${counter}`;
+}
+```
+##### On Failure:
+
+```javascript
+{
+  updateStatus: `Error updating ${counter}`;
+}
+```
+
 
 #### Delete Instrumental (DELETE)
+#### /beat/delete?id=123
+
+Deletes beat with corresponding ID.
+
+Response: 
+
+##### On Success:
+
+```javascript
+{
+ deleteStatus: `Successfuly deleted ${id}`;
+}
+```
+##### On Failure:
+
+```javascript
+{
+ deleteStatus: `Error deleting ${id}`;
+}
+```
 
 ## /vocals
 
