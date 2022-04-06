@@ -313,13 +313,96 @@ Response:
 
 ## /vocals
 
-The `/vocals` route is used for creating, reading, updating and deleting vocals.
+The `/vocals` route is used for creating, reading, and deleting vocals.
 
-- `/vocals/create`
-- `/vocals/read`
-- `/vocals/update`
-- `/vocals/delete`
+#### Create Vocal (Respond to Beat) (POST)
 
+#### /vocals/create
+
+Allows for the creation of a vocal track. These exist in response to Beats. Must have audio, username, and parent beatId attached
+
+JSON Body:
+
+```JSON
+{
+    "title": "vocal",
+    "audio": "https://www.audio.com/vocal_example.mp3",
+    "user_name": "jack",
+    "parentId" : "1234"
+}
+```
+
+Response:
+
+##### On Success:
+
+```JSON
+{
+  "createStatus": "Successfully created vocal with title: {title}"
+}
+```
+
+##### On Failure:
+
+```JSON
+{
+  "createStatus": "Error creating ${title}"
+}
+```
+
+#### Read Vocals (GET)
+
+#### /vocals/read?type={type}&id=123
+
+Retrieves a beat and the minimum necessary data to create a Vocals page
+
+type can be: 'THREAD' | 'BEAT'
+
+Response:
+
+##### On Success:
+
+```JSON
+{
+  "title": "vocal",
+  "genre": "r&b",
+  "audio": "https://www.audio.com/vocal_example.mp3",
+  "upvotes": 0,
+  "downvotes": 0
+}
+```
+
+##### On Failure:
+
+```JSON
+{
+  "getStatus": "Could not find Vocal with id: {id}"
+}
+```
+
+#### Delete Vocals (DELETE)
+
+#### /vocals/delete?id=123
+
+Deletes beat according to given ID
+
+Response:
+
+##### On Success:
+
+```JSON
+{
+ "deleteStatus": "Successfuly deleted vocals with id: {id}"
+}
+```
+
+##### On Failure:
+
+```JSON
+{
+ "deleteStatus": "Error deleting ${id}"
+}
+```
 ## `/comments`
 
 The `/comments` route is used for creating, reading, updating and deleting comments.
