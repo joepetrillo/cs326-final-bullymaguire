@@ -1,9 +1,13 @@
 {
   "name": "cs326-final-bullymaguire",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {},
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
   }
 }
