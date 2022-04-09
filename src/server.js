@@ -6,6 +6,7 @@ import postRouter from "./routes/posts.js";
 const app = express();
 
 app.use(logger("dev"));
+app.use(express.json());
 
 app.use("/users", userRouter);
 app.use("/posts", postRouter);

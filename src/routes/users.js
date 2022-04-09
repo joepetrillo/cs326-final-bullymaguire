@@ -2,9 +2,11 @@ import express from "express";
 import logger from "morgan";
 
 const router = express.Router();
+
 function checkSignUpData(data) {
   return { isValid: false };
 }
+
 function makeUser(email, username, password) {
   return {
     email: email,
@@ -12,6 +14,7 @@ function makeUser(email, username, password) {
     password: password,
   };
 }
+
 router.post("/", (req, res) => {
   res.send("Create User");
   try {
@@ -23,6 +26,7 @@ router.post("/", (req, res) => {
     if (!status.isValid) {
       return res.status(400).json({ error: status.error });
     }
+
     res.json(makeUser(email, username, password));
   } catch (err) {
     console.log(err);
@@ -41,10 +45,12 @@ router.put("/:userId", (req, res) => {
 router.delete("/:userId", (req, res) => {
   res.send("Delete User");
 });
+
 //comments
 router.get("/userId/comments", (req, res) => {
   res.send("Get User Comments");
 });
+
 //posts
 router.get("/userId/posts", (req, res) => {
   res.send("Get User Posts");
