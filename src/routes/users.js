@@ -29,8 +29,8 @@ router.post("/", (req, res) => {
       return res.status(400).json({ error: status.error });
     }
 
-    users.push({ id: Math.random().toString().slice(2, 11), username: username, email: email, password: password, profilePicLink: "www.image.com" });
-
+    users.push({ id: Date.now().toString().slice(2, 11), username: username, email: email, password: password, profilePicLink: "www.image.com" });
+    console.log(users);
     res.json(makeUser(email, username, password));
   } catch (err) {
     console.log(err);
