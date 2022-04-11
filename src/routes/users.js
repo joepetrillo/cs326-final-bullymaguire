@@ -15,17 +15,21 @@ function makeUser(email, username, password) {
   };
 }
 
+let users = [];
+let comments = [];
+
 router.post("/", (req, res) => {
-  res.send("Create User");
   try {
     let { email, username, password, confirm } = req.body;
 
-    // if not email or not username or passwords dont match send error
-    const status = checkSignUpData(email, username, password, confirm);
+    // Validate user data. If the email or username is already taken, or the passwords don't match, throw an error
+    const status = checkSignUpData({ email, username, password, confirm });
 
-    if (!status.isValid) {
+    if (status.isValid) {
       return res.status(400).json({ error: status.error });
     }
+
+    users.push({ id: Math.random().toString().slice(2, 11), username: username, email: email, password: password, profilePicLink: "www.image.com" });
 
     res.json(makeUser(email, username, password));
   } catch (err) {
