@@ -15,8 +15,51 @@ function makeUser(email, username, password) {
   };
 }
 
-let users = [];
-let comments = [];
+function checkUserExists(userId) {
+  return users.find((u) => u.id === userId) !== undefined ? true : false;
+}
+
+function deleteUser(userId) {
+  users.splice(
+    users.findIndex((u) => u.id === userId),
+    1
+  );
+}
+
+function getUserComments(userId) {
+  return comments.filter((c) => c.userId == userId);
+}
+
+let users = [
+  {
+    id: "497861819",
+    username: "username",
+    email: "123@gmail.com",
+    password: "password",
+    profilePicLink: "www.image.com",
+  },
+];
+
+let comments = [
+  {
+    commentId: 497855427,
+    userId: 497861819,
+    postId: 747855476,
+    comment: "this is a comment by 497861819",
+  },
+  {
+    commentId: 497855428,
+    userId: 497861819,
+    postId: 747855476,
+    comment: "this is another comment by 497861819",
+  },
+  {
+    commentId: 497855428,
+    userId: 497855411,
+    postId: 747855476,
+    comment: "this is another comment",
+  },
+];
 
 router.post("/", (req, res) => {
   try {
@@ -30,7 +73,7 @@ router.post("/", (req, res) => {
     }
 
     users.push({ id: Date.now().toString().slice(2, 11), username: username, email: email, password: password, profilePicLink: "www.image.com" });
-    console.log(users);
+
     res.json(makeUser(email, username, password));
   } catch (err) {
     console.log(err);
@@ -47,12 +90,38 @@ router.put("/:userId", (req, res) => {
 });
 
 router.delete("/:userId", (req, res) => {
-  res.send("Delete User");
+  try {
+    const userId = req.params.userId;
+
+    if (checkUserExists(userId)) {
+      deleteUser(userId);
+
+      res.json({ success: `Successfully deleted the user with id ${userId}` });
+    } else {
+      res.status(400).json({ error: `user with id ${userId} does not exist` });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
 });
 
 //comments
-router.get("/userId/comments", (req, res) => {
-  res.send("Get User Comments");
+router.get("/:userId/comments", (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    if (checkUserExists(userId)) {
+      const userComments = getUserComments(userId);
+
+      res.status(200).json(userComments);
+    } else {
+      res.status(400).json({ error: `user with id ${userId} does not exist` });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
 });
 
 //posts
