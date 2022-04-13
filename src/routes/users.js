@@ -4,6 +4,16 @@ import { comments, users, posts } from "./crudUtils.js/persistence.js";
 
 const router = express.Router();
 
+// ** Perhaps have some function for creating error messages instead of
+//    numerous instances of `no users with the id ${userId} exist` **
+
+// ** Extract CRUD Operations into separate file and import **
+//    -> thinking we can be nondescript in each file, and then
+//       import * as user, and then do something like user.delete(...)
+
+// ** Extract Utility functions into separate file. Didn't do so yet
+//    as I was unsure of how we wanted to organize this part (similarly above)
+
 function deleteUser(userId) {
   users.splice(
     users.findIndex((u) => u.id === userId),
@@ -70,6 +80,7 @@ function getUserIndex(userId) {
   return users.findIndex((user) => user.id === userId);
 }
 
+// ** Extract add user logic into isolated CRUD function, as we do in other routes **
 // CREATE user
 router.post("/", (req, res) => {
   try {
@@ -108,6 +119,7 @@ router.get("/:userId", (req, res) => {
   }
 });
 
+// ** Also, would extract Update logic into isolated CRUD function **
 // UPDATE user
 router.put("/:userId", (req, res) => {
   try {
