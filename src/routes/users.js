@@ -15,7 +15,7 @@ function getUserComments(userId) {
   return comments.filter((c) => c.userId == userId);
 }
 
-const getUserPosts = (userId) => posts.filter((p) => p.id === userId);
+const getUserPosts = (userId) => posts.filter((p) => p.userId === userId);
 // checks if a user exists given an userId
 function checkUserExists(userId) {
   return users.find((user) => user.id === userId) !== undefined ? true : false;
@@ -164,11 +164,11 @@ router.get("/:userId/comments", (req, res) => {
 });
 
 // READ user posts
-router.get("/userId/posts", (req, res) => {
+router.get("/:userId/posts", (req, res) => {
   const { userId } = req.params;
   try {
     if (!checkUserExists(userId)) {
-      return res.send(400).json({ error: `no users with the id ${userId} exist` });
+      return res.status(400).json({ error: `no users with the id ${userId} exist` });
     }
 
     res.json(getUserPosts(userId));
