@@ -1,6 +1,6 @@
 import express from "express";
 import logger from "morgan";
-import { comments, users, posts } from "./crudUtils.js/persistence.js";
+import { comments, users, posts } from "./crudUtils/persistence.js";
 
 const router = express.Router();
 
