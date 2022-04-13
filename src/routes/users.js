@@ -1,35 +1,8 @@
 import express from "express";
 import logger from "morgan";
+import { comments, users, posts } from "./crudUtils.js/persistence.js";
 
 const router = express.Router();
-
-let users = [];
-let comments = [
-  {
-    commentId: "commentId",
-    userId: "999",
-    postId: "postId",
-    comment: "this is a comment by user 999",
-    likeCount: "likeCount",
-    likedBy: ["userId", "userId", "userId"],
-  },
-  {
-    commentId: "commentId",
-    userId: "999",
-    postId: "postId",
-    comment: "this is another comment by user 999",
-    likeCount: "likeCount",
-    likedBy: ["userId", "userId", "userId"],
-  },
-  {
-    commentId: "commentId",
-    userId: "1000",
-    postId: "postId",
-    comment: "this is a comment by user 1000",
-    likeCount: "likeCount",
-    likedBy: ["userId", "userId", "userId"],
-  },
-];
 
 function deleteUser(userId) {
   users.splice(
@@ -42,6 +15,7 @@ function getUserComments(userId) {
   return comments.filter((c) => c.userId == userId);
 }
 
+const getUserPosts = (userId) => posts.filter((p) => p.id === userId);
 // checks if a user exists given an userId
 function checkUserExists(userId) {
   return users.find((user) => user.id === userId) !== undefined ? true : false;
@@ -191,7 +165,17 @@ router.get("/:userId/comments", (req, res) => {
 
 // READ user posts
 router.get("/userId/posts", (req, res) => {
-  res.send("Get User Posts");
+  const { userId } = req.params;
+  try {
+    if (!checkUserExists(userId)) {
+      return res.send(400).json({ error: `no users with the id ${userId} exist` });
+    }
+
+    res.json(getUserPosts(userId));
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
 });
 
 export default router;
