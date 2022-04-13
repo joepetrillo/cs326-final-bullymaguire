@@ -4,24 +4,28 @@ let users = [
     email: "ashir@gmail.com",
     username: "ashir",
     password: "password",
+    picture: "default profile picture url",
   },
   {
     id: "1001",
     email: "jack@gmail.com",
     username: "jack",
     password: "password",
+    picture: "default profile picture url",
   },
   {
     id: "1002",
     email: "joe@gmail.com",
     username: "jack",
     password: "password",
+    picture: "default profile picture url",
   },
   {
     id: "1003",
     email: "alex@gmail.com",
     username: "alex",
     password: "password",
+    picture: "default profile picture url",
   },
 ];
 
@@ -52,6 +56,28 @@ let comments = [
   },
 ];
 
-let posts = [];
+let posts = [
+  {
+    userId: "1000",
+    title: "post title",
+    genre: "post genre",
+    audio: "url of audio file",
+    parentId: "123",
+  },
+  {
+    userId: "1001",
+    title: "post title",
+    genre: "post genre",
+    audio: "url of audio file",
+    parentId: "123",
+  },
+  {
+    userId: "1001",
+    title: "post title",
+    genre: "post genre",
+    audio: "url of audio file",
+    parentId: "123",
+  },
+];
 
 export { users, comments, posts };
