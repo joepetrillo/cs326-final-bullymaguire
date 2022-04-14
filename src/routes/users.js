@@ -9,6 +9,7 @@ const missingUserError = (id) => `no users with the id ${id} exist`;
 router.post("/", (req, res) => {
   try {
     const check = utils.checkSignUpData(req.body);
+
     if (check.isValid) {
       res.json(utils.createUser(req.body));
     } else {
@@ -24,6 +25,7 @@ router.post("/", (req, res) => {
 router.get("/:userId", (req, res) => {
   try {
     const userId = req.params.userId;
+
     if (utils.checkUserExists(userId)) {
       res.json(utils.getUser(userId));
     } else {
@@ -40,6 +42,7 @@ router.put("/:userId", (req, res) => {
   try {
     const check = utils.checkUpdateData(req.body);
     const userId = req.params.userId;
+
     if (check.isValid && utils.checkUserExists(userId)) {
       utils.updateUser(userId, req.body);
       res.json({ success: `successfully updated the ${req.body.type} of user ${userId}` });
@@ -56,6 +59,7 @@ router.put("/:userId", (req, res) => {
 router.delete("/:userId", (req, res) => {
   try {
     const userId = req.params.userId;
+
     if (utils.checkUserExists(userId)) {
       utils.deleteUser(userId);
       res.json({ success: `successfully deleted user ${userId}` });
@@ -72,6 +76,7 @@ router.delete("/:userId", (req, res) => {
 router.get("/:userId/comments", (req, res) => {
   try {
     const userId = req.params.userId;
+
     if (utils.checkUserExists(userId)) {
       res.status(200).json(utils.getUserComments(userId));
     } else {
@@ -86,6 +91,7 @@ router.get("/:userId/comments", (req, res) => {
 // READ user posts
 router.get("/:userId/posts", (req, res) => {
   const { userId } = req.params;
+
   try {
     if (!utils.checkUserExists(userId)) {
       return res.status(400).json({ error: missingUserError(userId) });

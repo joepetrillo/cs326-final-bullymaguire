@@ -9,7 +9,9 @@ export function createUser({ email, username, password }) {
     password: password,
     picture: "default profile picture url",
   };
+
   users.push(newUser);
+
   return newUser;
 }
 
@@ -27,6 +29,7 @@ export function getUserPosts(userId) {
 
 export function updateUser(userId, { type, email, password, picture }) {
   const user = users[getUserIndex(userId)];
+
   if (type === "email") {
     user.email = email;
   } else if (type === "password") {
