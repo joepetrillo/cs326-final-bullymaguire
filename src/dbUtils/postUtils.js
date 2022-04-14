@@ -61,6 +61,8 @@ export function deleteComment({ ...props }) {
   return;
 }
 
+// Crud Helpers
+// check is post exists given a postId
 export function checkPostExists(postId) {
   return posts.find((post) => post.postId === postId) !== undefined ? true : false;
 }
