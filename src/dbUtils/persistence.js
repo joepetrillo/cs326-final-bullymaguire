@@ -37,6 +37,7 @@ let comments = [
     comment: "this is a comment by user 999",
     likeCount: "likeCount",
     likedBy: ["userId", "userId", "userId"],
+    created: new Date("2022-04-14T09:48:55.064Z"),
   },
   {
     commentId: "commentId",
@@ -45,6 +46,7 @@ let comments = [
     comment: "this is another comment by user 999",
     likeCount: "likeCount",
     likedBy: ["userId", "userId", "userId"],
+    created: new Date("2022-04-13T10:48:55.064Z"),
   },
   {
     commentId: "commentId",
@@ -53,6 +55,7 @@ let comments = [
     comment: "this is a comment by user 1000",
     likeCount: "likeCount",
     likedBy: ["userId", "userId", "userId"],
+    created: new Date("2022-04-14T14:48:55.064Z"),
   },
 ];
 
@@ -64,22 +67,31 @@ let posts = [
     genre: "post genre",
     audio: "url of audio file",
     parentId: "123",
+    likeCount: 3,
+    likedBy: ["1000", "1001", "1002"],
+    created: new Date("2022-04-13T08:48:55.064Z"),
   },
   {
     postId: "12",
     userId: "1001",
-    title: "post title",
+    title: "post title 1",
     genre: "post genre",
     audio: "url of audio file",
     parentId: "123",
+    likeCount: 0,
+    likedBy: ["1000", "1001", "1002"],
+    created: new Date("2022-04-14T18:48:55.064Z"),
   },
   {
     postId: "13",
     userId: "1001",
-    title: "post title",
+    title: "post title 2",
     genre: "post genre",
     audio: "url of audio file",
     parentId: "123",
+    likeCount: 1,
+    likedBy: ["1000", "1001", "1002"],
+    created: new Date("2022-04-14T10:48:55.064Z"),
   },
 ];
 
