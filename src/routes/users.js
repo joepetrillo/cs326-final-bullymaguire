@@ -1,89 +1,16 @@
 import express from "express";
-import logger from "morgan";
-import { comments, users, posts } from "./crudUtils/persistence.js";
+import * as utils from "../dbUtils/userUtils.js";
 
 const router = express.Router();
 
-function deleteUser(userId) {
-  users.splice(
-    users.findIndex((u) => u.id === userId),
-    1
-  );
-}
-
-function getUserComments(userId) {
-  return comments.filter((c) => c.userId == userId);
-}
-
-const getUserPosts = (userId) => posts.filter((p) => p.userId === userId);
-// checks if a user exists given an userId
-function checkUserExists(userId) {
-  return users.find((user) => user.id === userId) !== undefined ? true : false;
-}
-
-// validate sign up data
-function checkSignUpData(data) {
-  const { email, username, password, confirm } = data;
-
-  // check if all required fields are present
-  if (email === undefined || username === undefined || password === undefined || confirm === undefined) {
-    return { isValid: false, error: "body is missing required fields" };
-  }
-
-  // check if passwords match
-  if (password !== confirm) {
-    return { isValid: false, error: "passwords do not match" };
-  }
-
-  // check if the email or username is already being used by an existing user
-  if (!users.every((user) => user.email !== email && user.username !== username)) {
-    return { isValid: false, error: "email or username already being used" };
-  }
-
-  return { isValid: true, error: null };
-}
-
-// validate update data
-function checkUpdateData(data) {
-  const { type, email, password, confirm, picture } = data;
-
-  // check if all required fields are present
-  if (type === undefined || email === undefined || password === undefined || confirm === undefined || picture === undefined) {
-    return { isValid: false, error: "body is missing required fields" };
-  }
-
-  // ensure no fields are null if being updated
-  if ((type === "email" && email === null) || (type === "password" && password === null) || (type === "picture" && picture === null)) {
-    return { isValid: false, error: "the field being updated cannot be null" };
-  }
-
-  // check if passwords match
-  if (password !== confirm) {
-    return { isValid: false, error: "passwords do not match" };
-  }
-
-  return { isValid: true, error: null };
-}
-
-// get the index of a user given an userId
-function getUserIndex(userId) {
-  return users.findIndex((user) => user.id === userId);
-}
+const missingUserError = (id) => `no users with the id ${id} exist`;
 
 // CREATE user
 router.post("/", (req, res) => {
   try {
-    const check = checkSignUpData(req.body);
+    const check = utils.checkSignUpData(req.body);
     if (check.isValid) {
-      const newUser = {
-        id: Date.now().toString(),
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password,
-        picture: "default profile picture url",
-      };
-      users.push(newUser);
-      res.json(newUser);
+      res.json(utils.createUser(req.body));
     } else {
       res.status(400).json({ error: check.error });
     }
@@ -97,10 +24,10 @@ router.post("/", (req, res) => {
 router.get("/:userId", (req, res) => {
   try {
     const userId = req.params.userId;
-    if (checkUserExists(userId)) {
-      res.json(users.find((user) => user.id === userId));
+    if (utils.checkUserExists(userId)) {
+      res.json(utils.getUser(userId));
     } else {
-      res.status(400).json({ error: `no users with the id ${userId} exist` });
+      res.status(400).json({ error: missingUserError(userId) });
     }
   } catch (err) {
     console.log(err);
@@ -111,20 +38,13 @@ router.get("/:userId", (req, res) => {
 // UPDATE user
 router.put("/:userId", (req, res) => {
   try {
-    const check = checkUpdateData(req.body);
+    const check = utils.checkUpdateData(req.body);
     const userId = req.params.userId;
-    if (check.isValid && checkUserExists(userId)) {
-      const user = users[getUserIndex(userId)];
-      if (req.body.type === "email") {
-        user.email = req.body.email;
-      } else if (req.body.type === "password") {
-        user.password = req.body.password;
-      } else if (req.body.type === "picture") {
-        user.picture = req.body.picture;
-      }
+    if (check.isValid && utils.checkUserExists(userId)) {
+      utils.updateUser(userId, req.body);
       res.json({ success: `successfully updated the ${req.body.type} of user ${userId}` });
     } else {
-      res.status(400).json({ error: check.error === null ? `no users with the id ${userId} exist` : check.error });
+      res.status(400).json({ error: check.error === null ? missingUserError(userId) : check.error });
     }
   } catch (err) {
     console.log(err);
@@ -136,8 +56,8 @@ router.put("/:userId", (req, res) => {
 router.delete("/:userId", (req, res) => {
   try {
     const userId = req.params.userId;
-    if (checkUserExists(userId)) {
-      deleteUser(userId);
+    if (utils.checkUserExists(userId)) {
+      utils.deleteUser(userId);
       res.json({ success: `successfully deleted user ${userId}` });
     } else {
       res.status(400).json({ error: `no users with the id ${userId} exist` });
@@ -152,10 +72,10 @@ router.delete("/:userId", (req, res) => {
 router.get("/:userId/comments", (req, res) => {
   try {
     const userId = req.params.userId;
-    if (checkUserExists(userId)) {
-      res.status(200).json(getUserComments(userId));
+    if (utils.checkUserExists(userId)) {
+      res.status(200).json(utils.getUserComments(userId));
     } else {
-      res.status(400).json({ error: `no users with the id ${userId} exist` });
+      res.status(400).json({ error: missingUserError(userId) });
     }
   } catch (err) {
     console.log(err);
@@ -167,11 +87,11 @@ router.get("/:userId/comments", (req, res) => {
 router.get("/:userId/posts", (req, res) => {
   const { userId } = req.params;
   try {
-    if (!checkUserExists(userId)) {
-      return res.status(400).json({ error: `no users with the id ${userId} exist` });
+    if (!utils.checkUserExists(userId)) {
+      return res.status(400).json({ error: missingUserError(userId) });
     }
 
-    res.json(getUserPosts(userId));
+    res.json(utils.getUserPosts(userId));
   } catch (err) {
     console.log(err);
     res.status(400).send();
