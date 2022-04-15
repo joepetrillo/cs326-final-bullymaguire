@@ -91,8 +91,38 @@ router.delete("/:postId", (req, res) => {
 });
 
 // CREATE post comment
+router.post("/:postId/comments", (req, res) => {
+  let check = utils.checkCommentData(req.body);
+  if (!check.isValid) {
+    return res.status(400).json({ error: check.error });
+  }
+
+  res.json(utils.createComment(req.body));
+});
 
 // READ post comments
+router.get("/:postId/comments", (req, res) => {
+  if (!sortType || sortType !== "top" || sortType !== "latest") {
+    return res.json({ error: "sortType invalid or not given" });
+  }
+
+  const { sortType, filterType } = req.query;
+  const { postId } = req.params;
+  let ret = [];
+
+  if (filterType === "comments") {
+    ret = getAllComments(postId);
+  } else if (filterType === "posts") {
+    ret = getAllPosts(postId);
+  } else if (!filterType) {
+    ret = [...getAllPosts, ...getAllComments];
+  }
+
+  const topSort = (a, b) => b.likeCount - a.likeCount;
+  const latestSort = (a, b) => b.created - a.created;
+
+  res.json(ret.sort(sortType === "top" ? topSort : latestSort));
+});
 
 // UPDATE post comment
 router.put("/:postId/comments/:commentId", (req, res) => {

@@ -20,8 +20,20 @@ export function createPost({ userId, title, genre, audio, parentId }) {
   return newPost;
 }
 
-export function createComment({ ...props }) {
-  return;
+export function createComment({ userId, postId, comment }) {
+  const newComment = {
+    commentId: Date.now(),
+    userId: userId,
+    postId: postId,
+    comment: comment,
+    likeCount: 0,
+    likedBy: [],
+    created: new Date("2022-04-14T09:48:55.064Z"),
+  };
+
+  comments.push(newComment);
+
+  return newComment;
 }
 
 export function getPost(postId) {
@@ -102,6 +114,24 @@ export function checkCommentData({ ...props }) {
   return;
 }
 
+export function checkCommentData({ userId, postId, comment }) {
+  // check if all required fields are present
+  let error = { isValid: true, error: null };
+  if (!userId || !postId || !comment) {
+    error = { isValid: false, error: "body is missing required fields" };
+  }
+
+  if (!checkCommentExists(postId) || !checkUserExists(userId)) {
+    error = { isValid: false, error: "postId or userId does not exist" };
+  }
+
+  // check if the email or username is already being used by an existing user
+  if (comment === "") {
+    error = { isValid: false, error: "can not comment empty string" };
+  }
+
+  return error;
+
 // updates like count of post or comment
 export function updateLikes(userId, updateId, isComment) {
   // update logic for increasing or decreasing like count
@@ -114,4 +144,5 @@ export function updateLikes(userId, updateId, isComment) {
     updateItem.likeCount++;
     updateItem.likedBy.push(userId);
   }
+
 }
