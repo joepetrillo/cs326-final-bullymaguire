@@ -3,7 +3,7 @@ import * as utils from "../dbUtils/postUtils.js";
 
 const router = express.Router();
 
-// POST create post
+// CREATE post
 router.post("/", (req, res) => {
   try {
     const check = utils.checkPostData(req.body);
@@ -19,27 +19,27 @@ router.post("/", (req, res) => {
   }
 });
 
-// GET read feed posts
+// READ posts
 router.get("/", (req, res) => {
   try {
-    const filter = req.query.filter;
+    const sort = req.query.sort;
 
-    if (filter === undefined) {
+    if (sort === undefined) {
       res.status(400).json({ error: "Incorrect query parameter" });
     }
 
-    if (filter !== "latest" && filter !== "top") {
-      res.status(400).json({ error: `filter ${filter} does not exist` });
+    if (sort !== "latest" && sort !== "top") {
+      res.status(400).json({ error: `filter ${sort} does not exist` });
     }
 
-    res.status(200).json(utils.getFeedPosts(filter));
+    res.status(200).json(utils.getFeedPosts(sort));
   } catch (err) {
     console.log(err);
     res.status(400).send();
   }
 });
 
-// GET read specific post
+// READ specfic post
 router.get("/:postId", (req, res) => {
   try {
     const postId = req.params.postId;
@@ -55,7 +55,7 @@ router.get("/:postId", (req, res) => {
   }
 });
 
-// PUT update posts
+// UPDATE post
 router.put("/:postId", (req, res) => {
   try {
     const check = utils.checkPostData(req.body); //maybe a checkUpdateData instead?
@@ -73,7 +73,7 @@ router.put("/:postId", (req, res) => {
   }
 });
 
-// DEL delete posts
+// DELETE post
 router.delete("/:postId", (req, res) => {
   try {
     const postId = req.params.postId;
@@ -90,12 +90,14 @@ router.delete("/:postId", (req, res) => {
   }
 });
 
-// POST create comment
+// CREATE post comment
 
-// GET read post comments
+// READ post comments
 
-// PUT update comment
+// UPDATE post comment
+router.put("/:postId/comments/:commentId", (req, res) => {});
 
-// DEL delete comment
+// DELETE post comment
+router.delete("/:postId/comments/:commentId", (req, res) => {});
 
 export default router;

@@ -27,14 +27,14 @@ export function getPost(postId) {
   return posts.find((post) => post.postId === postId);
 }
 
-export function getFeedPosts(filter) {
-  if (filter === "latest") {
+export function getFeedPosts(sort) {
+  if (sort === "latest") {
     const latestPosts = posts.sort((a, b) => b.created - a.created);
 
     return latestPosts;
   }
 
-  if (filter === "top") {
+  if (sort === "top") {
     const topPosts = posts.sort((a, b) => b.likeCount - a.likeCount);
 
     return topPosts;
