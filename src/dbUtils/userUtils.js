@@ -47,7 +47,7 @@ export function deleteUser(userId) {
   );
 }
 
-// Crud Helpers
+// CRUD Helpers
 // checks if a user exists given an userId
 export function checkUserExists(userId) {
   return users.find((user) => user.userId === userId) !== undefined ? true : false;
@@ -58,7 +58,6 @@ export function getUserIndex(userId) {
   return users.findIndex((user) => user.userId === userId);
 }
 
-// Misc.
 // validate sign up data
 export function checkSignUpData(data) {
   const { email, username, password, confirm } = data;
