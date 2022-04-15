@@ -102,26 +102,16 @@ router.post("/:postId/comments", (req, res) => {
 
 // READ post comments
 router.get("/:postId/comments", (req, res) => {
+  const { sortType, filterType } = req.query;
+  const { postId } = req.params;
+
   if (!sortType || sortType !== "top" || sortType !== "latest") {
     return res.json({ error: "sortType invalid or not given" });
   }
 
-  const { sortType, filterType } = req.query;
-  const { postId } = req.params;
-  let ret = [];
+  const postComments = utils.getPostComments(filterType, sortType, postId);
 
-  if (filterType === "comments") {
-    ret = getAllComments(postId);
-  } else if (filterType === "posts") {
-    ret = getAllPosts(postId);
-  } else if (!filterType) {
-    ret = [...getAllPosts, ...getAllComments];
-  }
-
-  const topSort = (a, b) => b.likeCount - a.likeCount;
-  const latestSort = (a, b) => b.created - a.created;
-
-  res.json(ret.sort(sortType === "top" ? topSort : latestSort));
+  res.json(postComments);
 });
 
 // UPDATE post comment

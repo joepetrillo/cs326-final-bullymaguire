@@ -58,16 +58,21 @@ export function getFeedPosts(sort) {
   }
 }
 
-export function getPostComments({ ...props }) {
-  return;
-}
+export function getPostComments(filterType, sortType, postId) {
+  let ret = [];
 
-export function updateComment({ ...props }) {
-  return;
-}
+  if (filterType === "comments") {
+    ret = getAllComments(postId);
+  } else if (filterType === "posts") {
+    ret = getAllPosts(postId);
+  } else if (!filterType) {
+    ret = [...getAllPosts, ...getAllComments];
+  }
 
-export function updatePost({ ...props }) {
-  return;
+  const topSort = (a, b) => b.likeCount - a.likeCount;
+  const latestSort = (a, b) => b.created - a.created;
+
+  return ret.sort(sortType === "top" ? topSort : latestSort);
 }
 
 export function deletePost({ ...props }) {
@@ -110,10 +115,6 @@ export function checkNewPostData(data) {
 }
 
 // validate new comment data
-export function checkCommentData({ ...props }) {
-  return;
-}
-
 export function checkCommentData({ userId, postId, comment }) {
   // check if all required fields are present
   let error = { isValid: true, error: null };
