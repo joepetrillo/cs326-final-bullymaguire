@@ -75,8 +75,11 @@ export function getPostComments(filterType, sortType, postId) {
   return ret.sort(sortType === "top" ? topSort : latestSort);
 }
 
-export function deletePost({ ...props }) {
-  return;
+export function deletePost(postId) {
+  posts.splice(
+    posts.findIndex((p) => p.postId === postId),
+    1
+  );
 }
 
 export function deleteComment(commentId) {
