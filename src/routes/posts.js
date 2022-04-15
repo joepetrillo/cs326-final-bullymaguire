@@ -1,5 +1,6 @@
 import express from "express";
 import * as utils from "../dbUtils/postUtils.js";
+import { checkUserExists } from "../dbUtils/userUtils.js";
 
 const router = express.Router();
 
