@@ -6,7 +6,7 @@ const router = express.Router();
 // CREATE post
 router.post("/", (req, res) => {
   try {
-    const check = utils.checkPostData(req.body);
+    const check = utils.checkNewPostData(req.body);
 
     if (check.isValid) {
       res.status(200).json(utils.createPost(req.body));
@@ -58,7 +58,7 @@ router.get("/:postId", (req, res) => {
 // UPDATE post
 router.put("/:postId", (req, res) => {
   try {
-    const check = utils.checkPostData(req.body); //maybe a checkUpdateData instead?
+    const check = utils.checkUpdatePostData(req.body); //maybe a checkUpdateData instead?
     const postId = req.params.postId;
 
     if (check.isValid && utils.checkPostExists(postId)) {
@@ -125,9 +125,42 @@ router.get("/:postId/comments", (req, res) => {
 });
 
 // UPDATE post comment
-router.put("/:postId/comments/:commentId", (req, res) => {});
+router.put("/:postId/comments/:commentId", (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+
+    // check if post, comment and user exist before update
+    if (utils.checkUserExists(userId) && utils.checkPostExists(postId) && utils.checkCommentExists(commentId)) {
+      utils.updateLikes(userId, commentId, true);
+      res.json({ success: `successfully updated the like count of comment ${commentId}` });
+    } else {
+      res.status(400).json({ error: "user, post or comment id given does not exist" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
+});
 
 // DELETE post comment
-router.delete("/:postId/comments/:commentId", (req, res) => {});
+router.delete("/:postId/comments/:commentId", (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+
+    // check if post and comment exist before trying to delete
+    if (utils.checkPostExists(postId) && utils.checkCommentExists(commentId)) {
+      utils.deleteComment(commentId);
+      res.json({ success: `successfully deleted comment ${commentId}` });
+    } else {
+      res.status(400).json({ error: "post or comment id given does not exist" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
+});
 
 export default router;

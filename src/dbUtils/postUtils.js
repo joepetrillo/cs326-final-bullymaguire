@@ -1,6 +1,7 @@
 import { comments, users, posts } from "./persistence.js";
+import { checkUserExists } from "./userUtils.js";
 
-// Main POST CRUD
+// Main CRUD
 export function createPost({ userId, title, genre, audio, parentId }) {
   const newPost = {
     postId: Date.now().toString(),
@@ -39,6 +40,10 @@ export function getPost(postId) {
   return posts.find((post) => post.postId === postId);
 }
 
+export function getComment(commentId) {
+  return comments.find((comment) => comment.commentId === commentId);
+}
+
 export function getFeedPosts(sort) {
   if (sort === "latest") {
     const latestPosts = posts.sort((a, b) => b.created - a.created);
@@ -69,18 +74,26 @@ export function deletePost({ ...props }) {
   return;
 }
 
-export function deleteComment({ ...props }) {
-  return;
+export function deleteComment(commentId) {
+  comments.splice(
+    comments.findIndex((c) => c.commentId === commentId),
+    1
+  );
 }
 
-// Crud Helpers
-// check is post exists given a postId
+// CRUD Helpers
+// checks if a post exists given a postId
 export function checkPostExists(postId) {
   return posts.find((post) => post.postId === postId) !== undefined ? true : false;
 }
 
-// validate post data
-export function checkPostData(data) {
+// checks if a comment exists given a commentId
+export function checkCommentExists(commentId) {
+  return comments.find((comment) => comment.commentId === commentId) !== undefined ? true : false;
+}
+
+// validate new post data
+export function checkNewPostData(data) {
   const { userId, title, genre, audio, parentId } = data;
 
   // check if all required fields are present
@@ -96,7 +109,8 @@ export function checkPostData(data) {
   return { isValid: true, error: null };
 }
 
-export function checkCommentExists({ ...props }) {
+// validate new comment data
+export function checkCommentData({ ...props }) {
   return;
 }
 
@@ -117,4 +131,18 @@ export function checkCommentData({ userId, postId, comment }) {
   }
 
   return error;
+
+// updates like count of post or comment
+export function updateLikes(userId, updateId, isComment) {
+  // update logic for increasing or decreasing like count
+  const updateItem = isComment ? getComment(updateId) : getPost(updateId);
+
+  if (updateItem.likedBy.includes(userId)) {
+    updateItem.likeCount--;
+    updateItem.likedBy.splice(updateItem.likedBy.indexOf(userId), 1);
+  } else {
+    updateItem.likeCount++;
+    updateItem.likedBy.push(userId);
+  }
+
 }
