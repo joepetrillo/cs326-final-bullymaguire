@@ -22,7 +22,7 @@ export function createPost({ userId, title, genre, audio, parentId }) {
 
 export function createComment({ userId, postId, comment }) {
   const newComment = {
-    commentId: Date.now(),
+    commentId: Date.now().toString(),
     userId: userId,
     postId: postId,
     comment: comment,
@@ -58,21 +58,22 @@ export function getFeedPosts(sort) {
   }
 }
 
-export function getPostComments(filterType, sortType, postId) {
+export function getPostComments(filter, sort, postId) {
   let ret = [];
 
-  if (filterType === "comments") {
-    ret = getAllComments(postId);
-  } else if (filterType === "posts") {
-    ret = getAllPosts(postId);
-  } else if (!filterType) {
-    ret = [...getAllPosts, ...getAllComments];
+  if (filter === "comments") {
+    ret = comments.filter((c) => c.postId === postId);
+  } else if (filter === "songs") {
+    console.log("HERE");
+    ret = posts.filter((p) => p.parentId === postId);
+  } else if (!filter) {
+    ret = [...posts.filter((p) => p.parentId === postId), ...comments.filter((c) => c.postId === postId)];
   }
 
   const topSort = (a, b) => b.likeCount - a.likeCount;
   const latestSort = (a, b) => b.created - a.created;
 
-  return ret.sort(sortType === "top" ? topSort : latestSort);
+  return ret.sort(sort === "top" ? topSort : latestSort);
 }
 
 export function deletePost(postId) {
@@ -125,7 +126,7 @@ export function checkCommentData({ userId, postId, comment }) {
     error = { isValid: false, error: "body is missing required fields" };
   }
 
-  if (!checkCommentExists(postId) || !checkUserExists(userId)) {
+  if (!checkPostExists(postId) || !checkUserExists(userId)) {
     error = { isValid: false, error: "postId or userId does not exist" };
   }
 

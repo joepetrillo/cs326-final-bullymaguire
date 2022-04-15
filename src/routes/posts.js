@@ -59,14 +59,15 @@ router.get("/:postId", (req, res) => {
 // UPDATE post
 router.put("/:postId", (req, res) => {
   try {
-    const check = utils.checkUpdatePostData(req.body); //maybe a checkUpdateData instead?
+    const userId = req.body.userId;
     const postId = req.params.postId;
 
-    if (check.isValid && utils.checkPostExists(postId)) {
-      utils.updatePost(postId, req.body);
-      res.status(200).json({ success: `successfully updated the ${req.body.type} of post ${postId}` });
+    // check if post, comment and user exist before update
+    if (checkUserExists(userId) && utils.checkPostExists(postId)) {
+      utils.updateLikes(userId, postId, false);
+      res.json({ success: `successfully updated the like count of post ${postId}` });
     } else {
-      res.status(400).json({ error: check.error === null ? `no post with id ${postId} exists` : check.error });
+      res.status(400).json({ error: "post or user id given does not exist" });
     }
   } catch (err) {
     console.log(err);
@@ -103,14 +104,14 @@ router.post("/:postId/comments", (req, res) => {
 
 // READ post comments
 router.get("/:postId/comments", (req, res) => {
-  const { sortType, filterType } = req.query;
+  const { sort, filter } = req.query;
   const { postId } = req.params;
 
-  if (!sortType || sortType !== "top" || sortType !== "latest") {
+  if (!sort || (sort !== "top" && sort !== "latest")) {
     return res.json({ error: "sortType invalid or not given" });
   }
 
-  const postComments = utils.getPostComments(filterType, sortType, postId);
+  const postComments = utils.getPostComments(filter, sort, postId);
 
   res.json(postComments);
 });
