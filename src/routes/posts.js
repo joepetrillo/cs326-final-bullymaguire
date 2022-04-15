@@ -56,8 +56,39 @@ router.get("/:postId", (req, res) => {
 });
 
 // PUT update posts
+router.put("/:postId", (req, res) => {
+  try {
+    const check = utils.checkPostData(req.body); //maybe a checkUpdateData instead?
+    const postId = req.params.postId;
+
+    if (check.isValid && utils.checkPostExists(postId)) {
+      utils.updatePost(postId, req.body);
+      res.status(200).json({ success: `successfully updated the ${req.body.type} of post ${postId}` });
+    } else {
+      res.status(400).json({ error: check.error === null ? `no post with id ${postId} exists` : check.error });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
+});
 
 // DEL delete posts
+router.delete("/:postId", (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    if (utils.checkPostExists(postId)) {
+      utils.deletePost(postId);
+      res.status(200).json({ success: `successfully deleted the post ${postId}` });
+    } else {
+      res.status(400).json({ error: `no post with id ${postId} exists` });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
+});
 
 // POST create comment
 
