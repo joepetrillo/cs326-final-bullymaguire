@@ -131,6 +131,7 @@ export function checkCommentData({ userId, postId, comment }) {
   }
 
   return error;
+}
 
 // updates like count of post or comment
 export function updateLikes(userId, updateId, isComment) {
@@ -144,5 +145,4 @@ export function updateLikes(userId, updateId, isComment) {
     updateItem.likeCount++;
     updateItem.likedBy.push(userId);
   }
-
 }
