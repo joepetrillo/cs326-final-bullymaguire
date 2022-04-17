@@ -11,14 +11,14 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
       defer
     ></script>
-    <title>Lone Music - Beat Title</title>
+    <title>Lone Music - Song Reply Title</title>
   </head>
   <body>
     <nav class="navbar sticky-top">
@@ -62,7 +62,10 @@
 
           <!-- Title and Playback -->
           <div class="post__top__details thread__top__details">
-            <h1 class="post__title thread__title">Beat Title</h1>
+            <div class="song__thread__titles">
+              <h1 class="post__title thread__title">Song Reply Title</h1>
+              <h3 class="post__title thread__title">recorded on Beat Title</h3>
+            </div>
             <div class="post__playback thread__playback mb-3">
               <button class="btn btn-primary" type="button">
                 <i class="bi bi-play-fill"></i>
@@ -83,40 +86,9 @@
           </div>
         </div>
 
-        <!-- Reply Controls -->
-        <div class="d-flex">
-          <div class="nav flex-column nav-pills me-3" id="reply-controls" role="tablist" aria-orientation="vertical">
-            <button
-              class="btn btn-primary active"
-              id="comment-box-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#comment-box"
-              type="button"
-              role="tab"
-              aria-controls="comment-box"
-              aria-selected="true"
-            >
-              Comment
-            </button>
-            <button
-              class="btn btn-primary"
-              id="reply-upload-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#reply-upload"
-              type="button"
-              role="tab"
-              aria-controls="reply-upload"
-              aria-selected="false"
-            >
-              Song Reply
-            </button>
-          </div>
-          <div class="tab-content" id="reply-controls-content">
-            <div class="tab-pane fade show active" id="comment-box" role="tabpanel" aria-labelledby="comment-box-tab">
-              <textarea class="comment-box" id="comment-text-box" rows="3"></textarea>
-            </div>
-            <div class="tab-pane fade" id="reply-upload" role="tabpanel" aria-labelledby="reply-upload-tab">2</div>
-          </div>
+        <!-- Reply -->
+        <div class="song__comment__box" id="comment-box">
+          <textarea id="comment-text-box" rows="3"></textarea>
         </div>
 
         <!-- Comments View Control -->
@@ -127,17 +99,83 @@
               <button type="button" class="btn btn-primary">Latest</button>
             </div>
           </div>
-          <div class="reply-type">
-            <div class="btn-group mb-3" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-primary active">All</button>
-              <button type="button" class="btn btn-primary">Comments only</button>
-              <button type="button" class="btn btn-primary">Songs only</button>
-            </div>
-          </div>
         </div>
 
         <!-- Reply feed -->
         <div class="reply-feed">
+          <!-- Comment 1 -->
+          <div class="post__comment thread__comment__wrapper mb-1">
+            <div class="thread__comment__main">
+              <div class="post__controls comment__controls">
+                <div class="btn-group w-100" role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-primary btn-controls">+</button>
+                  <button type="button" class="btn btn-primary btn-controls">-</button>
+                </div>
+              </div>
+              <img
+                src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
+                alt="user"
+                width="30"
+                height="30"
+              />
+              <p class="post__username thread__reply__username">@joe</p>
+              <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
+            </div>
+            <div class="thread__comment__replies">
+              <div class="thread__comment__reply">
+                <div class="post__controls comment__controls">
+                  <div class="btn-group w-100" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary btn-controls">+</button>
+                    <button type="button" class="btn btn-primary btn-controls">-</button>
+                  </div>
+                </div>
+                <img
+                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
+                  alt="user"
+                  width="30"
+                  height="30"
+                />
+                <p class="post__username thread__reply__username">@joe</p>
+                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
+              </div>
+              <div class="thread__comment__reply">
+                <div class="post__controls comment__controls">
+                  <div class="btn-group w-100" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary btn-controls">+</button>
+                    <button type="button" class="btn btn-primary btn-controls">-</button>
+                  </div>
+                </div>
+                <img
+                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
+                  alt="user"
+                  width="30"
+                  height="30"
+                />
+                <p class="post__username thread__reply__username">@joe</p>
+                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
+              </div>
+              <div class="thread__comment__reply">
+                <div class="post__controls comment__controls">
+                  <div class="btn-group w-100" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary btn-controls">+</button>
+                    <button type="button" class="btn btn-primary btn-controls">-</button>
+                  </div>
+                </div>
+                <img
+                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
+                  alt="user"
+                  width="30"
+                  height="30"
+                />
+                <p class="post__username thread__reply__username">@joe</p>
+                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
+              </div>
+              <div class="thread__comment__reply">
+                <p class="thread__comment">Show more replies...</p>
+              </div>
+            </div>
+          </div>
+
           <div class="post__comment thread__comment__wrapper mb-1">
             <div class="thread__comment__main">
               <div class="post__controls comment__controls">
@@ -225,130 +263,6 @@
               />
               <p class="post__username thread__reply__username">@joe</p>
               <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
-            </div>
-            <div class="thread__comment__replies">
-              <div class="thread__comment__reply">
-                <div class="post__controls comment__controls">
-                  <div class="btn-group w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-controls">+</button>
-                    <button type="button" class="btn btn-primary btn-controls">-</button>
-                  </div>
-                </div>
-                <img
-                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
-                  alt="user"
-                  width="30"
-                  height="30"
-                />
-                <p class="post__username thread__reply__username">@joe</p>
-                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
-              </div>
-              <div class="thread__comment__reply">
-                <div class="post__controls comment__controls">
-                  <div class="btn-group w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-controls">+</button>
-                    <button type="button" class="btn btn-primary btn-controls">-</button>
-                  </div>
-                </div>
-                <img
-                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
-                  alt="user"
-                  width="30"
-                  height="30"
-                />
-                <p class="post__username thread__reply__username">@joe</p>
-                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
-              </div>
-              <div class="thread__comment__reply">
-                <div class="post__controls comment__controls">
-                  <div class="btn-group w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-controls">+</button>
-                    <button type="button" class="btn btn-primary btn-controls">-</button>
-                  </div>
-                </div>
-                <img
-                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
-                  alt="user"
-                  width="30"
-                  height="30"
-                />
-                <p class="post__username thread__reply__username">@joe</p>
-                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
-              </div>
-              <div class="thread__comment__reply">
-                <p class="thread__comment">Show more replies...</p>
-              </div>
-            </div>
-          </div>
-          <div class="post__comment thread__comment__wrapper mb-1">
-            <div class="thread__comment__main">
-              <div class="post__controls comment__controls">
-                <div class="btn-group w-100" role="group" aria-label="Basic example">
-                  <button type="button" class="btn btn-primary btn-controls">+</button>
-                  <button type="button" class="btn btn-primary btn-controls">-</button>
-                </div>
-              </div>
-              <img
-                src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
-                alt="user"
-                width="30"
-                height="30"
-              />
-              <p class="post__username thread__reply__username">@joe</p>
-              <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
-            </div>
-            <div class="thread__comment__replies">
-              <div class="thread__comment__reply">
-                <div class="post__controls comment__controls">
-                  <div class="btn-group w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-controls">+</button>
-                    <button type="button" class="btn btn-primary btn-controls">-</button>
-                  </div>
-                </div>
-                <img
-                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
-                  alt="user"
-                  width="30"
-                  height="30"
-                />
-                <p class="post__username thread__reply__username">@joe</p>
-                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
-              </div>
-              <div class="thread__comment__reply">
-                <div class="post__controls comment__controls">
-                  <div class="btn-group w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-controls">+</button>
-                    <button type="button" class="btn btn-primary btn-controls">-</button>
-                  </div>
-                </div>
-                <img
-                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
-                  alt="user"
-                  width="30"
-                  height="30"
-                />
-                <p class="post__username thread__reply__username">@joe</p>
-                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
-              </div>
-              <div class="thread__comment__reply">
-                <div class="post__controls comment__controls">
-                  <div class="btn-group w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-controls">+</button>
-                    <button type="button" class="btn btn-primary btn-controls">-</button>
-                  </div>
-                </div>
-                <img
-                  src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
-                  alt="user"
-                  width="30"
-                  height="30"
-                />
-                <p class="post__username thread__reply__username">@joe</p>
-                <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
-              </div>
-              <div class="thread__comment__reply">
-                <p class="thread__comment">Show more replies...</p>
-              </div>
             </div>
           </div>
         </div>
