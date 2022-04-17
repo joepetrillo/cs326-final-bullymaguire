@@ -4,28 +4,28 @@ let users = [
     email: "ashir@gmail.com",
     username: "ashir",
     password: "password",
-    picture: "default profile picture url",
+    picture: "https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png",
   },
   {
     userId: "1001",
     email: "jack@gmail.com",
     username: "jack",
     password: "password",
-    picture: "default profile picture url",
+    picture: "https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png",
   },
   {
     userId: "1002",
     email: "joe@gmail.com",
     username: "jack",
     password: "password",
-    picture: "default profile picture url",
+    picture: "https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png",
   },
   {
     userId: "1003",
     email: "alex@gmail.com",
     username: "alex",
     password: "password",
-    picture: "default profile picture url",
+    picture: "https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png",
   },
 ];
 
