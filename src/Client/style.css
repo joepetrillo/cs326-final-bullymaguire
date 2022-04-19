@@ -143,6 +143,21 @@ p {
   margin-left: 1rem;
 }
 
+.post__title h5 {
+  color: #9b6f7f;
+  margin-right: 10rem;
+  align-self: flex-end;
+  width: 100%;
+}
+
+.post__title a {
+  width: 100%;
+}
+
+.feed__genre {
+  margin-right: 1rem;
+}
+
 .bi-heart-pulse-fill {
   color: var(--accent_light) !important;
 }
@@ -159,6 +174,12 @@ p {
 
 .heart__button p {
   color: white;
+}
+
+.post__title h6 {
+  justify-content: center;
+  margin-bottom: 0%;
+  align-items: center;
 }
 
 audio {
