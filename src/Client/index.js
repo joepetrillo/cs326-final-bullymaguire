@@ -1,5 +1,18 @@
 const singlePost = (data) => {
-  const { audio, comments, postId, created, userId, likedCount, genre, title, picture, username } = data;
+  const { audio, comments, postId, created, userId, likeCount, likedBy, genre, title, picture, username, parentId } = data;
+  let postLink = `/beat/${postId}`;
+
+  if (parentId) {
+    postLink = `/song/${parentId}`;
+  }
+
+  let userLink = `/profile/${userId}`;
+
+  let buttonType = "bi-heart-pulse";
+
+  if (likedBy.includes(globalUserId)) {
+    buttonType = "bi-heart-pulse-fill";
+  }
 
   const commentsTemplate = comments
     .map((currComment) => {
@@ -16,29 +29,38 @@ const singlePost = (data) => {
     .join("");
 
   const html = `
-    <div class="post mb-4">
+    <div class="post mt-4" id=${postId}>
         <div class="post__top">
             <!-- Profile picture -->
             <div class="post__profile">
+            <a href=${userLink}>
                 <img
                     src="${picture}"
                     alt="user"
                     width="60"
                     height="60"
                 />
-                <p class="post__username">@${username}</p>
+            </a>
+                <a href=${userLink}>
+                    <p class="post__username">@${username}</p>
+                </a>
             </div>
         
             <!-- Title and Playback -->
             <div class="post__top__details">
-                <h3 class="post__title">${title}</h3>
+                <div class="post__title">
+                    <a href=${postLink}>
+                        <h3>${title}</h3>
+                    </a>
+                    <div class="heart__button">
+                        <p>${likeCount}</p>
+                        <i class="like-button bi ${buttonType} "></i>
+                    </div>
+                </div>
                 <div class="post__playback mb-3">
-                    <button class="btn btn-primary" type="button">
-                        <i class="bi bi-play-fill"></i>
-                    </button>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                    <audio controls preload="auto">
+                        <source src=${audio}  type="audio/mp3">
+                    </audio>     
                 </div>
             </div>
         </div>
@@ -47,16 +69,6 @@ const singlePost = (data) => {
         <div class="post__comments mb-3">
             ${commentsTemplate}
         </div>
-
-        <!-- Controls -->
-          <div class="post__controls">
-            <div class="btn-group w-100 mb-3" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-primary btn-controls">Like +</button>
-              <button type="button" class="btn btn-primary btn-controls">Dislike -</button>
-              <button type="button" class="btn btn-primary btn-controls">Share -></button>
-              <button type="button" class="btn btn-primary btn-controls">Comments ''</button>
-            </div>
-          </div>
     </div>`;
 
   return html;
@@ -65,39 +77,75 @@ const singlePost = (data) => {
 const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
 const latestButton = document.getElementById("latest-button");
-let sort = topButton.classList.contains("active") ? "top" : "latest";
+const globalUserId = JSON.parse(window.localStorage.getItem("auth")).userId;
 
-topButton.addEventListener("click", () => {});
+let sort = "top";
 
-latestButton.addEventListener("click", () => {});
+topButton.addEventListener("click", () => {
+  updateSort("top");
+  sort = "top";
+  populateFeed();
+});
 
-// const makePost = async (data) => {
-//   const { audio, comments, postId, created, userId, likedCount, genre, title } = data;
+latestButton.addEventListener("click", () => {
+  updateSort("latest");
+  sort = "latest";
+  populateFeed();
+});
 
-//   //   // MAIN POST DIV
-//   //   let postDiv = document.createElement("div");
-//   //   postDiv.classList.add("post", "mb-4");
-
-//   //     // POST TOP DIV
-//   //   let postTopDiv = document.createElement("div");
-//   //   postTopDiv.classList.add("post__top")
-
-//   //   let postProfileDiv = document.createElement("div");
-//   //   postProfileDiv.classList.add("post__profile")
-// };
+function updateSort(button) {
+  if (button === "top") {
+    topButton.classList.add("active");
+    latestButton.classList.remove("active");
+  } else if (button === "latest") {
+    latestButton.classList.add("active");
+    topButton.classList.remove("active");
+  }
+}
 
 const appendChildren = (node, arr) => {
   arr.forEach((p) => node.appendChild(p));
 };
 
 const populateFeed = async () => {
+  feedDiv.innerHTML = "";
+
   let posts = await getPosts(sort);
   posts.forEach((currPost) => {
     feedDiv.innerHTML += singlePost(currPost);
   });
 
-  // get consutrcted DOM posts from makePost and add to page
-  //   appendChildren(feedDiv, DOMPosts);
+  const likeButtons = document.querySelectorAll(".like-button");
+
+  likeButtons.forEach(async (currLikeButton) => {
+    currLikeButton.addEventListener("click", async () => {
+      const parentPostID = currLikeButton.parentElement.parentElement.parentElement.parentElement.parentElement.id;
+
+      const updatePostRes = await fetch(`/posts/${parentPostID}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify({ userId: globalUserId }),
+      });
+
+      const { likeCount } = await updatePostRes.json();
+
+      if (updatePostRes.status !== 200) {
+        return;
+      }
+
+      if (currLikeButton.classList.contains("bi-heart-pulse")) {
+        currLikeButton.classList.remove("bi-heart-pulse");
+        currLikeButton.classList.add("bi-heart-pulse-fill");
+      } else if (currLikeButton.classList.contains("bi-heart-pulse-fill")) {
+        currLikeButton.classList.remove("bi-heart-pulse-fill");
+        currLikeButton.classList.add("bi-heart-pulse");
+      }
+
+      currLikeButton.previousElementSibling.innerHTML = likeCount;
+    });
+  });
 
   return;
 };
@@ -142,8 +190,6 @@ const getPosts = async (sort) => {
       };
     })
   );
-
-  console.log(data);
 
   return data;
 };

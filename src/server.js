@@ -6,11 +6,25 @@ import postRouter from "./routes/posts.js";
 const app = express();
 
 app.use(logger("dev"));
-app.use(express.static("./src/Client"));
+
 app.use(express.json());
 
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
+
+app.get("/beat/:postId", (req, res) => {
+  res.sendFile("./Client/beat/", { root: "./" });
+});
+
+app.get("/song/:postId", (req, res) => {
+  res.sendFile("./Client/song/", { root: "./" });
+});
+
+app.get("/profile/:userId", (req, res) => {
+  res.sendFile("./Client/profile/", { root: "./" });
+});
+
+app.use(express.static("./Client"));
 
 const port = 3000;
 

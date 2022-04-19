@@ -150,4 +150,6 @@ export function updateLikes(userId, updateId, isComment) {
     updateItem.likeCount++;
     updateItem.likedBy.push(userId);
   }
+
+  return updateItem.likeCount;
 }

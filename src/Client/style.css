@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 :root {
-  --background_color: #1b1f3b;
-  --accent_dark: #52528c;
+  --background_color: #15182e;
+  --accent_dark: #49497c;
   --playback_color: #372554;
   --accent_light: #c874d9;
   --accent_dark_hover: #47477a;
@@ -12,6 +14,7 @@
 
 body {
   background-color: var(--background_color);
+  font-family: "Rubik", sans-serif;
 }
 
 main {
@@ -26,6 +29,20 @@ ul {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: 0.1s;
+}
+
+a:hover {
+  color: var(--accent_light);
+}
+
+h3 {
+  display: inline-block;
+}
+
 .navbar {
   background-color: var(--background_color);
 }
@@ -36,7 +53,7 @@ ul {
   margin: 0 auto;
   border-bottom: 0.3rem solid var(--accent_dark);
   padding-top: 0.5rem;
-  width: 75%;
+  width: 100%;
 }
 
 .dropdown-menu {
@@ -90,8 +107,8 @@ p {
 
 .post {
   display: flex;
-  padding-top: 1rem;
   flex-direction: column;
+  border-bottom: 0.1rem solid var(--accent_dark);
 }
 
 .post__top {
@@ -100,6 +117,53 @@ p {
 
 .post__top__details {
   flex: 1;
+}
+
+.post__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post__title button {
+  border-radius: 100%;
+  height: 3rem;
+  width: 3rem;
+  margin-right: 1rem;
+  text-align: center;
+  background: transparent;
+}
+
+.post__title i:hover {
+  color: var(--accent_light);
+}
+
+.post__title i {
+  color: white;
+  margin-left: 1rem;
+}
+
+.bi-heart-pulse-fill {
+  color: var(--accent_light) !important;
+}
+
+.bi-heart-pulse-fill:hover {
+  color: white !important;
+}
+
+.heart__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart__button p {
+  color: white;
+}
+
+audio {
+  width: 100%;
+  background-color: black;
 }
 
 .post__profile {
@@ -121,7 +185,6 @@ p {
 .post__playback {
   display: flex;
   align-items: center;
-  padding-right: 3rem;
 }
 
 .post__playback button {
@@ -152,6 +215,30 @@ p {
 
 .post__comment img {
   margin-right: 0.5rem;
+}
+
+.post__button__container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.post__button {
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+  background: var(--accent_light);
+  box-shadow: 5px 5px 5px #000000;
+}
+
+.post__button i {
+  font-size: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--background_color);
 }
 
 .thread__username {
