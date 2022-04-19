@@ -13,18 +13,18 @@ app.use("/users", userRouter);
 app.use("/posts", postRouter);
 
 app.get("/beat/:postId", (req, res) => {
-  res.sendFile("./Client/beat/", { root: "./" });
+  res.sendFile("./client/beat/", { root: "./" });
 });
 
 app.get("/song/:postId", (req, res) => {
-  res.sendFile("./Client/song/", { root: "./" });
+  res.sendFile("./client/song/", { root: "./" });
 });
 
 app.get("/profile/:userId", (req, res) => {
-  res.sendFile("./Client/profile/", { root: "./" });
+  res.sendFile("./client/profile/", { root: "./" });
 });
 
-app.use(express.static("./Client"));
+app.use(express.static("./client"));
 app.use(express.static("./img"));
 
 const port = 3000;
