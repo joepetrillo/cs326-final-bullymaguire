@@ -18,6 +18,7 @@
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="signup.js" defer></script>
     <title>Signup</title>
   </head>
   <body>
@@ -39,7 +40,7 @@
               <a class="nav-link border-0 link-light text-center signup" href="./login.html">Login</a>
             </li>
           </ul>
-          <form class="px-5 py-3">
+          <form class="px-5 py-3" id="signupForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
               <input type="email" class="form-control" id="email" placeholder="Email Address" />
@@ -57,12 +58,13 @@
               <input type="password" placeholder="Password" class="form-control" id="password" />
             </div>
             <div class="mb-3">
-              <label for="confirm_password" class="form-label">Confirm Password</label>
-              <input type="password" placeholder="Confirm Password" class="form-control" id="confirm_password" />
+              <label for="confirm" class="form-label">Confirm Password</label>
+              <input type="password" placeholder="Confirm Password" class="form-control" id="confirm" />
             </div>
             <button type="submit" class="btn filled_button w-100 my-3">Sign Up</button>
           </form>
         </div>
+        <p class="text-danger text-center my-2" id="errorMsg"></p>
       </div>
     </main>
   </body>
