@@ -25,6 +25,7 @@ app.get("/profile/:userId", (req, res) => {
 });
 
 app.use(express.static("./Client"));
+app.use(express.static("./img"));
 
 const port = 3000;
 
