@@ -145,7 +145,7 @@ p {
 
 .post__title h5 {
   color: #9b6f7f;
-  margin-right: 10rem;
+  margin-right: 11rem;
   align-self: flex-end;
   width: 100%;
 }
@@ -180,6 +180,7 @@ p {
   justify-content: center;
   margin-bottom: 0%;
   align-items: center;
+  font-size: 0.7rem;
 }
 
 audio {
