@@ -18,6 +18,7 @@
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="upload.js" defer></script>
     <title>Lone Music</title>
   </head>
   <body>
@@ -54,7 +55,7 @@
         </div>
         <div class="genre__tags">
           <label class="form-label">Genre</label>
-          <span class="badge rounded-pill" id="otherTag">other</span>
+          <span class="badge rounded-pill" id="otherTag">Other</span>
           <span class="badge rounded-pill" id="hhTag">Hip-Hop</span>
           <span class="badge rounded-pill" id="popTag">Pop</span>
           <span class="badge rounded-pill" id="edmTag">EDM</span>
@@ -66,12 +67,13 @@
         <div class="mb-3">
           <label for="beatUpload" class="form-label">Beat File</label>
           <div class="input-group mb-3">
-            <input type="file" class="form-control" id="beatUpload" />
+            <input type="text" class="form-control" id="beatUpload" />
             <label class="input-group-text">Upload</label>
           </div>
         </div>
-        <div class="button__upload">
-          <button type="button" class="btn btn-primary btn-post">Post Beat</button>
+        <div class="button__upload d-flex flex-column">
+          <button type="button" class="btn btn-primary btn-post" id="upload_form_submit">Post Beat</button>
+          <p id="makePostErrorMsg" class="my-2"></p>
         </div>
       </div>
     </main>
