@@ -16,7 +16,7 @@ let users = [
   {
     userId: "1002",
     email: "joe@gmail.com",
-    username: "jack",
+    username: "joe",
     password: "password",
     picture: "https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png",
   },
