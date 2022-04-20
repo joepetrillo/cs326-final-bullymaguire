@@ -18,6 +18,7 @@ const authenticate = async () => {
 };
 
 const loginButton = document.getElementById("login-button");
+
 loginButton.addEventListener("click", async (e) => {
   e.preventDefault();
   const { auth, userId } = await authenticate();

@@ -1,3 +1,9 @@
+const auth = JSON.parse(window.localStorage.getItem("auth"));
+
+if (!auth) {
+  window.location.href = "/login";
+}
+
 const genres = document.querySelectorAll(".genre__tags span");
 const beatTitle = document.getElementById("beatTitleInput");
 const beatLink = document.getElementById("beatUpload");
@@ -84,3 +90,4 @@ submitButton.addEventListener("click", async () => {
 });
 
 const sendPost = async () => {};
+
