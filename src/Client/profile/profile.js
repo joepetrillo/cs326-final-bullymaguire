@@ -123,10 +123,9 @@ function createPostElement(data) {
     .map((currComment) => {
       return `<div class="post__comment mb-1">
             <img
+              class="profilePicture__rounded comment__picture"
               src="${currComment.picture}"
               alt="user"
-              width="30"
-              height="30"xs
             />
             <p>${currComment.comment}</p>
         </div>`;
@@ -140,10 +139,9 @@ function createPostElement(data) {
               <div class="post__profile">
               <a href=${userLink}>
                   <img
+                      class="profilePicture__rounded post__picture"
                       src="${picture}"
                       alt="user"
-                      width="60"
-                      height="60"
                   />
               </a>
                   <a href=${userLink}>
@@ -201,10 +199,9 @@ const createCommentElement = (data) => {
                 </div>
             </div>
             <img
+                class="profilePicture__rounded comment__picture"
                 src=${picture}
                 alt="user"
-                width="30"
-                height="30"
             />
             <p class="post__username thread__reply__username">@${username}</p>
             <p class="thread__comment">${comment}</p>
