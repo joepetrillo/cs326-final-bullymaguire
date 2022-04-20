@@ -7,12 +7,21 @@ if (!auth) {
   myProfileButton.href = `/profile/${auth.userId}`;
 }
 
+let url = window.location.href.substring(0, window.location.href.length - 1);
+url = url.split("/");
+console.log(url);
+
+if (url[url.length - 1] === "profile") {
+  window.location.href = `/profile/${auth.userId}`;
+}
+
 const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
 const latestButton = document.getElementById("latest-button");
 const myProfileButton = document.getElementById("profile-button");
 const profilePicture = document.getElementById("profile-picture");
 const profileUsername = document.getElementById("profile-username");
+const navProfilePicture = document.getElementById("user-profile-picture");
 
 const beatsButton = document.getElementById("beats-button");
 const songsButton = document.getElementById("songs-button");
@@ -389,6 +398,7 @@ const populateUserData = async () => {
 
   profileUsername.innerHTML = `@${username}`;
   profilePicture.src = userData.picture;
+  navProfilePicture.src = userData.picture;
 };
 
 populateFeed();

@@ -12,6 +12,7 @@ const beatTitle = document.getElementById("beatTitleInput");
 const beatLink = document.getElementById("beatUpload");
 const submitButton = document.getElementById("upload_form_submit");
 const errorMsg = document.getElementById("makePostErrorMsg");
+const navProfilePicture = document.getElementById("user-profile-picture");
 
 let form = {
   title: "",
@@ -91,4 +92,11 @@ submitButton.addEventListener("click", async () => {
   window.location.href = `/beat/${postId}`;
 });
 
-const sendPost = async () => {};
+const populateUserData = async () => {
+  const userRes = await fetch(`/users/${auth.userId}`);
+  const userData = await userRes.json();
+
+  navProfilePicture.src = userData.picture;
+};
+
+populateUserData();
