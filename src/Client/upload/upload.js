@@ -2,6 +2,9 @@ const auth = JSON.parse(window.localStorage.getItem("auth"));
 
 if (!auth) {
   window.location.href = "/login";
+} else {
+  const myProfileButton = document.getElementById("profile-button");
+  myProfileButton.href = `/profile/${auth.userId}`;
 }
 
 const genres = document.querySelectorAll(".genre__tags span");
@@ -9,7 +12,6 @@ const beatTitle = document.getElementById("beatTitleInput");
 const beatLink = document.getElementById("beatUpload");
 const submitButton = document.getElementById("upload_form_submit");
 const errorMsg = document.getElementById("makePostErrorMsg");
-const { auth, userId } = JSON.parse(window.localStorage.getItem("auth"));
 
 let form = {
   title: "",
@@ -72,7 +74,7 @@ submitButton.addEventListener("click", async () => {
     },
     method: "POST",
     body: JSON.stringify({
-      userId: userId,
+      userId: auth.userId,
       title: form.title,
       genre: form.genre,
       audio: form.beat,
@@ -90,4 +92,3 @@ submitButton.addEventListener("click", async () => {
 });
 
 const sendPost = async () => {};
-

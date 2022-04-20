@@ -2,6 +2,9 @@ const auth = JSON.parse(window.localStorage.getItem("auth"));
 
 if (!auth) {
   window.location.href = "/login";
+} else {
+  const myProfileButton = document.getElementById("profile-button");
+  myProfileButton.href = `/profile/${auth.userId}`;
 }
 
 const pictureURLButton = document.getElementById("picture-btn");
