@@ -41,6 +41,7 @@ a:hover {
 
 h3 {
   display: inline-block;
+  font-size: 1.7rem;
 }
 
 .navbar {
@@ -145,17 +146,22 @@ p {
 
 .post__title h5 {
   color: #9b6f7f;
-  margin-right: 11rem;
+  /* margin-right: 10rem; */
   align-self: flex-end;
   width: 100%;
+  font-size: 1rem;
 }
 
 .post__title a {
-  width: 100%;
+  margin: 0%;
 }
 
 .feed__genre {
   margin-right: 1rem;
+}
+
+.bi-heart-pulse:hover {
+  color: var(--accent_light);
 }
 
 .bi-heart-pulse-fill {
@@ -206,6 +212,15 @@ audio {
 
 .post__playback {
   display: flex;
+  align-items: center;
+}
+
+.post__controls i {
+  font-size: 1.3rem;
+  margin-left: 0.7rem;
+}
+
+.post__controls {
   align-items: center;
 }
 

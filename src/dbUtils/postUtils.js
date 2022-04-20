@@ -64,7 +64,6 @@ export function getPostComments(filter, sort, postId) {
   if (filter === "comments") {
     ret = comments.filter((c) => c.postId === postId);
   } else if (filter === "songs") {
-    console.log("HERE");
     ret = posts.filter((p) => p.parentId === postId);
   } else if (!filter) {
     ret = [...posts.filter((p) => p.parentId === postId), ...comments.filter((c) => c.postId === postId)];

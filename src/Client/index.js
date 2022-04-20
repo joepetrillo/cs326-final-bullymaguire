@@ -2,6 +2,7 @@ const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
 const latestButton = document.getElementById("latest-button");
 const globalUserId = JSON.parse(window.localStorage.getItem("auth")).userId;
+const myProfileButton = document.getElementById("profile-button");
 
 let sort = "top";
 
@@ -12,6 +13,8 @@ topButton.addEventListener("click", () => {
 latestButton.addEventListener("click", () => {
   updateSort("latest");
 });
+
+myProfileButton.href = `/profile/${globalUserId}`;
 
 function updateSort(button) {
   if (button === "top") {
@@ -70,7 +73,7 @@ function createPostElement(data) {
   if (likedBy.includes(globalUserId)) buttonType = "bi-heart-pulse-fill";
 
   if (parentId) {
-    postLink = `/song/${parentId}`;
+    postLink = `/song/${postId}`;
     parentTitleText = `recorded on ${parentTitle}`;
     parentLink = `/beat/${parentId}`;
   }

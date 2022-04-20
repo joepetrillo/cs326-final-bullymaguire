@@ -19,12 +19,33 @@ export function getUser(userId) {
   return users.find((user) => user.userId === userId);
 }
 
-export function getUserComments(userId) {
-  return comments.filter((c) => c.userId == userId);
+export function getUserComments(userId, sort) {
+  const userComments = comments.filter((c) => c.userId == userId);
+
+  const topSort = (a, b) => b.likeCount - a.likeCount;
+
+  const latestSort = (a, b) => b.created - a.created;
+
+  return userComments.sort(sort === "top" ? topSort : latestSort);
 }
 
-export function getUserPosts(userId) {
-  return posts.filter((p) => p.userId === userId);
+export function getUserPosts(userId, sort, filter) {
+  const userPosts = posts.filter((p) => p.userId === userId);
+
+  let ret = [];
+
+  if (filter === "beats") {
+    ret = userPosts.filter((p) => p.parentId === null);
+  } else if (filter === "songs") {
+    ret = userPosts.filter((p) => p.parentId !== null);
+  } else if (!filter) {
+    ret = userPosts;
+  }
+
+  const topSort = (a, b) => b.likeCount - a.likeCount;
+  const latestSort = (a, b) => b.created - a.created;
+
+  return ret.sort(sort === "top" ? topSort : latestSort);
 }
 
 export function updateUser(userId, { type, email, password, picture }) {

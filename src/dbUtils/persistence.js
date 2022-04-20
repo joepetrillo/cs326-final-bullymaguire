@@ -31,11 +31,11 @@ let users = [
 
 let comments = [
   {
-    commentId: "commentId",
+    commentId: "1235",
     userId: "1001",
     postId: "2000",
-    comment: "this is a comment by user @jack",
-    likeCount: 9,
+    comment: "this is a comment by user @jack this is a comment by user @jack this is a comment by user @jack",
+    likeCount: 91,
     likedBy: ["userId", "userId", "userId"],
     created: new Date("2022-04-14T09:48:55.064Z"),
   },
@@ -44,14 +44,23 @@ let comments = [
     userId: "1001",
     postId: "2000",
     comment: "this is another comment by user @jack",
-    likeCount: 1,
+    likeCount: 11,
     likedBy: ["userId", "userId", "userId"],
-    created: new Date("2022-04-13T10:48:55.064Z"),
+    created: new Date("2022-04-15T10:48:55.064Z"),
   },
   {
     commentId: "1234",
     userId: "1000",
     postId: "2000",
+    comment: "this is a comment by user @ashir",
+    likeCount: 3,
+    likedBy: ["1000", "1001", "1002"],
+    created: new Date("2022-04-14T14:48:55.064Z"),
+  },
+  {
+    commentId: "1234",
+    userId: "1000",
+    postId: "2002",
     comment: "this is a comment by user @ashir",
     likeCount: 3,
     likedBy: ["1000", "1001", "1002"],
@@ -91,7 +100,7 @@ let posts = [
     parentId: "2000",
     likeCount: 2,
     likedBy: ["1000", "1002"],
-    created: new Date("2022-04-14T10:48:55.064Z"),
+    created: new Date("2022-04-14T19:48:55.064Z"),
   },
 ];
 

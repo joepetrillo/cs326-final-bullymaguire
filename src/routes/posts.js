@@ -125,8 +125,8 @@ router.put("/:postId/comments/:commentId", (req, res) => {
 
     // check if post, comment and user exist before update
     if (checkUserExists(userId) && utils.checkPostExists(postId) && utils.checkCommentExists(commentId)) {
-      utils.updateLikes(userId, commentId, true);
-      res.json({ success: `successfully updated the like count of comment ${commentId}` });
+      const likeCount = utils.updateLikes(userId, commentId, true);
+      res.json({ success: `successfully updated the like count of comment ${commentId}`, likeCount: likeCount });
     } else {
       res.status(400).json({ error: "user, post or comment id given does not exist" });
     }
