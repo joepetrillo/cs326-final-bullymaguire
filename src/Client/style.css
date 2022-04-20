@@ -509,3 +509,15 @@ textarea {
 #profile-picture {
   border-radius: 100%;
 }
+
+.genre__tags span {
+  cursor: pointer;
+}
+
+.genre__tags span:hover {
+  box-shadow: 0 0 20px 1px var(--accent_light); /* outer cyan */
+}
+
+.badge__active {
+  box-shadow: 0 0 20px 1px var(--accent_light);
+}
