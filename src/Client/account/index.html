@@ -52,12 +52,12 @@
         <div class="profile">
           <div class="profile__controls">
             <img
-              id="edit_profile_picture"
               class="mb-3 w-100"
-              src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
+              src="https://www.biography.com/.image/t_share/MTE4MDAzNDEwNzg5ODI4MTEw/barack-obama-12782369-1-402.jpg"
               alt="stock profile picture"
+              id="profile-picture"
             />
-            <p>@joe</p>
+            <p id="profile-username"></p>
           </div>
           <div class="profile__content">
             <form class="mb-4">
@@ -66,6 +66,7 @@
                 <input type="text" class="form-control" id="picture" />
               </div>
               <button type="submit" class="btn filled_button mt-2" id="picture-btn">Update Picture</button>
+              <span class="mx-2" id="picture-status"></span>
             </form>
             <form class="mb-4">
               <div class="mb-2">
@@ -73,6 +74,7 @@
                 <input type="email" class="form-control" id="email" />
               </div>
               <button type="submit" class="btn filled_button mt-2" id="email-btn">Update Email</button>
+              <span class="mx-2" id="email-status"></span>
             </form>
             <form class="mb-4">
               <div class="mb-2">
@@ -84,6 +86,7 @@
                 <input type="password" class="form-control" id="confirm-password" />
               </div>
               <button type="submit" class="btn filled_button mt-2" id="password-btn">Update Password</button>
+              <span class="mx-2" id="password-status"></span>
             </form>
           </div>
         </div>
