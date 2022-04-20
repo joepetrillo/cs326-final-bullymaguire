@@ -277,6 +277,7 @@ textarea {
 #reply-controls {
   padding-right: 0;
 }
+
 #reply-upload-tab {
   padding-left: 0;
   padding-right: 0;
@@ -453,6 +454,7 @@ textarea {
 #trapTag {
   background-color: rgb(185, 58, 88);
 }
+
 #countryTag {
   background-color: rgb(130, 58, 88);
 }
@@ -465,4 +467,8 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#profile-picture {
+  border-radius: 100%;
 }

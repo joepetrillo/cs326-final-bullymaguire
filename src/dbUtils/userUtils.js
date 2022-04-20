@@ -34,7 +34,7 @@ export function updateUser(userId, { type, email, password, picture }) {
     user.email = email;
   } else if (type === "password") {
     user.password = password;
-  } else if (req.body.type === "picture") {
+  } else if (type === "picture") {
     user.picture = picture;
   }
   return user;
