@@ -76,9 +76,10 @@ router.delete("/:userId", (req, res) => {
 router.get("/:userId/comments", (req, res) => {
   try {
     const userId = req.params.userId;
+    const sort = req.query.sort;
 
     if (utils.checkUserExists(userId)) {
-      res.status(200).json(utils.getUserComments(userId));
+      res.status(200).json(utils.getUserComments(userId, sort));
     } else {
       res.status(400).json({ error: missingUserError(userId) });
     }
@@ -91,13 +92,18 @@ router.get("/:userId/comments", (req, res) => {
 // READ user posts
 router.get("/:userId/posts", (req, res) => {
   const { userId } = req.params;
+  const { sort, filter } = req.query;
 
   try {
     if (!utils.checkUserExists(userId)) {
       return res.status(400).json({ error: missingUserError(userId) });
     }
 
-    res.json(utils.getUserPosts(userId));
+    if (!sort || (sort !== "top" && sort !== "latest")) {
+      res.status(400).json({ error: "Incorrect query parameter" });
+    }
+
+    res.status(200).json(utils.getUserPosts(userId, sort, filter));
   } catch (err) {
     console.log(err);
     res.status(400).send();

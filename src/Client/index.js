@@ -2,6 +2,7 @@ const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
 const latestButton = document.getElementById("latest-button");
 const globalUserId = JSON.parse(window.localStorage.getItem("auth")).userId;
+const myProfileButton = document.getElementById("profile-button");
 
 let sort = "top";
 
@@ -12,6 +13,8 @@ topButton.addEventListener("click", () => {
 latestButton.addEventListener("click", () => {
   updateSort("latest");
 });
+
+myProfileButton.href = `/profile/${globalUserId}`;
 
 function updateSort(button) {
   if (button === "top") {
@@ -26,19 +29,53 @@ function updateSort(button) {
   populateFeed();
 }
 
-const singlePost = (data) => {
-  const { audio, comments, postId, created, userId, likeCount, likedBy, genre, title, picture, username, parentId } = data;
+function createPostElement(data) {
+  const { audio, comments, postId, created, userId, likeCount, likedBy, genre, title, picture, username, parentId, parentTitle } = data;
 
   let postLink = `/beat/${postId}`;
+  let parentLink = "";
   let userLink = `/profile/${userId}`;
   let buttonType = "bi-heart-pulse";
+  let genreId = "";
+  let parentTitleText = "";
 
-  if (likedBy.includes(globalUserId)) {
-    buttonType = "bi-heart-pulse-fill";
+  let createdDateObj = new Date(created);
+  let createdMonth = createdDateObj.getMonth();
+  let createdDate = createdDateObj.getDate();
+  let createdYear = createdDateObj.getFullYear();
+
+  switch (genre) {
+    case "other":
+      genreId = "otherTag";
+      break;
+    case "Hip-Hop":
+      genreId = "hhTag";
+      break;
+    case "Pop":
+      genreId = "popTag";
+      break;
+    case "EDM":
+      genreId = "edmTag";
+      break;
+    case "Rock":
+      genreId = "rockTag";
+      break;
+    case "Metal":
+      genreId = "metalTag";
+      break;
+    case "Trap":
+      genreId = "trapTag";
+      break;
+    default:
+      genreId = "otherTag";
   }
 
+  if (likedBy.includes(globalUserId)) buttonType = "bi-heart-pulse-fill";
+
   if (parentId) {
-    postLink = `/song/${parentId}`;
+    postLink = `/song/${postId}`;
+    parentTitleText = `recorded on ${parentTitle}`;
+    parentLink = `/beat/${parentId}`;
   }
 
   const commentsTemplate = comments
@@ -56,50 +93,55 @@ const singlePost = (data) => {
     .join("");
 
   const postTemplate = `
-      <div class="post mt-4" id=${postId}>
-          <div class="post__top">
-              <!-- Profile picture -->
-              <div class="post__profile">
-              <a href=${userLink}>
-                  <img
-                      src="${picture}"
-                      alt="user"
-                      width="60"
-                      height="60"
-                  />
-              </a>
-                  <a href=${userLink}>
-                      <p class="post__username">@${username}</p>
-                  </a>
-              </div>
-          
-              <!-- Title and Playback -->
-              <div class="post__top__details">
-                  <div class="post__title">
-                      <a href=${postLink}>
-                          <h3>${title}</h3>
-                      </a>
-                      <div class="heart__button">
-                          <p>${likeCount}</p>
-                          <i class="like-button bi ${buttonType} "></i>
-                      </div>
-                  </div>
-                  <div class="post__playback mb-3">
-                      <audio controls preload="auto">
-                          <source src=${audio}  type="audio/mp3">
-                      </audio>     
-                  </div>
-              </div>
-          </div>
-          
-          <!-- Comments -->
-          <div class="post__comments mb-3">
-              ${commentsTemplate}
-          </div>
-      </div>`;
+    <div class="post mt-4" id=${postId}>
+        <div class="post__top">
+            <!-- Profile picture -->
+            <div class="post__profile">
+            <a href=${userLink}>
+                <img
+                    src="${picture}"
+                    alt="user"
+                    width="60"
+                    height="60"
+                />
+            </a>
+                <a href=${userLink}>
+                    <p class="post__username">@${username}</p>
+                </a>
+            </div>
+        
+            <!-- Title and Playback -->
+            <div class="post__top__details">
+                <div class="post__title">
+                    <a href=${postLink}>
+                        <h3>${title}</h3>
+                    </a>
+                    <a href=${parentLink}>
+                        <h5>${parentTitleText}</h5>
+                    </a>
+                    <div class="heart__button">
+                        <h6>${createdMonth}/${createdDate}/${createdYear}</h6>
+                        <span class="feed__genre badge rounded-pill" id=${genreId}>${genre}</span>
+                        <p>${likeCount}</p>
+                        <i class="like-button bi ${buttonType} "></i>
+                    </div>
+                </div>
+                <div class="post__playback mb-3">
+                    <audio controls preload="auto">
+                        <source src=${audio}  type="audio/mp3">
+                    </audio>     
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comments -->
+        <div class="post__comments mb-3">
+            ${commentsTemplate}
+        </div>
+    </div>`;
 
   return postTemplate;
-};
+}
 
 const getPosts = async (sort) => {
   const postUrl = `/posts?sort=${sort}`;
@@ -122,6 +164,7 @@ const getPosts = async (sort) => {
 
       // Get the commenter's profile pictures
       let comments = commentData.slice(0, 3);
+
       comments = await Promise.all(
         comments.map(async (currComment) => {
           const commentPicUrl = `/users/${currComment.userId}`;
@@ -132,11 +175,21 @@ const getPosts = async (sort) => {
         })
       );
 
+      // Get the parent post title if exists
+      let parentTitle = "";
+
+      if (currPost.parentId) {
+        const parentPostRes = await fetch(`/posts/${currPost.parentId}`);
+        const parentPostData = await parentPostRes.json();
+        parentTitle = parentPostData.title;
+      }
+
       return {
         ...currPost,
         username: username,
         picture: picture,
         comments: comments,
+        parentTitle: parentTitle,
       };
     })
   );
@@ -149,7 +202,7 @@ const populateFeed = async () => {
 
   const posts = await getPosts(sort);
   posts.forEach((currPost) => {
-    feedDiv.innerHTML += singlePost(currPost);
+    feedDiv.innerHTML += createPostElement(currPost);
   });
 
   const likeButtons = document.querySelectorAll(".like-button");

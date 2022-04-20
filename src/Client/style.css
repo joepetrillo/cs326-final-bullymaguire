@@ -41,6 +41,7 @@ a:hover {
 
 h3 {
   display: inline-block;
+  font-size: 1.7rem;
 }
 
 .navbar {
@@ -143,6 +144,26 @@ p {
   margin-left: 1rem;
 }
 
+.post__title h5 {
+  color: #9b6f7f;
+  /* margin-right: 10rem; */
+  align-self: flex-end;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.post__title a {
+  margin: 0%;
+}
+
+.feed__genre {
+  margin-right: 1rem;
+}
+
+.bi-heart-pulse:hover {
+  color: var(--accent_light);
+}
+
 .bi-heart-pulse-fill {
   color: var(--accent_light) !important;
 }
@@ -159,6 +180,13 @@ p {
 
 .heart__button p {
   color: white;
+}
+
+.post__title h6 {
+  justify-content: center;
+  margin-bottom: 0%;
+  align-items: center;
+  font-size: 0.7rem;
 }
 
 audio {
@@ -184,6 +212,15 @@ audio {
 
 .post__playback {
   display: flex;
+  align-items: center;
+}
+
+.post__controls i {
+  font-size: 1.3rem;
+  margin-left: 0.7rem;
+}
+
+.post__controls {
   align-items: center;
 }
 

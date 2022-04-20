@@ -12,13 +12,20 @@ app.use(express.json());
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
 
+app.use("/beat/", express.static("./client/beat"));
+
 app.get("/beat/:postId", (req, res) => {
   res.sendFile("./client/beat/", { root: "./" });
 });
 
+app.use("/song/", express.static("./client/song"));
+
 app.get("/song/:postId", (req, res) => {
   res.sendFile("./client/song/", { root: "./" });
 });
+
+app.use("/profile/", express.static("./client/profile"));
+app.use("/profile/", express.static("./img"));
 
 app.get("/profile/:userId", (req, res) => {
   res.sendFile("./client/profile/", { root: "./" });
