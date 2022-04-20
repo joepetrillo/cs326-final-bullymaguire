@@ -1,3 +1,9 @@
+const auth = JSON.parse(window.localStorage.getItem("auth"));
+
+if (!auth) {
+  window.location.href = "/login";
+}
+
 const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
 const latestButton = document.getElementById("latest-button");

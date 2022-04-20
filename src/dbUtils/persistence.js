@@ -16,7 +16,7 @@ let users = [
   {
     userId: "1002",
     email: "joe@gmail.com",
-    username: "jack",
+    username: "joe",
     password: "password",
     picture: "https://celticswire.usatoday.com/wp-content/uploads/sites/39/2022/01/USATSI_17463663.jpg?w=1000&h=600&crop=1g",
   },

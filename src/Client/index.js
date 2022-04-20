@@ -1,8 +1,14 @@
+const auth = JSON.parse(window.localStorage.getItem("auth"));
+
+if (!auth) {
+  window.location.href = "/login";
+}
+
 const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
 const latestButton = document.getElementById("latest-button");
-const globalUserId = JSON.parse(window.localStorage.getItem("auth")).userId;
 const myProfileButton = document.getElementById("profile-button");
+const userProfilePicture = document.getElementById("user-profile-picture");
 
 let sort = "top";
 
@@ -14,7 +20,7 @@ latestButton.addEventListener("click", () => {
   updateSort("latest");
 });
 
-myProfileButton.href = `/profile/${globalUserId}`;
+myProfileButton.href = `/profile/${auth.userId}`;
 
 function updateSort(button) {
   if (button === "top") {
@@ -70,7 +76,7 @@ function createPostElement(data) {
       genreId = "otherTag";
   }
 
-  if (likedBy.includes(globalUserId)) buttonType = "bi-heart-pulse-fill";
+  if (likedBy.includes(auth.userId)) buttonType = "bi-heart-pulse-fill";
 
   if (parentId) {
     postLink = `/song/${postId}`;
@@ -214,7 +220,7 @@ const populateFeed = async () => {
           "Content-Type": "application/json",
         },
         method: "PUT",
-        body: JSON.stringify({ userId: globalUserId }),
+        body: JSON.stringify({ userId: auth.userId }),
       });
 
       const { likeCount } = await updatePostRes.json();
@@ -238,4 +244,13 @@ const populateFeed = async () => {
   return;
 };
 
+const populateUserData = async () => {
+  const userRes = await fetch(`/users/${auth.userId}`);
+  const userData = await userRes.json();
+  const username = userData.username;
+
+  userProfilePicture.src = userData.picture;
+};
+
 populateFeed();
+populateUserData();
