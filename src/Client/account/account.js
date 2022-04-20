@@ -2,6 +2,9 @@ const auth = JSON.parse(window.localStorage.getItem("auth"));
 
 if (!auth) {
   window.location.href = "/login";
+} else {
+  const myProfileButton = document.getElementById("profile-button");
+  myProfileButton.href = `/profile/${auth.userId}`;
 }
 
 const pictureURLButton = document.getElementById("picture-btn");
@@ -14,6 +17,8 @@ const confirmation = document.getElementById("confirm-password");
 
 const profileUsername = document.getElementById("profile-username");
 const profilePicture = document.getElementById("profile-picture");
+
+const navProfilePicture = document.getElementById("user-profile-picture");
 
 const buttons = {
   pictureButton: document.getElementById("picture-btn"),
@@ -34,6 +39,7 @@ const populateUserData = async (userId) => {
 
   profileUsername.innerText = `@${username}`;
   profilePicture.src = userData.picture;
+  navProfilePicture.src = userData.picture;
 };
 
 async function updateUser(type, values) {
