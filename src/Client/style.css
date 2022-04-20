@@ -510,6 +510,36 @@ textarea {
   border-radius: 100%;
 }
 
+.profilePicture__rounded {
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.comment__picture {
+  height: 30px;
+  width: 30px;
+}
+
+.post__picture {
+  height: 60px;
+  width: 60px;
+}
+
+.post__page__picture {
+  height: 100px;
+  width: 100px;
+}
+
+.navbar__picture {
+  height: 50px;
+  width: 50px;
+}
+
+.profile__picture {
+  height: 175px;
+  width: 175px;
+}
+
 .genre__tags span {
   cursor: pointer;
 }

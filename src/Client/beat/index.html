@@ -18,6 +18,7 @@
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="beat.js" defer></script>
     <title>Lone Music - Beat Title</title>
   </head>
   <body>
@@ -48,38 +49,8 @@
     </nav>
     <main class="container-sm mt-3">
       <div class="thread-wrapper">
-        <div class="post__top thread__top">
-          <!-- Profile picture -->
-          <div class="post__profile thread__profile">
-            <img
-              src="https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png"
-              alt="user"
-              width="90"
-              height="90"
-            />
-            <p class="post__username thread__username">@joe</p>
-          </div>
-
-          <!-- Title and Playback -->
-          <div class="post__top__details thread__top__details">
-            <h1 class="post__title thread__title">Beat Title</h1>
-            <div class="post__playback thread__playback mb-3">
-              <button class="btn btn-primary" type="button">
-                <i class="bi bi-play-fill"></i>
-              </button>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Thread Controls -->
-        <div class="post__controls thread__controls">
-          <div class="btn-group w-100" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary btn-controls">Like +</button>
-            <button type="button" class="btn btn-primary btn-controls">Dislike -</button>
-            <button type="button" class="btn btn-primary btn-controls">Share -></button>
+        <div class="post__top thread__top" id="post-top">
+            
           </div>
         </div>
 
@@ -123,22 +94,22 @@
         <div class="comments-sort-filter-control">
           <div class="comments-sort">
             <div class="btn-group mb-3" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-primary active">Top</button>
-              <button type="button" class="btn btn-primary">Latest</button>
+              <button type="button" class="btn btn-primary active" id="top-button">Top</button>
+              <button type="button" class="btn btn-primary" id="latest-button">Latest</button>
             </div>
           </div>
           <div class="reply-type">
             <div class="btn-group mb-3" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-primary active">All</button>
-              <button type="button" class="btn btn-primary">Comments only</button>
-              <button type="button" class="btn btn-primary">Songs only</button>
+              <button class="btn btn-primary active mb-1" id="all-button">All</button>
+              <button class="btn btn-primary mb-1" id="comments-button">Comments only</button>
+              <button class="btn btn-primary mb-1" id="songs-button">Songs</button>
             </div>
           </div>
         </div>
 
         <!-- Reply feed -->
-        <div class="reply-feed">
-          <div class="post__comment thread__comment__wrapper mb-1">
+        <div class="reply-feed" id="reply-feed">
+          <!-- <div class="post__comment thread__comment__wrapper mb-1">
             <div class="thread__comment__main">
               <div class="post__controls comment__controls">
                 <div class="heart__button">
@@ -155,7 +126,7 @@
               <p class="post__username thread__reply__username">@joe</p>
               <p class="thread__comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, eum Lorem ipsum...</p>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </main>
