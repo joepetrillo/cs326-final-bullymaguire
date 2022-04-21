@@ -1,13 +1,10 @@
 ## 1. API Documentation
 
+## [Users](https://documenter.getpostman.com/view/19056541/UVyvvEdX)
 
-# [Users](https://documenter.getpostman.com/view/19056541/UVyvvEdX)
+Use these API calls to create, read, update and delete users.
 
-## Use these API calls to create, read, update and delete users.
-
-&nbsp;
-
-## POST create user
+### POST create user
 
 - {{domain}}/users
 
@@ -24,13 +21,13 @@
   }
 ```
 
-## GET read user
+### GET read user
 
 - {{domain}}/users/{userid}
 
 - Get the user matching the given user id in the url.
 
-## PUT update user
+### PUT update user
 
 - {{domain}}/users/{userid}
 
@@ -47,29 +44,23 @@
   }
 ```
 
-## DEL delete user
+### DEL delete user
 
 - {{domain}}/users/{userId}
 
 - Delete the user matching the given user id in the url.
 
-&nbsp;
+## [Posts](https://documenter.getpostman.com/view/19056541/UVyvvEdW)
 
-#
+Use these API calls to create, read, update and delete posts.
 
-# [Posts](https://documenter.getpostman.com/view/19056541/UVyvvEdW)
-
-## Use these API calls to create, read, update and delete posts.
-
-&nbsp;
-
-## POST create post
+### POST create post
 
 - {{domain}}/posts
 
 - Create a new post. In the request body, include the id of the user, title, genre and the url of the associated audio file. Also include the id of the instrumental parent post if this is a vocal response. If this is an instrumental, set the parent id to null.
 
-  ### BODY :
+### BODY :
 
 ```{
  "userId": 123,
@@ -80,7 +71,7 @@
  }
 ```
 
-## GET read feed posts
+### GET read feed posts
 
 - {{domain}}/posts?sort={sortType}
 
@@ -94,19 +85,19 @@
 
 <p>&nbsp;</p>
 
-## GET read specific post
+### GET read specific post
 
 - {{domain}}/posts/{postid}
 
 - Get the post matching the given post id in the url.
 
-## GET read user posts
+### GET read user posts
 
 - {{domain}}/users/{userid}/posts
 
 - Get all posts made by the given user id in the url.
 
-## PUT update post
+### PUT update post
 
 - {{domain}}/posts/{postid}
 
@@ -120,23 +111,17 @@
 }
 ```
 
-## DEL delete post
+### DEL delete post
 
 - {{domain}}/posts/{postid}
 
 - Delete the post matching the given post id in the url.
 
-&nbsp;
+## [Comments](https://documenter.getpostman.com/view/19056541/UVyvvEUi)
 
-#
+Use these API calls to create, read, update and delete comments.
 
-# [Comments](https://documenter.getpostman.com/view/19056541/UVyvvEUi)
-
-## Use these API calls to create, read, update and delete comments.
-
-&nbsp;
-
-## POST create comment
+### POST create comment
 
 - {{domain}}/posts/{postId}/comments
 
@@ -152,9 +137,51 @@
 }
 ```
 
-# Outline
+### GET post comments
+
+- {{domain}}/users/{userid}
+
+### GET read user comments
+
+- {{domain}}/users/{userid}/comments
+
+### PUT read user comments
+
+- {{domain}}/posts/{postId}/comments/{commentId}
+
+### BODY :
+
+```
+{
+    "userId": 123
+}
+```
+
+### DELETE comment
+
+- {{domain}}/posts/{postId}/comments/{commentId}
 
 ## 2. Screenshots of Client Interface
+
+### CREATE
+This is the Beat Upload page, and is the primary Create operation in our app. This allows the user to upload a beat file, with an associated title and genre. It then is added to our in memory storage (javascript array of objects), and can be viewed on the Feed Page, its own Thread, or the user's profile. It POSTs to /posts.
+
+![](https://cdn.discordapp.com/attachments/941059461764751420/966545656003051601/create.png)
+
+### READ
+This is the feed page. This is a primary Read operation on our application. We read in all posts from our local memory (javavscript array (does not persist)), and display them in the UI along with associated comments and data indicating the user who posted the Beat. It GETs from /posts, /comments, and /user/userId
+
+![](https://cdn.discordapp.com/attachments/941059461764751420/966545656288268369/read.png)
+
+### UPDATE
+This is the Account page. This is a primary UPDATE operation on our application. We update all user data, such as profile picture, email address, and new password.
+
+![](https://cdn.discordapp.com/attachments/941059461764751420/966545656518959144/update.png)
+
+### DELETE
+This is the User's personal profile page. This is the only entry point in our application for the DELETE operation. On this page, a user is capable of deleting any of their Posts (Beats or Songs), and Comments, using a delete icon (trash can). It sends DELETE HTTP requests to /posts/postId and /posts/postId/comments/commentId
+
+![](https://cdn.discordapp.com/attachments/941059461764751420/966545656804175872/delete.png)
 
 ## 3. URL of Heroku Application
 URL: [https://tranquil-ravine-53779.herokuapp.com/](https://tranquil-ravine-53779.herokuapp.com/)
@@ -166,6 +193,3 @@ URL: [https://tranquil-ravine-53779.herokuapp.com/](https://tranquil-ravine-5377
 - __Alex__: Feed Page, Profile Page, Beat Page, API Routes, API Design
 
 Worked largely together on the API, initial implentation of API, and Feed Page of the website
-
-
-2. At least one set of four screenshots of your client interface with descriptions
