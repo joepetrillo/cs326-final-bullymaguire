@@ -12,34 +12,34 @@ app.use(express.json());
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
 
-app.use("/signup/", express.static("./img"));
-app.use("/login/", express.static("./img"));
-app.use("/upload/", express.static("./img"));
-app.use("/account/", express.static("./img"));
+app.use("/signup/", express.static("./src/img"));
+app.use("/login/", express.static("./src/img"));
+app.use("/upload/", express.static("./src/img"));
+app.use("/account/", express.static("./src/img"));
 
-app.use("/beat/", express.static("./client/beat"));
-app.use("/beat/", express.static("./img"));
+app.use("/beat/", express.static("./src/client/beat"));
+app.use("/beat/", express.static("./src/img"));
 
 app.get("/beat/:postId", (req, res) => {
-  res.sendFile("./client/beat/", { root: "./" });
+  res.sendFile("./src/client/beat/", { root: "./" });
 });
 
-app.use("/song/", express.static("./client/song"));
-app.use("/song/", express.static("./img"));
+app.use("/song/", express.static("./src/client/song"));
+app.use("/song/", express.static("./src/img"));
 
 app.get("/song/:postId", (req, res) => {
-  res.sendFile("./client/song/", { root: "./" });
+  res.sendFile("./src/client/song/", { root: "./" });
 });
 
-app.use("/profile/", express.static("./client/profile"));
-app.use("/profile/", express.static("./img"));
+app.use("/profile/", express.static("./src/client/profile"));
+app.use("/profile/", express.static("./src/img"));
 
 app.get("/profile/:userId", (req, res) => {
-  res.sendFile("./client/profile/", { root: "./" });
+  res.sendFile("./src/client/profile/", { root: "./" });
 });
 
-app.use(express.static("./client"));
-app.use(express.static("./img"));
+app.use(express.static("./src/client"));
+app.use(express.static("./src/img"));
 
 const port = process.env.PORT || 3000;
 
