@@ -9,11 +9,12 @@ if (!auth) {
 
 let url = window.location.href.substring(0, window.location.href.length - 1);
 url = url.split("/");
-console.log(url);
 
 if (url[url.length - 1] === "profile") {
   window.location.href = `/profile/${auth.userId}`;
 }
+
+let urlId = window.location.href.split("/")[window.location.href.split("/").length - 1];
 
 const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
@@ -150,6 +151,12 @@ function createPostElement(data) {
     })
     .join("");
 
+  const deleteButton = `
+    <div>
+      <i class="bi bi-trash delete-button"></i>
+    </div>
+    `;
+  console.log(auth.userId, urlId);
   const postTemplate = `
       <div class="post mt-4" id=${postId}>
           <div class="post__top">
@@ -182,6 +189,7 @@ function createPostElement(data) {
                           <p>${likeCount}</p>
                           <i class="like-button bi ${buttonType} "></i>
                       </div>
+                      ${auth.userId === urlId ? deleteButton : "<div></div>"}
                   </div>
                   <div class="post__playback mb-3">
                       <audio controls preload="auto">
@@ -223,6 +231,10 @@ const createCommentElement = (data) => {
             />
             <p class="post__username thread__reply__username">@${username}</p>
             <p class="thread__comment">${comment}</p>
+            <div>
+              <i class="bi bi-trash delete-button delete_button_sm"></i>
+            </div>
+          </div>
         </div>
     </div>
   `;
@@ -327,6 +339,43 @@ const populateFeed = async () => {
   }
 
   const likeButtons = document.querySelectorAll(".like-button");
+  const deleteButtons = document.querySelectorAll(".delete-button");
+  console.log(deleteButtons);
+
+  deleteButtons.forEach(async (currDeleteButton) => {
+    currDeleteButton.addEventListener("click", async () => {
+      if (filter === "beats" || filter === "songs") {
+        const parentPostID = currDeleteButton.parentElement.parentElement.parentElement.parentElement.parentElement.id;
+
+        const res = await fetch(`/posts/${parentPostID}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "DELETE",
+        });
+
+        if (res.status === 200) {
+          populateFeed();
+        }
+      }
+      if (filter === "comments") {
+        const postId = currDeleteButton.parentElement.parentElement.id;
+
+        const commentId = currDeleteButton.parentElement.parentElement.parentElement.id;
+
+        const res = await fetch(`/posts/${postId}/comments/${commentId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "DELETE",
+        });
+
+        if (res.status === 200) {
+          populateFeed();
+        }
+      }
+    });
+  });
 
   likeButtons.forEach(async (currLikeButton) => {
     currLikeButton.addEventListener("click", async () => {

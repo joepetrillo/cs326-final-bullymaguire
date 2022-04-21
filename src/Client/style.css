@@ -546,3 +546,7 @@ textarea {
 .badge__active {
   box-shadow: 0 0 20px 1px var(--accent_light);
 }
+
+.delete_button_sm {
+  margin-left: 0.5rem;
+}
