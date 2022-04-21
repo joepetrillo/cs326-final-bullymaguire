@@ -5,15 +5,6 @@ import postRouter from "./routes/posts.js";
 
 const app = express();
 
-import path from "path";
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
-// app.use(logger("dev"));
-app.use((req, res, next) => {
-  console.log(process.cwd());
-  next();
-});
-
 app.use(express.json());
 
 app.use("/users", userRouter);
@@ -46,7 +37,6 @@ app.get("/profile/:userId", (req, res) => {
 });
 
 app.use(express.static("./src/client"));
-// app.use(express.static(path.join(__dirname, "src/client")));
 app.use(express.static("./src/img"));
 
 const port = process.env.PORT || 3000;
