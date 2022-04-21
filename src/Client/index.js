@@ -2,12 +2,14 @@ const auth = JSON.parse(window.localStorage.getItem("auth"));
 
 if (!auth) {
   window.location.href = "/login";
+} else {
+  const myProfileButton = document.getElementById("profile-button");
+  myProfileButton.href = `/profile/${auth.userId}`;
 }
 
 const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
 const latestButton = document.getElementById("latest-button");
-const myProfileButton = document.getElementById("profile-button");
 const userProfilePicture = document.getElementById("user-profile-picture");
 
 let sort = "top";
@@ -19,8 +21,6 @@ topButton.addEventListener("click", () => {
 latestButton.addEventListener("click", () => {
   updateSort("latest");
 });
-
-myProfileButton.href = `/profile/${auth.userId}`;
 
 function updateSort(button) {
   if (button === "top") {
@@ -88,10 +88,9 @@ function createPostElement(data) {
     .map((currComment) => {
       return `<div class="post__comment mb-1">
           <img
+            class="profilePicture__rounded comment__picture"
             src="${currComment.picture}"
             alt="user"
-            width="30"
-            height="30"xs
           />
           <p>${currComment.comment}</p>
       </div>`;
@@ -105,10 +104,9 @@ function createPostElement(data) {
             <div class="post__profile">
             <a href=${userLink}>
                 <img
+                    class="profilePicture__rounded post__picture"
                     src="${picture}"
                     alt="user"
-                    width="60"
-                    height="60"
                 />
             </a>
                 <a href=${userLink}>

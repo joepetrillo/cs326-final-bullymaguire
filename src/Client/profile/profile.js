@@ -2,6 +2,17 @@ const auth = JSON.parse(window.localStorage.getItem("auth"));
 
 if (!auth) {
   window.location.href = "/login";
+} else {
+  const myProfileButton = document.getElementById("profile-button");
+  myProfileButton.href = `/profile/${auth.userId}`;
+}
+
+let url = window.location.href.substring(0, window.location.href.length - 1);
+url = url.split("/");
+console.log(url);
+
+if (url[url.length - 1] === "profile") {
+  window.location.href = `/profile/${auth.userId}`;
 }
 
 const feedDiv = document.getElementById("feed");
@@ -10,6 +21,7 @@ const latestButton = document.getElementById("latest-button");
 const myProfileButton = document.getElementById("profile-button");
 const profilePicture = document.getElementById("profile-picture");
 const profileUsername = document.getElementById("profile-username");
+const navProfilePicture = document.getElementById("user-profile-picture");
 
 const beatsButton = document.getElementById("beats-button");
 const songsButton = document.getElementById("songs-button");
@@ -129,10 +141,9 @@ function createPostElement(data) {
     .map((currComment) => {
       return `<div class="post__comment mb-1">
             <img
+              class="profilePicture__rounded comment__picture"
               src="${currComment.picture}"
               alt="user"
-              width="30"
-              height="30"xs
             />
             <p>${currComment.comment}</p>
         </div>`;
@@ -146,10 +157,9 @@ function createPostElement(data) {
               <div class="post__profile">
               <a href=${userLink}>
                   <img
+                      class="profilePicture__rounded post__picture"
                       src="${picture}"
                       alt="user"
-                      width="60"
-                      height="60"
                   />
               </a>
                   <a href=${userLink}>
@@ -207,10 +217,9 @@ const createCommentElement = (data) => {
                 </div>
             </div>
             <img
+                class="profilePicture__rounded comment__picture"
                 src=${picture}
                 alt="user"
-                width="30"
-                height="30"
             />
             <p class="post__username thread__reply__username">@${username}</p>
             <p class="thread__comment">${comment}</p>
@@ -387,6 +396,7 @@ const populateUserData = async () => {
 
   profileUsername.innerHTML = `@${username}`;
   profilePicture.src = userData.picture;
+  navProfilePicture.src = userData.picture;
 };
 
 populateFeed();
