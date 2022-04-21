@@ -1,6 +1,5 @@
 ## 1. API Documentation
 
-#
 
 # [Users](https://documenter.getpostman.com/view/19056541/UVyvvEdX)
 
@@ -155,7 +154,18 @@
 
 # Outline
 
-1. A brief and precise representation of APIs for you application
+## 2. Screenshots of Client Interface
+
+## 3. URL of Heroku Application
+URL: [https://tranquil-ravine-53779.herokuapp.com/](https://tranquil-ravine-53779.herokuapp.com/)
+
+## 4. Division of Labor
+- __Jack__: Upload Page, Signup Page, Feed Page, API Routes, API Design
+- __Ashir__: Song Page, Beat Page, Feed Page, Profile Page, API Routes, API Design
+- __Joe__: Account Page, Styling, Navigation, Feed Page, API Routes, API Design
+- __Alex__: Feed Page, Profile Page, Beat Page, API Routes, API Design
+
+Worked largely together on the API, initial implentation of API, and Feed Page of the website
+
+
 2. At least one set of four screenshots of your client interface with descriptions
-3. The URL of your Heroku application
-4. Division of labor summary
