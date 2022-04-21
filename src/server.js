@@ -41,7 +41,7 @@ app.get("/profile/:userId", (req, res) => {
 app.use(express.static("./client"));
 app.use(express.static("./img"));
 
-const port = process.env || 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
