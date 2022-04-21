@@ -20,6 +20,7 @@ app.get("/beat/:postId", (req, res) => {
 });
 
 app.use("/song/", express.static("./client/song"));
+app.use("/song/", express.static("./img"));
 
 app.get("/song/:postId", (req, res) => {
   res.sendFile("./client/song/", { root: "./" });

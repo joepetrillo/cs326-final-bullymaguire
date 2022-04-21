@@ -42,6 +42,8 @@ submitReplyButton.addEventListener("click", async () => {
     });
   }
 
+  commentReplyBox.value = "";
+
   populateReplyFeed();
 });
 
@@ -351,7 +353,7 @@ const createCommentElement = (data) => {
   if (likedBy.includes(auth.userId)) buttonType = "bi-heart-pulse-fill";
 
   let createdDateObj = new Date(created);
-  let createdMonth = createdDateObj.getMonth();
+  let createdMonth = createdDateObj.getMonth() + 1;
   let createdDate = createdDateObj.getDate();
   let createdYear = createdDateObj.getFullYear();
 
@@ -394,7 +396,7 @@ const createSongElement = (data) => {
   let buttonType = "bi-heart-pulse";
 
   let createdDateObj = new Date(created);
-  let createdMonth = createdDateObj.getMonth();
+  let createdMonth = createdDateObj.getMonth() + 1;
   let createdDate = createdDateObj.getDate();
   let createdYear = createdDateObj.getFullYear();
 

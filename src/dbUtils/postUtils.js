@@ -28,7 +28,7 @@ export function createComment({ userId, postId, comment }) {
     comment: comment,
     likeCount: 0,
     likedBy: [],
-    created: new Date("2022-04-14T09:48:55.064Z"),
+    created: new Date(),
   };
 
   comments.push(newComment);
