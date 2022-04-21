@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "cd src; node server.js"
+    "start": "node src/server.js"
   },
   "license": "ISC",
   "dependencies": {
