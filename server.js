@@ -1,11 +1,15 @@
 import express from "express";
 // import logger from "morgan";
-import userRouter from "./routes/users.js";
-import postRouter from "./routes/posts.js";
+import userRouter from "./src/routes/users.js";
+import postRouter from "./src/routes/posts.js";
 
 const app = express();
 
 // app.use(logger("dev"));
+app.use((req, res, next) => {
+  console.log(process.cwd());
+  next();
+});
 
 app.use(express.json());
 
