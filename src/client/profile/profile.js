@@ -28,13 +28,12 @@ const beatsButton = document.getElementById("beats-button");
 const songsButton = document.getElementById("songs-button");
 const commentsButton = document.getElementById("comments-button");
 
-const globalUserId = JSON.parse(window.localStorage.getItem("auth")).userId;
 const profileUserId = window.location.pathname.split("/")[2];
 
 let sort = "top";
 let filter = "beats";
 
-myProfileButton.href = `/profile/${globalUserId}`;
+myProfileButton.href = `/profile/${auth.userId}`;
 
 topButton.addEventListener("click", () => {
   updateSort("top");
@@ -130,7 +129,7 @@ function createPostElement(data) {
       genreId = "otherTag";
   }
 
-  if (likedBy.includes(globalUserId)) buttonType = "bi-heart-pulse-fill";
+  if (likedBy.includes(auth.userId)) buttonType = "bi-heart-pulse-fill";
 
   if (parentId) {
     postLink = `/song/${postId}`;
@@ -213,7 +212,7 @@ const createCommentElement = (data) => {
 
   let buttonType = "bi-heart-pulse";
 
-  if (likedBy.includes(globalUserId)) buttonType = "bi-heart-pulse-fill";
+  if (likedBy.includes(auth.userId)) buttonType = "bi-heart-pulse-fill";
 
   const commentTemplate = `
     <div class="post__comment thread__comment__wrapper mb-1" id=${commentId}>
@@ -389,7 +388,7 @@ const populateFeed = async () => {
             "Content-Type": "application/json",
           },
           method: "PUT",
-          body: JSON.stringify({ userId: globalUserId }),
+          body: JSON.stringify({ userId: auth.userId }),
         });
 
         updateData = await updatePostRes.json();
@@ -410,7 +409,7 @@ const populateFeed = async () => {
             "Content-Type": "application/json",
           },
           method: "PUT",
-          body: JSON.stringify({ userId: globalUserId }),
+          body: JSON.stringify({ userId: auth.userId }),
         });
         console.log(updateCommentRes);
 
