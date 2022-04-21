@@ -34,7 +34,7 @@ let comments = [
     commentId: "1235",
     userId: "1001",
     postId: "2000",
-    comment: "this is a comment by user @jack this is a comment by user @jack this is a comment by user @jack",
+    comment: "this is a comment by user @jack",
     likeCount: 91,
     likedBy: ["userId", "userId", "userId"],
     created: new Date("2022-04-14T09:48:55.064Z"),

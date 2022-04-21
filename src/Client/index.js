@@ -46,7 +46,7 @@ function createPostElement(data) {
   let parentTitleText = "";
 
   let createdDateObj = new Date(created);
-  let createdMonth = createdDateObj.getMonth();
+  let createdMonth = createdDateObj.getMonth() + 1;
   let createdDate = createdDateObj.getDate();
   let createdYear = createdDateObj.getFullYear();
 

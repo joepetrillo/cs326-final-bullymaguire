@@ -99,7 +99,7 @@ function createPostElement(data) {
   let parentTitleText = "";
 
   let createdDateObj = new Date(created);
-  let createdMonth = createdDateObj.getMonth();
+  let createdMonth = createdDateObj.getMonth() + 1;
   let createdDate = createdDateObj.getDate();
   let createdYear = createdDateObj.getFullYear();
 
@@ -170,7 +170,7 @@ function createPostElement(data) {
               <!-- Title and Playback -->
               <div class="post__top__details">
                   <div class="post__title">
-                      <a href=${postLink}>
+                      <a href=${postLink} class="profile__title">
                           <h3>${title}</h3>
                       </a>
                       <a href=${parentLink}>
@@ -212,7 +212,7 @@ const createCommentElement = (data) => {
         <div class="thread__comment__main" id=${postId}>
             <div class="post__controls comment__controls">
                 <div class="heart__button">
-                    <p>${likeCount}</p>
+                    <div class="like__count"><p>${likeCount}</p></div>
                     <i class="like-button bi ${buttonType}"></i>
                 </div>
             </div>
@@ -381,8 +381,6 @@ const populateFeed = async () => {
         currLikeButton.classList.remove("bi-heart-pulse-fill");
         currLikeButton.classList.add("bi-heart-pulse");
       }
-
-      console.log(currLikeButton.previousElementSibling);
 
       currLikeButton.previousElementSibling.innerHTML = likeCount;
     });
