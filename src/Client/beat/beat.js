@@ -12,9 +12,65 @@ const latestButton = document.getElementById("latest-button");
 const commentsButton = document.getElementById("comments-button");
 const songsButton = document.getElementById("songs-button");
 const allButton = document.getElementById("all-button");
+const commentReplyToggle = document.getElementById("comment-box-tab");
+const songReplyToggle = document.getElementById("reply-upload-tab");
+const submitReplyButton = document.getElementById("reply-btn");
+const songReplyButton = document.getElementById("song-reply-btn");
+const commentReplyBox = document.getElementById("comment-reply-box");
+const songReplyTitleBox = document.getElementById("reply-title-box");
+const songReplyAudioBox = document.getElementById("reply-audio-box");
+const userProfilePicture = document.getElementById("user-profile-picture");
+const myProfileButton = document.getElementById("profile-button");
+myProfileButton.href = `/profile/${auth.userId}`;
 
 let sort = "top";
 let filter = "all";
+
+submitReplyButton.addEventListener("click", async () => {
+  if (commentReplyToggle.classList.contains("active")) {
+    const replyContent = commentReplyBox.value;
+    const res = await fetch(`/posts/${beatId}/comments`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        userId: auth.userId,
+        postId: beatId,
+        comment: replyContent,
+      }),
+    });
+  }
+
+  populateReplyFeed();
+});
+
+songReplyButton.addEventListener("click", async () => {
+  if (songReplyToggle.classList.contains("active")) {
+    const songTitle = songReplyTitleBox.value;
+    const songAudio = songReplyAudioBox.value;
+
+    const beatRes = await fetch(`/posts/${beatId}`);
+    const beatData = await beatRes.json();
+    const genre = beatData.genre;
+
+    const res = await fetch(`/posts/`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        userId: auth.userId,
+        parentId: beatId,
+        audio: songAudio,
+        title: songTitle,
+        genre: genre,
+      }),
+    });
+  }
+
+  populateReplyFeed();
+});
 
 topButton.addEventListener("click", () => {
   updateSort("top");
@@ -149,12 +205,11 @@ const populateBeatData = async () => {
 
   postTopDiv.innerHTML += postTop;
 
-  populateLikeButton();
+  populateBeatLikeButton();
 };
 
-const populateLikeButton = async () => {
+const populateBeatLikeButton = async () => {
   const likeButton = document.getElementById("like-button");
-  console.log(likeButton);
 
   likeButton.addEventListener("click", async () => {
     const updatePostRes = await fetch(`/posts/${beatId}`, {
@@ -186,15 +241,84 @@ const populateLikeButton = async () => {
 const populateReplyFeed = async () => {
   replyFeedDiv.innerHTML = "";
 
-  const comments = await getBeatComments(sort);
+  const comments = await getBeatComments(sort, filter);
 
   comments.forEach((currComment) => {
-    replyFeedDiv.innerHTML += createCommentElement(currComment);
+    if (currComment.commentId) {
+      replyFeedDiv.innerHTML += createCommentElement(currComment);
+    } else {
+      replyFeedDiv.innerHTML += createSongElement(currComment);
+    }
+  });
+
+  const commentLikeButtons = document.querySelectorAll(".comment-like-button");
+  const songLikeButtons = document.querySelectorAll(".song-like-button");
+
+  commentLikeButtons.forEach(async (currLikeButton) => {
+    currLikeButton.addEventListener("click", async () => {
+      const parentPostID = currLikeButton.parentElement.parentElement.parentElement.id;
+      const commentId = currLikeButton.parentElement.parentElement.parentElement.parentElement.id;
+
+      const updatePostRes = await fetch(`/posts/${parentPostID}/comments/${commentId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify({ userId: auth.userId }),
+      });
+
+      const { likeCount } = await updatePostRes.json();
+
+      if (updatePostRes.status !== 200) {
+        return;
+      }
+
+      if (currLikeButton.classList.contains("bi-heart-pulse")) {
+        currLikeButton.classList.remove("bi-heart-pulse");
+        currLikeButton.classList.add("bi-heart-pulse-fill");
+      } else if (currLikeButton.classList.contains("bi-heart-pulse-fill")) {
+        currLikeButton.classList.remove("bi-heart-pulse-fill");
+        currLikeButton.classList.add("bi-heart-pulse");
+      }
+
+      currLikeButton.previousElementSibling.innerHTML = likeCount;
+    });
+  });
+
+  songLikeButtons.forEach(async (currLikeButton) => {
+    currLikeButton.addEventListener("click", async () => {
+      const parentPostID = currLikeButton.parentElement.parentElement.parentElement.id;
+
+      const updatePostRes = await fetch(`/posts/${parentPostID}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+        body: JSON.stringify({ userId: auth.userId }),
+      });
+
+      const { likeCount } = await updatePostRes.json();
+
+      if (updatePostRes.status !== 200) {
+        return;
+      }
+
+      if (currLikeButton.classList.contains("bi-heart-pulse")) {
+        currLikeButton.classList.remove("bi-heart-pulse");
+        currLikeButton.classList.add("bi-heart-pulse-fill");
+      } else if (currLikeButton.classList.contains("bi-heart-pulse-fill")) {
+        currLikeButton.classList.remove("bi-heart-pulse-fill");
+        currLikeButton.classList.add("bi-heart-pulse");
+      }
+
+      currLikeButton.previousElementSibling.innerHTML = likeCount;
+    });
   });
 };
 
-const getBeatComments = async (sort) => {
-  const commentsUrl = `/posts/${beatId}/comments?sort=${sort}`;
+const getBeatComments = async (sort, filter) => {
+  let commentsUrl = `/posts/${beatId}/comments?sort=${sort}&filter=${filter}`;
+  if (filter === "all") commentsUrl = `/posts/${beatId}/comments?sort=${sort}`;
   const commentsRes = await fetch(commentsUrl);
   const commentsData = await commentsRes.json();
 
@@ -221,27 +345,92 @@ const getBeatComments = async (sort) => {
 const createCommentElement = (data) => {
   const { commentId, userId, postId, comment, likeCount, likedBy, created, username, picture } = data;
 
+  const userLink = `/profile/${userId}`;
   let buttonType = "bi-heart-pulse";
 
   if (likedBy.includes(auth.userId)) buttonType = "bi-heart-pulse-fill";
 
+  let createdDateObj = new Date(created);
+  let createdMonth = createdDateObj.getMonth();
+  let createdDate = createdDateObj.getDate();
+  let createdYear = createdDateObj.getFullYear();
+
   const commentTemplate = `
-    <div class="post__comment thread__comment__wrapper mb-1" id=${commentId}>
+    <div class="post__comment thread__comment__wrapper mb-2" id=${commentId}>
+      <div class="thread__comment__main" id=${postId}>
+        <div class="post__controls comment__controls">
+          <div class="heart__button">
+              <div class="like__count"><p>${likeCount}</p></div>
+              <i class="comment-like-button bi ${buttonType}"></i>
+          </div>
+        </div>
+        <a href=${userLink}>
+          <img
+            src=${picture}
+            alt="user"
+            width="30"
+            height="30"
+          />
+        </a>
+        <a href=${userLink}>
+          <p class="post__username thread__reply__username">@${username}</p>
+        </a>
+        <div class="comment__content">
+          <p class="thread__comment">${comment}</p>
+          <h6>${createdMonth}/${createdDate}/${createdYear}</h6>
+        </div>
+      </div>
+    </div>
+  `;
+
+  return commentTemplate;
+};
+
+const createSongElement = (data) => {
+  const { audio, comments, postId, created, userId, likeCount, likedBy, genre, title, picture, username, parentId, parentTitle } = data;
+
+  let postLink = `/song/${postId}`;
+  let userLink = `/profile/${userId}`;
+  let buttonType = "bi-heart-pulse";
+
+  let createdDateObj = new Date(created);
+  let createdMonth = createdDateObj.getMonth();
+  let createdDate = createdDateObj.getDate();
+  let createdYear = createdDateObj.getFullYear();
+
+  const commentTemplate = `
+    <div class="post__comment thread__comment__wrapper mb-2" id=${postId}>
         <div class="thread__comment__main" id=${postId}>
             <div class="post__controls comment__controls">
-                <div class="heart__button">
-                    <p>${likeCount}</p>
-                    <i class="like-button bi ${buttonType}"></i>
-                </div>
+              <div class="heart__button">
+                <div class="like__count"><p>${likeCount}</p></div>
+                <i class="song-like-button bi ${buttonType}" id="song-like-button"></i>
+              </div>
             </div>
-            <img
+            <a href=${userLink}>
+              <img
                 src=${picture}
                 alt="user"
                 width="30"
                 height="30"
-            />
-            <p class="post__username thread__reply__username">@${username}</p>
-            <p class="thread__comment">${comment}</p>
+              />
+            </a>
+            <a href=${userLink}>
+              <p class="post__username thread__reply__username">@${username}</p>
+            </a>
+            <div class="song__content">
+              <div class="song__content__main">
+                <a href=${postLink}>
+                  <h4>${title}</h4>
+                </a>
+                <div class="post__playback thread__playback">
+                  <audio controls preload="auto">
+                      <source src=${audio}  type="audio/mp3">
+                  </audio>
+                </div>
+              </div>
+              <h6>${createdMonth}/${createdDate}/${createdYear}</h6>
+            </div>
         </div>
     </div>
   `;
@@ -303,5 +492,14 @@ const getUserPosts = async (sort, filter) => {
   return data;
 };
 
+const populateUserData = async () => {
+  const userRes = await fetch(`/users/${auth.userId}`);
+  const userData = await userRes.json();
+  const username = userData.username;
+
+  userProfilePicture.src = userData.picture;
+};
+
 populateBeatData();
 populateReplyFeed();
+populateUserData();

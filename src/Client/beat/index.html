@@ -24,8 +24,8 @@
   <body>
     <nav class="navbar sticky-top">
       <div class="container-sm">
-        <a class="navbar-brand" href="./index.html">
-          <img src="../favicon.ico" width="40" height="40" alt="logo" />
+        <a class="navbar-brand" href="/">
+          <img src="logo.png" width="110" height="62" alt="logo" />
         </a>
         <ul>
           <li class="nav-item dropdown">
@@ -35,11 +35,12 @@
                 alt="stock profile picture"
                 width="40"
                 height="40"
+                id="user-profile-picture"
               />
             </a>
             <!-- Add correct link urls and fix dropdown style and background color -->
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="../profile/">My Profile</a></li>
+              <li><a class="dropdown-item" href="../profile/" id="profile-button">My Profile</a></li>
               <li><a class="dropdown-item" href="../account/">Edit Profile</a></li>
               <li><a class="dropdown-item" href="../login/">Logout</a></li>
             </ul>
@@ -55,10 +56,10 @@
         </div>
 
         <!-- Reply Controls -->
-        <div class="d-flex">
+        <div class="reply__hub d-flex">
           <div class="nav flex-column nav-pills me-3" id="reply-controls" role="tablist" aria-orientation="vertical">
             <button
-              class="btn btn-primary active"
+              class="btn btn-primary active mb-1"
               id="comment-box-tab"
               data-bs-toggle="pill"
               data-bs-target="#comment-box"
@@ -83,10 +84,18 @@
             </button>
           </div>
           <div class="tab-content" id="reply-controls-content">
-            <div class="tab-pane fade show active" id="comment-box" role="tabpanel" aria-labelledby="comment-box-tab">
-              <textarea class="comment-box" id="comment-text-box" rows="3"></textarea>
+            <div class="comment__submit tab-pane fade show active" id="comment-box" role="tabpanel" aria-labelledby="comment-box-tab">
+              <label for="reply-box" class="form-label">Comment</label>
+              <input type="text" class="form-control" id="comment-reply-box" />
+              <button type="submit" class="comment-btn btn filled_button" id="reply-btn">Submit</button>
             </div>
-            <div class="tab-pane fade" id="reply-upload" role="tabpanel" aria-labelledby="reply-upload-tab">2</div>
+            <div class="comment__submit tab-pane fade" id="reply-upload" role="tabpanel" aria-labelledby="reply-upload-tab">
+              <label for="reply-box" class="form-label">Title</label>
+              <input type="text" class="form-control" id="reply-title-box" />
+              <label for="reply-box" class="form-label">Audio</label>
+              <input type="text" class="form-control" id="reply-audio-box" />
+              <button type="submit" class="comment-btn btn filled_button" id="song-reply-btn">Submit</button>
+            </div>
           </div>
         </div>
 

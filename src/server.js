@@ -13,6 +13,7 @@ app.use("/users", userRouter);
 app.use("/posts", postRouter);
 
 app.use("/beat/", express.static("./client/beat"));
+app.use("/beat/", express.static("./img"));
 
 app.get("/beat/:postId", (req, res) => {
   res.sendFile("./client/beat/", { root: "./" });
