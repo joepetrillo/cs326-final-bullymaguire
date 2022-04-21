@@ -12,6 +12,11 @@ app.use(express.json());
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
 
+app.use("/signup/", express.static("./img"));
+app.use("/login/", express.static("./img"));
+app.use("/upload/", express.static("./img"));
+app.use("/account/", express.static("./img"));
+
 app.use("/beat/", express.static("./client/beat"));
 app.use("/beat/", express.static("./img"));
 
@@ -36,7 +41,7 @@ app.get("/profile/:userId", (req, res) => {
 app.use(express.static("./client"));
 app.use(express.static("./img"));
 
-const port = 3000;
+const port = process.env || 3000;
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

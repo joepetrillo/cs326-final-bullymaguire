@@ -179,7 +179,7 @@ const populateBeatData = async () => {
   <!-- Profile picture -->
     <div class="post__profile">
       <a href="${userLink}">
-        <img class="post__page__picture" src="${userPicture}" alt="user" />
+        <img class="post__picture profilePicture__rounded post__page__picture" src="${userPicture}" alt="user" />
       </a>
       <a href="">
         <p class="post__username">@${userName}</p>
@@ -370,8 +370,7 @@ const createCommentElement = (data) => {
           <img
             src=${picture}
             alt="user"
-            width="30"
-            height="30"
+            class="comment__picture profilePicture__rounded"
           />
         </a>
         <a href=${userLink}>
@@ -413,8 +412,7 @@ const createSongElement = (data) => {
               <img
                 src=${picture}
                 alt="user"
-                width="30"
-                height="30"
+                class="comment__picture profilePicture__rounded"
               />
             </a>
             <a href=${userLink}>
