@@ -179,7 +179,6 @@ p {
 
 .post__title h5 {
   color: #9b6f7f;
-  /* margin-right: 10rem; */
   align-self: flex-end;
   width: 100%;
   font-size: 1rem;
@@ -187,6 +186,7 @@ p {
 
 .post__title a {
   margin: 0%;
+  width: 100%;
 }
 
 .feed__genre {
@@ -674,4 +674,12 @@ textarea {
 
 .delete_button_sm {
   margin-left: 0.5rem;
+}
+
+.delete-button {
+  font-size: 1.5rem;
+}
+
+.delete-button:hover {
+  color: var(--accent_light);
 }
