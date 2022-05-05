@@ -120,6 +120,8 @@ const USERS = DB.collection("users");
 const COMMENTS = DB.collection("comments");
 const POSTS = DB.collection("posts");
 
-USERS.insertMany(users);
-COMMENTS.insertMany(comments);
-POSTS.insertMany(posts);
+await USERS.insertMany(users);
+await COMMENTS.insertMany(comments);
+await POSTS.insertMany(posts);
+
+close();
