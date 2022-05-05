@@ -432,7 +432,6 @@ export async function populateFeed(type, sort, filter, feedDiv, auth, profileUse
 
   likeButtons.forEach(async (currLikeButton) => {
     currLikeButton.addEventListener("click", async () => {
-      console.log(filter);
       let likeCount = 0;
 
       if (type === "index") {
@@ -769,6 +768,9 @@ export async function populatePostData(postId, authId, postTopDiv) {
   });
 
   const deleteButton = document.getElementsByClassName("post-delete")[0];
+  if (!deleteButton) {
+    return;
+  }
 
   deleteButton.addEventListener("click", async () => {
     const res = await fetch(`/posts/${postId}`, {

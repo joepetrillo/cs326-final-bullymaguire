@@ -1,26 +1,38 @@
-import { comments, users, posts } from "./persistence.js";
+import { connection } from "./connection.js";
+// import { comments, users, posts } from "./persistence.js";
+
+const { connect, close } = await connection();
+const DB = await connect();
+const USERS = DB.collection("users");
+const COMMENTS = DB.collection("comments");
+const POSTS = DB.collection("posts");
 
 // Main CRUD
-export function createUser({ email, username, password }) {
+export async function createUser({ email, username, password }) {
   const newUser = {
     userId: Date.now().toString(),
     email: email,
     username: username,
     password: password,
-    picture: "default profile picture url",
+    picture: "https://cdn.discordapp.com/attachments/941059461764751420/971186943272550450/unknown.png",
   };
 
+  // TODO: REMOVE
   users.push(newUser);
-
+  await USERS.insertOne(newUser);
   return newUser;
 }
 
-export function getUser(userId) {
-  return users.find((user) => user.userId === userId);
+export async function getUser(userId) {
+  return await USERS.findOne({ userId: userId });
+  // TODO: Keep for now, remove later
+  // return users.find((user) => user.userId === userId);
 }
 
-export function getUserComments(userId, sort) {
-  const userComments = comments.filter((c) => c.userId == userId);
+export async function getUserComments(userId, sort) {
+  // TODO: Remove
+  // const userComments = comments.filter((c) => c.userId == userId);
+  const userComments = await COMMENTS.find({ userId: userId }).toArray();
 
   const topSort = (a, b) => b.likeCount - a.likeCount;
 
@@ -29,8 +41,10 @@ export function getUserComments(userId, sort) {
   return userComments.sort(sort === "top" ? topSort : latestSort);
 }
 
-export function getUserPosts(userId, sort, filter) {
-  const userPosts = posts.filter((p) => p.userId === userId);
+export async function getUserPosts(userId, sort, filter) {
+  // TODO: REMOVE
+  // const userPosts = posts.filter((p) => p.userId === userId);
+  const userPosts = await POSTS.find({ userId: userId }).toArray();
 
   let ret = [];
 
@@ -48,39 +62,39 @@ export function getUserPosts(userId, sort, filter) {
   return ret.sort(sort === "top" ? topSort : latestSort);
 }
 
-export function updateUser(userId, { type, email, password, picture }) {
-  const user = users[getUserIndex(userId)];
+export async function updateUser(userId, { type, email, password, picture }) {
+  const updateField = async (field, value) => {
+    await USERS.updateOne({ userId: userId }, { $set: { [field]: value } });
+  };
 
   if (type === "email") {
-    user.email = email;
+    updateField("email", email);
   } else if (type === "password") {
-    user.password = password;
+    updateField("password", password);
   } else if (type === "picture") {
-    user.picture = picture;
+    updateField("picture", picture);
   }
-  return user;
+  return await getUser(userId);
 }
 
-export function deleteUser(userId) {
-  users.splice(
-    users.findIndex((u) => u.userId === userId),
-    1
-  );
+// TODO: COME BACK
+export async function deleteUser(userId) {
+  await USERS.deleteOne({ userId: userId });
+  // await POSTS.deleteOne({ userId: userId });
+  // await COMMENTS.deleteOne({ userId: userId });
 }
 
 // CRUD Helpers
 // checks if a user exists given an userId
-export function checkUserExists(userId) {
-  return users.find((user) => user.userId === userId) !== undefined ? true : false;
-}
-
-// get the index of a user given an userId
-export function getUserIndex(userId) {
-  return users.findIndex((user) => user.userId === userId);
+export async function checkUserExists(userId) {
+  // TODO: Remove
+  // return users.find((user) => user.userId === userId) !== undefined ? true : false;
+  let user = await getUser(userId);
+  return user !== null;
 }
 
 // validate sign up data
-export function checkSignUpData(data) {
+export async function checkSignUpData(data) {
   const { email, username, password, confirm } = data;
 
   // check if all required fields are present
@@ -102,7 +116,7 @@ export function checkSignUpData(data) {
 }
 
 // validate update data
-export function checkUpdateData(data) {
+export async function checkUpdateData(data) {
   const { type, email, password, confirm, picture } = data;
 
   // check if all required fields are present

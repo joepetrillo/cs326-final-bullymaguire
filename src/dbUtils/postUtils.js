@@ -1,8 +1,16 @@
-import { comments, users, posts } from "./persistence.js";
+import { connection } from "./connection.js";
+// import { comments, users, posts } from "./persistence.js";
 import { checkUserExists } from "./userUtils.js";
 
+const { connect, close } = await connection();
+const DB = await connect();
+// TODO: COME BACK
+// const USERS = DB.collection("users");
+const COMMENTS = DB.collection("comments");
+const POSTS = DB.collection("posts");
+
 // Main CRUD
-export function createPost({ userId, title, genre, audio, parentId }) {
+export async function createPost({ userId, title, genre, audio, parentId }) {
   const newPost = {
     postId: Date.now().toString(),
     userId: userId,
@@ -15,12 +23,15 @@ export function createPost({ userId, title, genre, audio, parentId }) {
     created: new Date(),
   };
 
+  // TODO: REMOVE
   posts.push(newPost);
+
+  await POSTS.insertOne(newPost);
 
   return newPost;
 }
 
-export function createComment({ userId, postId, comment }) {
+export async function createComment({ userId, postId, comment }) {
   const newComment = {
     commentId: Date.now().toString(),
     userId: userId,
@@ -36,37 +47,46 @@ export function createComment({ userId, postId, comment }) {
   return newComment;
 }
 
-export function getPost(postId) {
-  return posts.find((post) => post.postId === postId);
+export async function getPost(postId) {
+  return await POSTS.findOne({ postId: postId });
+  // TODO: REMOVE
+  // return posts.find((post) => post.postId === postId);
 }
 
-export function getComment(commentId) {
-  return comments.find((comment) => comment.commentId === commentId);
+export async function getComment(commentId) {
+  // return comments.find((comment) => comment.commentId === commentId);
+  return await COMMENTS.findOne({ commentId: commentId });
 }
 
-export function getFeedPosts(sort) {
+export async function getFeedPosts(sort) {
+  let allPosts = await POSTS.find({}).toArray();
+
   if (sort === "latest") {
-    const latestPosts = posts.sort((a, b) => b.created - a.created);
+    const latestPosts = allPosts.sort((a, b) => b.created - a.created);
 
     return latestPosts;
   }
 
   if (sort === "top") {
-    const topPosts = posts.sort((a, b) => b.likeCount - a.likeCount);
+    const topPosts = allPosts.sort((a, b) => b.likeCount - a.likeCount);
 
     return topPosts;
   }
 }
 
-export function getPostComments(filter, sort, postId) {
+export async function getPostComments(filter, sort, postId) {
   let ret = [];
 
+  const getByPostId = async (coll, property) => {
+    return await coll.find({ [property]: postId }).toArray();
+  };
+
   if (filter === "comments") {
-    ret = comments.filter((c) => c.postId === postId);
+    ret = await getByPostId(COMMENTS, "postId");
   } else if (filter === "songs") {
-    ret = posts.filter((p) => p.parentId === postId);
+    ret = await getByPostId(POSTS, "parentId");
   } else if (!filter) {
-    ret = [...posts.filter((p) => p.parentId === postId), ...comments.filter((c) => c.postId === postId)];
+    ret = [...(await getByPostId(POSTS, "parentId")), ...(await getByPostId(COMMENTS, "postId"))];
   }
 
   const topSort = (a, b) => b.likeCount - a.likeCount;
@@ -75,33 +95,31 @@ export function getPostComments(filter, sort, postId) {
   return ret.sort(sort === "top" ? topSort : latestSort);
 }
 
-export function deletePost(postId) {
-  posts.splice(
-    posts.findIndex((p) => p.postId === postId),
-    1
-  );
+export async function deletePost(postId) {
+  await POSTS.deleteOne({ postId: postId });
 }
 
-export function deleteComment(commentId) {
-  comments.splice(
-    comments.findIndex((c) => c.commentId === commentId),
-    1
-  );
+export async function deleteComment(commentId) {
+  await COMMENTS.deleteOne({ commentId: commentId });
 }
 
 // CRUD Helpers
 // checks if a post exists given a postId
-export function checkPostExists(postId) {
-  return posts.find((post) => post.postId === postId) !== undefined ? true : false;
+export async function checkPostExists(postId) {
+  let post = await getPost(postId);
+  return post !== null;
+  // return posts.find((post) => post.postId === postId) !== undefined ? true : false;
 }
 
 // checks if a comment exists given a commentId
-export function checkCommentExists(commentId) {
-  return comments.find((comment) => comment.commentId === commentId) !== undefined ? true : false;
+export async function checkCommentExists(commentId) {
+  let comment = await getComment(commentId);
+  return comment !== null;
+  // return comments.find((comment) => comment.commentId === commentId) !== undefined ? true : false;
 }
 
 // validate new post data
-export function checkNewPostData(data) {
+export async function checkNewPostData(data) {
   const { userId, title, genre, audio, parentId } = data;
 
   // check if all required fields are present
@@ -110,7 +128,8 @@ export function checkNewPostData(data) {
   }
 
   // check if the title is already being used by another post
-  if (!posts.every((post) => post.title !== title)) {
+  const allPosts = await POSTS.find({ title: title }).toArray();
+  if (allPosts.length !== 0) {
     return { isValid: false, error: "title is already taken" };
   }
 
@@ -118,14 +137,14 @@ export function checkNewPostData(data) {
 }
 
 // validate new comment data
-export function checkCommentData({ userId, postId, comment }) {
+export async function checkCommentData({ userId, postId, comment }) {
   // check if all required fields are present
   let error = { isValid: true, error: null };
   if (!userId || !postId || !comment) {
     error = { isValid: false, error: "body is missing required fields" };
   }
 
-  if (!checkPostExists(postId) || !checkUserExists(userId)) {
+  if (!(await checkPostExists(postId)) || !(await checkUserExists(userId))) {
     error = { isValid: false, error: "postId or userId does not exist" };
   }
 
@@ -138,17 +157,16 @@ export function checkCommentData({ userId, postId, comment }) {
 }
 
 // updates like count of post or comment
-export function updateLikes(userId, updateId, isComment) {
+export async function updateLikes(userId, updateId, isComment) {
   // update logic for increasing or decreasing like count
-  const updateItem = isComment ? getComment(updateId) : getPost(updateId);
+  const updateItem = isComment ? getComment : getPost;
+  const idToUpdate = isComment ? "commentId" : "postId";
+  const updateCollection = isComment ? COMMENTS : POSTS;
 
-  if (updateItem.likedBy.includes(userId)) {
-    updateItem.likeCount--;
-    updateItem.likedBy.splice(updateItem.likedBy.indexOf(userId), 1);
-  } else {
-    updateItem.likeCount++;
-    updateItem.likedBy.push(userId);
-  }
+  const { likedBy, likeCount } = await updateItem(updateId);
+  const valDelta = likedBy.includes(userId) ? -1 : 1;
+  const arrayDelta = likedBy.includes(userId) ? { $pull: { likedBy: userId } } : { $push: { likedBy: userId } };
 
-  return updateItem.likeCount;
+  await updateCollection.updateOne({ [idToUpdate]: updateId }, { $inc: { likeCount: valDelta }, ...arrayDelta });
+  return likeCount + valDelta;
 }
