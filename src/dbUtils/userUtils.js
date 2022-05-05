@@ -5,6 +5,7 @@ const { connect, close } = await connection();
 const DB = await connect();
 const USERS = DB.collection("users");
 const COMMENTS = DB.collection("comments");
+const POSTS = DB.collection("posts");
 
 // Main CRUD
 export async function createUser({ email, username, password }) {
@@ -16,17 +17,22 @@ export async function createUser({ email, username, password }) {
     picture: "https://cdn.discordapp.com/attachments/941059461764751420/971186943272550450/unknown.png",
   };
 
+  // TODO: REMOVE
   users.push(newUser);
   await USERS.insertOne(newUser);
   return newUser;
 }
 
 export async function getUser(userId) {
-  return users.find((user) => user.userId === userId);
+  return await USERS.findOne({ userId: userId });
+  // TODO: Keep for now, remove later
+  // return users.find((user) => user.userId === userId);
 }
 
 export async function getUserComments(userId, sort) {
-  const userComments = comments.filter((c) => c.userId == userId);
+  // TODO: Remove
+  // const userComments = comments.filter((c) => c.userId == userId);
+  const userComments = await COMMENTS.find({ userId: userId }).toArray();
 
   const topSort = (a, b) => b.likeCount - a.likeCount;
 
@@ -36,7 +42,9 @@ export async function getUserComments(userId, sort) {
 }
 
 export async function getUserPosts(userId, sort, filter) {
-  const userPosts = posts.filter((p) => p.userId === userId);
+  // TODO: REMOVE
+  // const userPosts = posts.filter((p) => p.userId === userId);
+  const userPosts = await POSTS.find({ userId: userId }).toArray();
 
   let ret = [];
 
@@ -55,34 +63,34 @@ export async function getUserPosts(userId, sort, filter) {
 }
 
 export async function updateUser(userId, { type, email, password, picture }) {
-  const user = users[getUserIndex(userId)];
+  const updateField = async (field, value) => {
+    await USERS.updateOne({ userId: userId }, { $set: { [field]: value } });
+  };
 
   if (type === "email") {
-    user.email = email;
+    updateField("email", email);
   } else if (type === "password") {
-    user.password = password;
+    updateField("password", password);
   } else if (type === "picture") {
-    user.picture = picture;
+    updateField("picture", picture);
   }
-  return user;
+  return await getUser(userId);
 }
 
+// TODO: COME BACK
 export async function deleteUser(userId) {
-  users.splice(
-    users.findIndex((u) => u.userId === userId),
-    1
-  );
+  await USERS.deleteOne({ userId: userId });
+  // await POSTS.deleteOne({ userId: userId });
+  // await COMMENTS.deleteOne({ userId: userId });
 }
 
 // CRUD Helpers
 // checks if a user exists given an userId
 export async function checkUserExists(userId) {
-  return users.find((user) => user.userId === userId) !== undefined ? true : false;
-}
-
-// get the index of a user given an userId
-export async function getUserIndex(userId) {
-  return users.findIndex((user) => user.userId === userId);
+  // TODO: Remove
+  // return users.find((user) => user.userId === userId) !== undefined ? true : false;
+  let user = await getUser(userId);
+  return user !== null;
 }
 
 // validate sign up data
