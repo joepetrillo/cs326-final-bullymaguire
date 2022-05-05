@@ -6,12 +6,12 @@ const router = express.Router();
 const missingUserError = (id) => `no users with the id ${id} exist`;
 
 // CREATE user
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const check = utils.checkSignUpData(req.body);
+    const check = await utils.checkSignUpData(req.body);
 
     if (check.isValid) {
-      res.json(utils.createUser(req.body));
+      res.json(await utils.createUser(req.body));
     } else {
       res.status(400).json({ error: check.error });
     }

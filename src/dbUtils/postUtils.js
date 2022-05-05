@@ -1,3 +1,4 @@
+import { connection } from "./connection.js";
 import { comments, users, posts } from "./persistence.js";
 import { checkUserExists } from "./userUtils.js";
 
