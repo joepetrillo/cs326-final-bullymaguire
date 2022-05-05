@@ -5,7 +5,7 @@ import { checkUserExists } from "../dbUtils/userUtils.js";
 const router = express.Router();
 
 // CREATE post
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const check = utils.checkNewPostData(req.body);
 
@@ -21,7 +21,7 @@ router.post("/", (req, res) => {
 });
 
 // READ posts
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const sort = req.query.sort;
 
@@ -41,7 +41,7 @@ router.get("/", (req, res) => {
 });
 
 // READ specfic post
-router.get("/:postId", (req, res) => {
+router.get("/:postId", async (req, res) => {
   try {
     const postId = req.params.postId;
 
@@ -57,7 +57,7 @@ router.get("/:postId", (req, res) => {
 });
 
 // UPDATE post
-router.put("/:postId", (req, res) => {
+router.put("/:postId", async (req, res) => {
   try {
     const userId = req.body.userId;
     const postId = req.params.postId;
@@ -76,7 +76,7 @@ router.put("/:postId", (req, res) => {
 });
 
 // DELETE post
-router.delete("/:postId", (req, res) => {
+router.delete("/:postId", async (req, res) => {
   try {
     const postId = req.params.postId;
 
@@ -93,7 +93,7 @@ router.delete("/:postId", (req, res) => {
 });
 
 // CREATE post comment
-router.post("/:postId/comments", (req, res) => {
+router.post("/:postId/comments", async (req, res) => {
   let check = utils.checkCommentData(req.body);
   if (!check.isValid) {
     return res.status(400).json({ error: check.error });
@@ -103,7 +103,7 @@ router.post("/:postId/comments", (req, res) => {
 });
 
 // READ post comments
-router.get("/:postId/comments", (req, res) => {
+router.get("/:postId/comments", async (req, res) => {
   const { sort, filter } = req.query;
   const { postId } = req.params;
 
@@ -117,7 +117,7 @@ router.get("/:postId/comments", (req, res) => {
 });
 
 // UPDATE post comment
-router.put("/:postId/comments/:commentId", (req, res) => {
+router.put("/:postId/comments/:commentId", async (req, res) => {
   try {
     const userId = req.body.userId;
     const postId = req.params.postId;
@@ -137,7 +137,7 @@ router.put("/:postId/comments/:commentId", (req, res) => {
 });
 
 // DELETE post comment
-router.delete("/:postId/comments/:commentId", (req, res) => {
+router.delete("/:postId/comments/:commentId", async (req, res) => {
   try {
     const postId = req.params.postId;
     const commentId = req.params.commentId;
