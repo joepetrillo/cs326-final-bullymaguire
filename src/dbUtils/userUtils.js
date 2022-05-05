@@ -1,5 +1,5 @@
 import { connection } from "./connection.js";
-import { comments, users, posts } from "./persistence.js";
+// import { comments, users, posts } from "./persistence.js";
 
 const { connect, close } = await connection();
 const DB = await connect();
