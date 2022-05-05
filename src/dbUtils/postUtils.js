@@ -4,8 +4,6 @@ import { checkUserExists } from "./userUtils.js";
 
 const { connect, close } = await connection();
 const DB = await connect();
-// TODO: COME BACK
-// const USERS = DB.collection("users");
 const COMMENTS = DB.collection("comments");
 const POSTS = DB.collection("posts");
 
@@ -23,9 +21,6 @@ export async function createPost({ userId, title, genre, audio, parentId }) {
     created: new Date(),
   };
 
-  // TODO: REMOVE
-  posts.push(newPost);
-
   await POSTS.insertOne(newPost);
 
   return newPost;
@@ -42,15 +37,13 @@ export async function createComment({ userId, postId, comment }) {
     created: new Date(),
   };
 
-  comments.push(newComment);
+  await COMMENTS.insertOne(newComment);
 
   return newComment;
 }
 
 export async function getPost(postId) {
   return await POSTS.findOne({ postId: postId });
-  // TODO: REMOVE
-  // return posts.find((post) => post.postId === postId);
 }
 
 export async function getComment(commentId) {

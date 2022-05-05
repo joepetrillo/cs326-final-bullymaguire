@@ -17,21 +17,15 @@ export async function createUser({ email, username, password }) {
     picture: "https://cdn.discordapp.com/attachments/941059461764751420/971186943272550450/unknown.png",
   };
 
-  // TODO: REMOVE
-  users.push(newUser);
   await USERS.insertOne(newUser);
   return newUser;
 }
 
 export async function getUser(userId) {
   return await USERS.findOne({ userId: userId });
-  // TODO: Keep for now, remove later
-  // return users.find((user) => user.userId === userId);
 }
 
 export async function getUserComments(userId, sort) {
-  // TODO: Remove
-  // const userComments = comments.filter((c) => c.userId == userId);
   const userComments = await COMMENTS.find({ userId: userId }).toArray();
 
   const topSort = (a, b) => b.likeCount - a.likeCount;
@@ -87,8 +81,6 @@ export async function deleteUser(userId) {
 // CRUD Helpers
 // checks if a user exists given an userId
 export async function checkUserExists(userId) {
-  // TODO: Remove
-  // return users.find((user) => user.userId === userId) !== undefined ? true : false;
   let user = await getUser(userId);
   return user !== null;
 }
