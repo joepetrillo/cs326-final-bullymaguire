@@ -40,14 +40,14 @@
               <a class="nav-link border-0 link-light text-center signup" aria-current="page" href="#">Login</a>
             </li>
           </ul>
-          <form class="px-5 py-3">
+          <form action="/login" method="post" class="px-5 py-3">
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="email" placeholder="Email Address" />
+              <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" />
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input type="password" placeholder="Password" class="form-control" id="password" />
+              <input type="password" name="password" placeholder="Password" class="form-control" id="password" />
             </div>
             <button type="submit" class="btn filled_button w-100 my-3" id="login-button">Login</button>
           </form>
