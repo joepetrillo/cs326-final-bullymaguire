@@ -1,3 +1,5 @@
+fetch("/logout");
+
 const formNode = document.getElementById("signupForm");
 const inputNodes = formNode.getElementsByTagName("INPUT");
 const errorMsg = document.getElementById("errorMsg");

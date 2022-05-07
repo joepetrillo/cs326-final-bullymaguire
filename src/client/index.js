@@ -1,13 +1,13 @@
 import * as crudUtils from "./crudUtils.js";
 
-const auth = JSON.parse(window.localStorage.getItem("auth"));
+const auth = document.cookie.slice(5);
 
-if (!auth) {
-  window.location.href = "/login";
-} else {
-  const myProfileButton = document.getElementById("profile-button");
-  myProfileButton.href = `/profile/${auth.userId}`;
-}
+// if (!auth) {
+//   window.location.href = "/login";
+// } else {
+//   const myProfileButton = document.getElementById("profile-button");
+//   myProfileButton.href = `/profile/${auth.userId}`;
+// }
 
 const feedDiv = document.getElementById("feed");
 const topButton = document.getElementById("top-button");
@@ -19,14 +19,14 @@ let sort = "top";
 topButton.addEventListener("click", () => {
   sort = "top";
   crudUtils.updateSort(sort, topButton, latestButton);
-  crudUtils.populateFeed("index", sort, null, feedDiv, auth.userId, null);
+  crudUtils.populateFeed("index", sort, null, feedDiv, auth, null);
 });
 
 latestButton.addEventListener("click", () => {
   sort = "latest";
   crudUtils.updateSort(sort, topButton, latestButton);
-  crudUtils.populateFeed("index", sort, null, feedDiv, auth.userId, null);
+  crudUtils.populateFeed("index", sort, null, feedDiv, auth, null);
 });
 
-crudUtils.populateFeed("index", sort, null, feedDiv, auth.userId, null);
-crudUtils.populateNavbarData(navProfilePicture, auth.userId);
+crudUtils.populateFeed("index", sort, null, feedDiv, auth, null);
+crudUtils.populateNavbarData(navProfilePicture, auth);

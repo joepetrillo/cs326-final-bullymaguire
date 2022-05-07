@@ -1,10 +1,6 @@
 import * as crudUtils from "../crudUtils.js";
 
-const auth = JSON.parse(window.localStorage.getItem("auth"));
-
-if (!auth) {
-  window.location.href = "/login";
-}
+const auth = document.cookie.slice(5);
 
 const beatId = window.location.pathname.split("/")[2];
 const postTopDiv = document.getElementById("post-top");
@@ -23,7 +19,7 @@ const songReplyTitleBox = document.getElementById("reply-title-box");
 const songReplyAudioBox = document.getElementById("reply-audio-box");
 const navProfilePicture = document.getElementById("user-profile-picture");
 const myProfileButton = document.getElementById("profile-button");
-myProfileButton.href = `/profile/${auth.userId}`;
+myProfileButton.href = `/profile/${auth}`;
 
 let sort = "top";
 let filter = "all";
@@ -37,7 +33,7 @@ submitReplyButton.addEventListener("click", async () => {
       },
       method: "POST",
       body: JSON.stringify({
-        userId: auth.userId,
+        userId: auth,
         postId: beatId,
         comment: replyContent,
       }),
@@ -46,7 +42,7 @@ submitReplyButton.addEventListener("click", async () => {
 
   commentReplyBox.value = "";
 
-  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth.userId, beatId);
+  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
 });
 
 songReplyButton.addEventListener("click", async () => {
@@ -64,7 +60,7 @@ songReplyButton.addEventListener("click", async () => {
       },
       method: "POST",
       body: JSON.stringify({
-        userId: auth.userId,
+        userId: auth,
         parentId: beatId,
         audio: songAudio,
         title: songTitle,
@@ -73,39 +69,42 @@ songReplyButton.addEventListener("click", async () => {
     });
   }
 
-  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth.userId, beatId);
+  songReplyTitleBox.value = "";
+  songReplyAudioBox.value = "";
+
+  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
 });
 
 topButton.addEventListener("click", () => {
   sort = "top";
   crudUtils.updateSort(sort, topButton, latestButton);
-  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth.userId, beatId);
+  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
 });
 
 latestButton.addEventListener("click", () => {
   sort = "latest";
   crudUtils.updateSort(sort, topButton, latestButton);
-  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth.userId, beatId);
+  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
 });
 
 allButton.addEventListener("click", () => {
   filter = "all";
   crudUtils.updateFilter(filter, allButton, songsButton, commentsButton);
-  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth.userId, beatId);
+  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
 });
 
 songsButton.addEventListener("click", () => {
   filter = "songs";
   crudUtils.updateFilter(filter, allButton, songsButton, commentsButton);
-  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth.userId, beatId);
+  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
 });
 
 commentsButton.addEventListener("click", () => {
   filter = "comments";
   crudUtils.updateFilter(filter, allButton, songsButton, commentsButton);
-  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth.userId, beatId);
+  crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
 });
 
-crudUtils.populatePostData(beatId, auth.userId, postTopDiv);
-crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth.userId, beatId);
-crudUtils.populateNavbarData(navProfilePicture, auth.userId);
+crudUtils.populatePostData(beatId, auth, postTopDiv);
+crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
+crudUtils.populateNavbarData(navProfilePicture, auth);

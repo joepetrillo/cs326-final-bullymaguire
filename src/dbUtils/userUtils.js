@@ -99,8 +99,8 @@ export async function checkSignUpData(data) {
     return { isValid: false, error: "passwords do not match" };
   }
 
-  // check if the email or username is already being used by an existing user
-  if (!users.every((user) => user.email !== email && user.username !== username)) {
+  const allUsers = await USERS.find({ $or: [{ email: email }, { username: username }] }).toArray();
+  if (allUsers.length !== 0) {
     return { isValid: false, error: "email or username already being used" };
   }
 
@@ -127,4 +127,8 @@ export async function checkUpdateData(data) {
   }
 
   return { isValid: true, error: null };
+}
+
+export async function getUserByEmail(email) {
+  return await USERS.findOne({ email: email });
 }
