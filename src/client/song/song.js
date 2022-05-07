@@ -1,6 +1,6 @@
 import * as crudUtils from "../crudUtils.js";
 
-const auth = JSON.parse(window.localStorage.getItem("auth"));
+const auth = document.cookie.slice(5);
 
 if (!auth) {
   window.location.href = "/login";
@@ -15,7 +15,7 @@ const submitReplyButton = document.getElementById("reply-btn");
 const commentReplyBox = document.getElementById("comment-reply-box");
 const navProfilePicture = document.getElementById("user-profile-picture");
 const myProfileButton = document.getElementById("profile-button");
-myProfileButton.href = `/profile/${auth.userId}`;
+myProfileButton.href = `/profile/${auth}`;
 
 let sort = "top";
 
@@ -27,7 +27,7 @@ submitReplyButton.addEventListener("click", async () => {
     },
     method: "POST",
     body: JSON.stringify({
-      userId: auth.userId,
+      userId: auth,
       postId: replyId,
       comment: replyContent,
     }),
@@ -35,21 +35,21 @@ submitReplyButton.addEventListener("click", async () => {
 
   commentReplyBox.value = "";
 
-  crudUtils.populateReplyFeed("song", sort, null, replyFeedDiv, auth.userId, replyId);
+  crudUtils.populateReplyFeed("song", sort, null, replyFeedDiv, auth, replyId);
 });
 
 topButton.addEventListener("click", () => {
   sort = "top";
   crudUtils.updateSort(sort, topButton, latestButton);
-  crudUtils.populateReplyFeed("song", sort, null, replyFeedDiv, auth.userId, replyId);
+  crudUtils.populateReplyFeed("song", sort, null, replyFeedDiv, auth, replyId);
 });
 
 latestButton.addEventListener("click", () => {
   sort = "latest";
   crudUtils.updateSort(sort, topButton, latestButton);
-  crudUtils.populateReplyFeed("song", sort, null, replyFeedDiv, auth.userId, replyId);
+  crudUtils.populateReplyFeed("song", sort, null, replyFeedDiv, auth, replyId);
 });
 
-crudUtils.populatePostData(replyId, auth.userId, postTopDiv);
-crudUtils.populateReplyFeed("song", sort, null, replyFeedDiv, auth.userId, replyId);
-crudUtils.populateNavbarData(navProfilePicture, auth.userId);
+crudUtils.populatePostData(replyId, auth, postTopDiv);
+crudUtils.populateReplyFeed("song", sort, null, replyFeedDiv, auth, replyId);
+crudUtils.populateNavbarData(navProfilePicture, auth);

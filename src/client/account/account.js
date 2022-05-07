@@ -1,11 +1,7 @@
-const auth = JSON.parse(window.localStorage.getItem("auth"));
+const auth = document.cookie.slice(5);
 
-if (!auth) {
-  window.location.href = "/login";
-} else {
-  const myProfileButton = document.getElementById("profile-button");
-  myProfileButton.href = `/profile/${auth.userId}`;
-}
+const myProfileButton = document.getElementById("profile-button");
+myProfileButton.href = `/profile/${auth}`;
 
 const pictureURLButton = document.getElementById("picture-btn");
 const pictureURL = document.getElementById("picture");
@@ -53,7 +49,7 @@ async function updateUser(type, values) {
 
   buttons[`${type}Button`].disabled = true;
 
-  const response = await fetch(`/users/${auth.userId}`, {
+  const response = await fetch(`/users/${auth}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -105,4 +101,4 @@ const flashMessage = (msg, message, color) => {
   }, 3000);
 };
 
-populateUserData(auth.userId);
+populateUserData(auth);

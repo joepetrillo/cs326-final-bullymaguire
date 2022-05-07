@@ -8,23 +8,29 @@ const { Strategy } = passportLocal;
 // Create a new LocalStrategy object to handle authentication using email and
 // password credentials from the client. The LocalStrategy object is used to
 // authenticate a user using a email and password.
-const strategy = new Strategy(async (email, password, done) => {
-  const user = await utils.getUserByEmail(email);
-  if (!user) {
-    // no such user
-    return done(null, false, { message: "Wrong email" });
+const strategy = new Strategy(
+  {
+    usernameField: "email",
+    passwordField: "password",
+  },
+  async (email, password, done) => {
+    const user = await utils.getUserByEmail(email);
+    if (!user) {
+      // no such user
+      return done(null, false, { message: "Wrong email" });
+    }
+    if (password !== user.password) {
+      // invalid passwordpassword
+      // should disable logins after N messages
+      // delay return to rate-limit brute-force attacks
+      await new Promise((r) => setTimeout(r, 2000)); // two second delay
+      return done(null, false, { message: "Wrong password" });
+    }
+    // success!
+    // should create a user object here, associated with a unique identifier
+    return done(null, user);
   }
-  if (password !== user.password) {
-    // invalid passwordpassword
-    // should disable logins after N messages
-    // delay return to rate-limit brute-force attacks
-    await new Promise((r) => setTimeout(r, 2000)); // two second delay
-    return done(null, false, { message: "Wrong password" });
-  }
-  // success!
-  // should create a user object here, associated with a unique identifier
-  return done(null, user);
-});
+);
 
 // Configure passport to use the LocalStrategy object.
 // The LocalStrategy object is used to authenticate a user using a email and

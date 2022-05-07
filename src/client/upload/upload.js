@@ -1,11 +1,7 @@
-const auth = JSON.parse(window.localStorage.getItem("auth"));
+const auth = document.cookie.slice(5);
 
-if (!auth) {
-  window.location.href = "/login";
-} else {
-  const myProfileButton = document.getElementById("profile-button");
-  myProfileButton.href = `/profile/${auth.userId}`;
-}
+const myProfileButton = document.getElementById("profile-button");
+myProfileButton.href = `/profile/${auth}`;
 
 const genres = document.querySelectorAll(".genre__tags span");
 const beatTitle = document.getElementById("beatTitleInput");
@@ -75,7 +71,7 @@ submitButton.addEventListener("click", async () => {
     },
     method: "POST",
     body: JSON.stringify({
-      userId: auth.userId,
+      userId: auth,
       title: form.title,
       genre: form.genre,
       audio: form.beat,
@@ -93,7 +89,7 @@ submitButton.addEventListener("click", async () => {
 });
 
 const populateUserData = async () => {
-  const userRes = await fetch(`/users/${auth.userId}`);
+  const userRes = await fetch(`/users/${auth}`);
   const userData = await userRes.json();
 
   navProfilePicture.src = userData.picture;
