@@ -69,6 +69,9 @@ songReplyButton.addEventListener("click", async () => {
     });
   }
 
+  songReplyTitleBox.value = "";
+  songReplyAudioBox.value = "";
+
   crudUtils.populateReplyFeed("beat", sort, filter, replyFeedDiv, auth, beatId);
 });
 
