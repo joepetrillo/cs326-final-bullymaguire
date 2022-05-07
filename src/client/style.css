@@ -408,6 +408,8 @@ textarea {
 
 .comment__content h6 {
   font-size: 0.7rem;
+  margin-bottom: 0;
+  margin-right: 0.5rem;
 }
 
 .song__content {
