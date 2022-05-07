@@ -33,9 +33,9 @@ const validateData = ({ email, username, password, confirm }) => {
   if (email === "" || username === "" || password === "" || confirm === "") {
     check.status = false;
     check.message = "All fields must be filled";
-  } else if (username.length < 0 || username.length > 16) {
+  } else if (username.length < 0 || username.length > 7) {
     check.status = false;
-    check.message = "Username must be between 1 and 16 character";
+    check.message = "Username must be between 1 and 7 characters";
   } else if (password !== confirm) {
     check.status = false;
     check.message = "Password and confirm password must match";
