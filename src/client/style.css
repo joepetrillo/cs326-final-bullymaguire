@@ -224,7 +224,7 @@ p {
 }
 
 .post__username {
-  width: 3rem;
+  width: 100%;
 }
 
 .post__title h6 {
