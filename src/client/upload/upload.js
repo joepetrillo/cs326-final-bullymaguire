@@ -80,7 +80,6 @@ submitButton.addEventListener("click", async () => {
   });
 
   if (res.status !== 200) {
-    console.log(res === 200);
     return flashErrorMessage("Post could not be created, please try again", "text-danger");
   }
 

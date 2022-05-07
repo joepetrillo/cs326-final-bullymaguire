@@ -11,7 +11,6 @@ const formDefault = {
 };
 
 const cleanForm = () => {
-  console.log("cleaning form");
   // Reset Form
   form = { ...formDefault };
   Array.from(inputNodes).forEach((node) => (node.value = ""));

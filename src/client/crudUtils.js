@@ -209,6 +209,8 @@ export function createSongElement(data, authId) {
   let userLink = `/profile/${userId}`;
   let buttonType = "bi-heart-pulse";
 
+  if (likedBy.includes(authId)) buttonType = "bi-heart-pulse-fill";
+
   let createdDateObj = new Date(created);
   let createdMonth = createdDateObj.getMonth() + 1;
   let createdDate = createdDateObj.getDate();
@@ -454,7 +456,6 @@ export async function populateFeed(type, sort, filter, feedDiv, auth, profileUse
       }
 
       if (type === "profile") {
-        console.log("HERE");
         if (filter === "beats" || filter === "songs") {
           const parentPostID = currLikeButton.parentElement.parentElement.parentElement.parentElement.parentElement.id;
 
@@ -476,8 +477,6 @@ export async function populateFeed(type, sort, filter, feedDiv, auth, profileUse
 
         if (filter === "comments") {
           const postId = currLikeButton.parentElement.parentElement.parentElement.id;
-
-          console.log("HERE");
 
           const commentId = currLikeButton.parentElement.parentElement.parentElement.parentElement.id;
 
@@ -608,6 +607,7 @@ export async function populateReplyFeed(type, sort, filter, replyFeedDiv, auth, 
   songLikeButtons.forEach(async (currLikeButton) => {
     currLikeButton.addEventListener("click", async () => {
       const parentPostID = currLikeButton.parentElement.parentElement.parentElement.id;
+      console.log(parentPostID);
 
       const updatePostRes = await fetch(`/posts/${parentPostID}`, {
         headers: {
