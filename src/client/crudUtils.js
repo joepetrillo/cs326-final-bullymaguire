@@ -72,10 +72,16 @@ export function createPostElement(data, authId) {
 
   if (likedBy.includes(authId)) buttonType = "bi-heart-pulse-fill";
 
+  let parentHTML = "";
+
   if (parentId) {
     postLink = `/song/${postId}`;
     parentTitleText = `recorded on ${parentTitle}`;
     parentLink = `/beat/${parentId}`;
+
+    parentHTML = `<a href=${parentLink}>
+                    <h5>${parentTitleText}</h5>
+                  </a>`;
   }
 
   const commentsTemplate = comments
@@ -120,9 +126,7 @@ export function createPostElement(data, authId) {
                       <a href=${postLink}>
                           <h3>${title}</h3>
                       </a>
-                      <a href=${parentLink}>
-                          <h5>${parentTitleText}</h5>
-                      </a>
+                      ${parentHTML}
                       <div class="heart__button">
                           <h6>${createdMonth}/${createdDate}/${createdYear}</h6>
                           <span class="feed__genre badge rounded-pill" id=${genreId}>${genre}</span>
@@ -607,7 +611,6 @@ export async function populateReplyFeed(type, sort, filter, replyFeedDiv, auth, 
   songLikeButtons.forEach(async (currLikeButton) => {
     currLikeButton.addEventListener("click", async () => {
       const parentPostID = currLikeButton.parentElement.parentElement.parentElement.id;
-      console.log(parentPostID);
 
       const updatePostRes = await fetch(`/posts/${parentPostID}`, {
         headers: {

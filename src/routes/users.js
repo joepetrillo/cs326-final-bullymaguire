@@ -61,7 +61,6 @@ router.delete("/:userId", async (req, res) => {
     const userId = req.params.userId;
 
     if (await utils.checkUserExists(userId)) {
-      console.log(await utils.checkUserExists(userId));
       await utils.deleteUser(userId);
       res.json({ success: `successfully deleted user ${userId}` });
     } else {
