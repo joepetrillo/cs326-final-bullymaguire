@@ -84,6 +84,237 @@ The Upload page is our Beat Submission Form. It takes in Title, Genre, and Beat 
 
 ## **APIs:**
 
+## [Users](https://documenter.getpostman.com/view/19056541/UVyvvEdX)
+
+Use these API calls to create, read, update and delete users.
+
+### POST: create user
+
+#### /users
+
+Create a new user. In the request body, include the email, username, password and confirmed password.
+
+#### Body (JSON):
+
+```
+ {
+  "email": "userEmail@gmail.com",
+  "username": "username",
+  "password": "pass1234",
+  "confirm": "pass1234"
+  }
+```
+
+Returns the newly created user object.
+
+---
+
+### GET: read user
+
+#### /users/{userid}
+
+Get the user matching the given user id in the url parameter.
+Returns the matching user object.
+
+---
+
+### PUT: update user
+
+#### /users/{userid}
+
+Update the email, password or profile picture of the user matching the given user id in the url parameter. In the request body, include the type of update that is being performed, email, password, confirmed password and the profile picture url. Type can be of "email", "password" or "picture". If certain fields are not being used, set them to null.
+
+#### Body (JSON):
+
+```{
+  "type": "email/password",
+  "email": "123@gmail.com",
+  "password": "password",
+  "confirm": "password",
+  "picture": "url of profile picture"
+  }
+```
+
+Returns a success/failure message regarding the update.
+
+---
+
+### DEL: delete user
+
+#### /users/{userId}
+
+Delete the user matching the given user id in the url parameter.
+Returns a success/failure message regarding the deletion.
+
+---
+
+## [Posts](https://documenter.getpostman.com/view/19056541/UVyvvEdW)
+
+Use these API calls to create, read, update and delete posts.
+
+### POST: create post
+
+#### /posts
+
+Create a new post. In the request body, include the id of the user, title, genre and the url of the associated audio file. Also include the id of the instrumental parent post if this is a vocal response. If this is an instrumental, set the parent id to null.
+
+### BODY :
+
+```{
+ "userId": 123,
+ "title": "post title",
+ "genre": "post genre",
+ "audio": "url of audio file",
+ "parentId": 123
+ }
+```
+
+Returns the newly created post object.
+
+---
+
+### GET: read feed posts
+
+#### /posts?sort={sortType}
+
+Get all posts using the filter passed as a query parameter. The sort query parameter can be of type "top" or "latest".
+
+| Query Params : |                   |
+| -------------- | :---------------: |
+| sort           | "top" or "latest" |
+
+Returns a JSON array of all the matching posts.
+
+---
+
+### GET: read specific post
+
+#### /posts/{postid}
+
+Get the post matching the given post id in the url parameter. Returns the specified post object in JSON.
+
+---
+
+### GET: read user posts
+
+#### /users/{userid}/posts
+
+Get all posts made by the given user id in the url parameter matching the sort and filter options in the query parameters. If "filter" is not given, then all posts belonging to the user will be returned.
+
+| Query Params : |                    |
+| -------------- | :----------------: |
+| sort           | "top" or "latest"  |
+| filter         | "beats" or "songs" |
+
+Returns a JSON array of all the matching posts.
+
+---
+
+### PUT: update post
+
+#### /posts/{postid}
+
+Update the like count of the post matching the given post id in the url paremeter. In the request body, include the id of the user that is liking or disliking the post.
+
+#### Body (JSON) :
+
+```
+{
+    "userId": 123
+}
+```
+
+Returns a success/failure message regarding the update.
+
+---
+
+### DEL: delete post
+
+#### /posts/{postid}
+
+Delete the post matching the given post id in the url parameter.
+Returns a success/failure message regarding the deletion.
+
+---
+
+## [Comments](https://documenter.getpostman.com/view/19056541/UVyvvEUi)
+
+Use these API calls to create, read, update and delete comments.
+
+### POST: create comment
+
+#### /posts/{postId}/comments
+
+Create a new comment. In the request body, include the id of the user making the comment, the id of the post being commented on, and the comment itself.
+
+#### Body (JSON) :
+
+```
+{
+    "userId": 123,
+    "postId": 123,
+    "comment": "This is a comment"
+}
+```
+
+Returns the created comment object in JSON.
+
+---
+
+### GET: read post comments
+
+#### /posts/{postId}/comments?sort={sortType}&filter={filterType}
+
+Get all the replies to a post given the post id in the url parameter, as well as sorting and filtering query parameters. If filter is not specified, all replies, including both songs and comments, will be returned.
+
+| Query Params : |                       |
+| -------------- | :-------------------: |
+| sort           |   "top" or "latest"   |
+| filter         | "songs" or "comments" |
+
+Returns a JSON array of replies matching the request.
+
+---
+
+### GET: read user comments
+
+#### /users/{userid}/comments?sort={sortType}
+
+Get all the comments a user has made given the user id in the url parameter, as well as sorting them.
+
+| Query Params : |                   |
+| -------------- | :---------------: |
+| sort           | "top" or "latest" |
+
+Returns a sorted JSON array of comments matching the request.
+
+---
+
+### PUT: update comment
+
+#### /posts/{postId}/comments/{commentId}
+
+Update the like count of the comment matching the given comment id in the url paremeter. In the request body, include the id of the user that is liking or disliking the comment.
+
+#### Body (JSON) :
+
+```
+{
+    "userId": 123
+}
+```
+
+Returns a success/failure message regarding the update.
+
+---
+
+### DEL: delete comment
+
+#### /posts/{postId}/comments/{commentId}
+
+Delete the comment on a post given the post id and comment id in the url parameter.
+Returns a success/failure message regarding the deletion.
+
 ## **Database:**
 
 We used a MongoDB database to persist our data from the server. We utilized Atlas, and the MongoDB Node driver to do so. Our entities are as follows:
@@ -276,3 +507,7 @@ _Milestone 3:_
 - Wrote up Final.md markdown submission
 
 ## **Conclusion:**
+
+We found the process and completion of this project largely enjoyable and educational at every step. With regards to the design and implementation process, we worked very hard at making the design, and design implementation something we were proud of. As a result, each milestone featured a slightly different outcome for what the site looked like. We found the CSS itself to be a challenge, and although the help of Bootstrap was a time-saver, we found ourselves battling with it at times as well. Difficulties we faced included overscoping, where we overestimated the time/resources we had at our disposal for certain features/ideas. At times we had to roll back our vision of certain features due to the limitation of time or resources. We found Authentication fairly tricky to implement, especially as a last step task, since so much of our application had already been architected. Rather than build the authentication system exactly how we might have wanted to, we had to alter it to fit our current logic flow, since refactoring the application logic during Milestone 3 would have been far too time consuming and a massive setback. As a result, we think that authentication related knowledge is really the primary thing we would have benefited from knowing about earlier on in the project timeline. In addition, at least having an elementary conceptual understanding of Databases and the logic surrounding them would have been helpful when trying to decide how to design our API.
+
+All in all, we had a good time building the application, and we are proud of what we were able to develop.
