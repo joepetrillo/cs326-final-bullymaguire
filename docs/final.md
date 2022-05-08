@@ -433,7 +433,7 @@ _Milestone 3:_
 - Helped with PostUtils refactoring for interaction with MongoDB
 - Refactors UserUtils for interaction with MongoDB
 
-### **Joseph Pterillo:**
+### **Joseph Petrillo:**
 
 _Milestone 1:_
 
