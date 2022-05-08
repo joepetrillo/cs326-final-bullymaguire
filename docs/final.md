@@ -6,6 +6,9 @@
 
 ## **Semester:** Spring 2022 Semester
 
+## **Link to Final Project:**
+- [https://lonemusic.herokuapp.com/](https://lonemusic.herokuapp.com/)
+
 ## **Overview:**
 
 Lone Music is a platform where both creators and listeners alike can go to discover new music in a way never seen before. Most music is made up of instrumentals and vocals, combined with one another resulting in a single finalized sound. During the recording process, the instrumental (or beat) is usually made first and it is then up to the vocalist (or rapper) to add lyrics. Lone Music provides users with a new take on music, making it possible to hear many different versions of vocals over the same instrumental. As with most social medias, a ranking (or popularity) system will be in place allowing the instrumentals and vocals the ability to be or not to be liked.
