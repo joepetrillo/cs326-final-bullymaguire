@@ -1,11 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  --background_color: #15182e;
+  /* --background_color: #15182e;
   --accent_dark: #49497c;
   --playback_color: #372554;
   --accent_light: #c874d9;
-  --accent_dark_hover: #47477a;
+  --accent_dark_hover: #47477a; */
+  --background_color: #0c0d17;
+  --accent_dark: #896294;
+  --playback_color: #372554;
+  --accent_light: #c874d9;
+  --accent_dark_hover: #c874d9;
 }
 
 * {
@@ -66,20 +71,12 @@ a:hover {
 
 h3 {
   display: inline-block;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
 }
 
 .navbar {
   background-color: var(--background_color);
-}
-
-.navbar:after {
-  content: "";
-  display: block;
-  margin: 0 auto;
-  border-bottom: 0.3rem solid var(--accent_dark);
-  padding-top: 0.5rem;
-  width: 100%;
+  border-bottom: 0.2rem solid #222222;
 }
 
 .dropdown-menu {
@@ -97,12 +94,16 @@ h3 {
 }
 
 i {
-  font-size: 2rem;
+  font-size: 1.7rem;
+}
+
+audio {
+  height: 30px;
 }
 
 p {
   margin: 0;
-  color: grey;
+  color: rgb(179, 179, 179);
 }
 
 .btn-primary {
@@ -131,14 +132,19 @@ p {
   background-color: var(--accent_dark);
 }
 
+.btn-post:hover {
+  background-color: var(--accent_dark_hover);
+}
+
 .post {
   display: flex;
   flex-direction: column;
-  border-bottom: 0.1rem solid var(--accent_dark);
+  border-bottom: 0.15rem solid #222222;
 }
 
 .post__top {
   display: flex;
+  margin-bottom: 1rem;
 }
 
 .post__top__details {
@@ -178,7 +184,7 @@ p {
 }
 
 .post__title h5 {
-  color: #9b6f7f;
+  color: var(--accent_light);
   align-self: flex-end;
   width: 100%;
   font-size: 1rem;
@@ -210,7 +216,6 @@ p {
   justify-content: center;
   align-items: center;
   margin-right: 0.4rem;
-  /* width: 100%; */
 }
 
 .heart__button p {
@@ -520,7 +525,7 @@ textarea {
 
 .filled_button:hover {
   color: white;
-  background-color: #171a31;
+  background-color: var(--accent_dark_hover);
 }
 
 .card {
@@ -667,7 +672,8 @@ textarea {
 }
 
 .genre__tags span:hover {
-  box-shadow: 0 0 20px 1px var(--accent_light); /* outer cyan */
+  box-shadow: 0 0 20px 1px var(--accent_light);
+  /* outer cyan */
 }
 
 .badge__active {
@@ -684,4 +690,10 @@ textarea {
 
 .delete-button:hover {
   color: var(--accent_light);
+}
+
+@media (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+  }
 }
