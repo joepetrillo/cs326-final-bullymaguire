@@ -6,6 +6,9 @@
 
 ## **Semester:** Spring 2022 Semester
 
+## **Link to Final Project:**
+- [https://lonemusic.herokuapp.com/](https://lonemusic.herokuapp.com/)
+
 ## **Overview:**
 
 Lone Music is a platform where both creators and listeners alike can go to discover new music in a way never seen before. Most music is made up of instrumentals and vocals, combined with one another resulting in a single finalized sound. During the recording process, the instrumental (or beat) is usually made first and it is then up to the vocalist (or rapper) to add lyrics. Lone Music provides users with a new take on music, making it possible to hear many different versions of vocals over the same instrumental. As with most social medias, a ranking (or popularity) system will be in place allowing the instrumentals and vocals the ability to be or not to be liked.
@@ -433,7 +436,7 @@ _Milestone 3:_
 - Helped with PostUtils refactoring for interaction with MongoDB
 - Refactors UserUtils for interaction with MongoDB
 
-### **Joseph Pterillo:**
+### **Joseph Petrillo:**
 
 _Milestone 1:_
 
@@ -512,3 +515,16 @@ _Milestone 3:_
 We found the process and completion of this project largely enjoyable and educational at every step. With regards to the design and implementation process, we worked very hard at making the design, and design implementation something we were proud of. As a result, each milestone featured a slightly different outcome for what the site looked like. We found the CSS itself to be a challenge, and although the help of Bootstrap was a time-saver, we found ourselves battling with it at times as well. Difficulties we faced included overscoping, where we overestimated the time/resources we had at our disposal for certain features/ideas. At times we had to roll back our vision of certain features due to the limitation of time or resources. We found Authentication fairly tricky to implement, especially as a last step task, since so much of our application had already been architected. Rather than build the authentication system exactly how we might have wanted to, we had to alter it to fit our current logic flow, since refactoring the application logic during Milestone 3 would have been far too time consuming and a massive setback. As a result, we think that authentication related knowledge is really the primary thing we would have benefited from knowing about earlier on in the project timeline. In addition, at least having an elementary conceptual understanding of Databases and the logic surrounding them would have been helpful when trying to decide how to design our API.
 
 All in all, we had a good time building the application, and we are proud of what we were able to develop.
+
+## **Rubric:**
+- Authenticated Login - 15%
+- Create Account - 10%
+- Make Post - 15%
+- Like Post - 5%
+- Like Comment - 5%
+- Comment on Post - 10%
+- Reply to Post with Song - 15%
+- Update Profile - 10%
+- Deleting Content - 5%
+- Heroku Deployment - 5%
+- Video - 5% 
